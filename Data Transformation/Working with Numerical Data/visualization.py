@@ -4,7 +4,7 @@ import seaborn as sns
 
 # For term documentation, please visit the Wiki on GitLab: Statistical Term Documentation #
 
-df = pd.read_csv('cleaned_dataset.csv')
+df = pd.read_csv('smotted_dataset.csv')
 
 #Show ratio through chart
 #sns.countplot(x='diabetes', data=df)
