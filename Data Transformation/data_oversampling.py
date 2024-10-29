@@ -29,12 +29,16 @@ X_res['smoking_history'] = pd.Categorical.from_codes(
     categories=valid_smoking_history
 )
 
+# Round numerical columns to match desired format
+# Assuming the columns are in this order: age, hypertension, heart_disease, bmi, HbA1c_level, blood_glucose_level
+X_res['age'] = X_res['age'].round().astype(int)
+X_res['bmi'] = X_res['bmi'].round(2)
+X_res['average_blood_glucose_level'] = X_res['average_blood_glucose_level'].round(1)
+X_res['current_blood_glucose_level'] = X_res['current_blood_glucose_level'].round().astype(int)
+# hypertension and heart_disease should already be 0 or 1
+
 # Create the resampled dataset
 df_resampled = pd.concat([X_res, y_res], axis=1)
-df_resampled.to_csv('smotted_dataset.csv', index=False)
 
-# Print value counts to verify the results
-print("Smoking history distribution:")
-print(df_resampled['smoking_history'].value_counts())
-print("\nTarget distribution:")
-print(df_resampled['diabetes'].value_counts())
+# Save with correct formatting
+df_resampled.to_csv('smotted_dataset.csv', index=False, float_format='%.2f')
