@@ -1,5 +1,5 @@
 import streamlit as st
-
+import pandas as pd
 st.set_page_config(
     page_title="Hello",
     page_icon="👋",
@@ -26,3 +26,31 @@ st.markdown(
     - Explore a [New York City rideshare dataset](https://github.com/streamlit/demo-uber-nyc-pickups)
 """
 )
+
+@st.cache_data
+def open_database():
+    data = pd.read_csv("cat_to_num.csv")
+    return data
+
+data = open_database()
+# Display data as a table
+st.write("### Data Table")
+st.dataframe(data)
+
+# Display statistics
+st.write("### Data Statistics")
+st.write("Basic descriptive statistics for the data:")
+st.write(data.describe())
+
+# Custom statistics
+st.write("### Custom Statistics")
+st.write("Median values of each column:")
+st.write(data.median())
+
+st.write("Mode values of each column:")
+st.write(data.mode().iloc[0])  # mode() returns a DataFrame
+
+# Optional: Correlation matrix for numerical data
+st.write("### Correlation Matrix")
+st.write(data.corr())
+
