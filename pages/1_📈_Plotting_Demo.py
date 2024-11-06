@@ -1,6 +1,12 @@
 import streamlit as st
 import time
+from sklearn.utils import shuffle
 import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.metrics import accuracy_score, f1_score
 
 st.set_page_config(page_title="Plotting Demo", page_icon="📈")
 
@@ -12,22 +18,27 @@ Streamlit. We're generating a bunch of random numbers in a loop for around
 5 seconds. Enjoy!"""
 )
 
-progress_bar = st.sidebar.progress(0)
-status_text = st.sidebar.empty()
-last_rows = np.random.randn(1, 1)
-chart = st.line_chart(last_rows)
+data = pd.read_csv("Datasets/cat_to_num.csv")
+data = shuffle(data, random_state=42).reset_index(drop=True)
+X = data.drop(columns=['diabetes_1'])
+y = data['diabetes_1']
+X_train, X_temp, y_train, y_temp = train_test_split(X, y, test_size=0.3, random_state=42)  # 70% training, 30% temp
+X_val, X_test, y_val, y_test = train_test_split(X_temp, y_temp, test_size=0.5, random_state=42)  # 15% validation, 15% test
 
-for i in range(1, 101):
-    new_rows = last_rows[-1, :] + np.random.randn(5, 1).cumsum(axis=0)
-    status_text.text("%i%% Complete" % i)
-    chart.add_rows(new_rows)
-    progress_bar.progress(i)
-    last_rows = new_rows
-    time.sleep(0.05)
+model = LinearRegression()
+model.fit(X_train, y_train)
 
-progress_bar.empty()
+# 1. Make predictions on the validation set
+y_val_pred = model.predict(X_val)
 
-# Streamlit widgets automatically run the script from top to bottom. Since
-# this button is not connected to any other logic, it just causes a plain
-# rerun.
-st.button("Re-run")
+# 2. Evaluate the predictions
+# Choose appropriate metrics based on your task
+
+# For regression:
+mse = mean_squared_error(y_val, y_val_pred)
+r2 = r2_score(y_val, y_val_pred)
+print("Validation Mean Squared Error:", mse)
+print("Validation R-squared:", r2)
+
+
+
