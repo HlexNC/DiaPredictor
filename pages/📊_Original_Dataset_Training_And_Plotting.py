@@ -67,16 +67,19 @@ r2_val_log = r2_score(y_val, y_val_pred_log)
 mse_test_log = mean_squared_error(y_test, y_test_pred_log)
 r2_test_log = r2_score(y_test, y_test_pred_log)
 
+st.write(" R2: the greater the value, the better the model is predicting.")
+st.write(" MSE: the lower the value, the better the model is predicting. ")
+
 # Display results in a table
 st.markdown("### Model Performance Summary")
 
 st.write("""
 | Metric                            | Linear Regression | Logistic Regression |
-|-----------------------------------|-------------------|----------------------|
-| **Validation MSE**                | {:.4f}           | {:.4f}              |
-| **Validation R²**                 | {:.4f}           | {:.4f}              |
-| **Test MSE**                      | {:.4f}           | {:.4f}              |
-| **Test R²**                       | {:.4f}           | {:.4f}              |
+|-----------------------------------|-------------------|---------------------|
+| **Validation MSE**                | {:.4f}            | {:.4f}              |
+| **Validation R²**                 | {:.4f}            | {:.4f}              |
+| **Test MSE**                      | {:.4f}            | {:.4f}              |
+| **Test R²**                       | {:.4f}            | {:.4f}              |
 """.format(
     mse_val_lr, mse_val_log,
     r2_val_lr, r2_val_log,
@@ -84,15 +87,35 @@ st.write("""
     r2_test_lr, r2_test_log
 ))
 
-# Data for plotting
-models = ['Linear Regression', 'Logistic Regression']
-mse_values = [mse_val_lr, mse_val_log]
+# Plotting MSE and R² for both models
+metrics = ['Validation MSE', 'Test MSE', 'Validation R²', 'Test R²']
+linear_values = [mse_val_lr, mse_test_lr, r2_val_lr, r2_test_lr]
+logistic_values = [mse_val_log, mse_test_log, r2_val_log, r2_test_log]
 
-# Create a horizontal bar chart
-fig, ax = plt.subplots()
-bars = ax.barh(models, mse_values, color=['blue', 'orange'])
-ax.set_xlabel('Mean Squared Error (a lower value means better predictions)')
-ax.set_title('Model Comparison: MSE of Linear and Logistic Regression')
+fig, axes = plt.subplots(2, 2, figsize=(10, 8))
 
-# Display the plot in Streamlit
+# Validation MSE
+axes[0, 0].bar(['Linear', 'Logistic'], [mse_val_lr, mse_val_log], color=['blue', 'orange'])
+axes[0, 0].set_title('Validation MSE')
+axes[0, 0].set_ylabel('Mean Squared Error')
+
+# Test MSE
+axes[0, 1].bar(['Linear', 'Logistic'], [mse_test_lr, mse_test_log], color=['blue', 'orange'])
+axes[0, 1].set_title('Test MSE')
+axes[0, 1].set_ylabel('Mean Squared Error')
+
+# Validation R²
+axes[1, 0].bar(['Linear', 'Logistic'], [r2_val_lr, r2_val_log], color=['blue', 'orange'])
+axes[1, 0].set_title('Validation R²')
+axes[1, 0].set_ylabel('R² Score')
+
+# Test R²
+axes[1, 1].bar(['Linear', 'Logistic'], [r2_test_lr, r2_test_log], color=['blue', 'orange'])
+axes[1, 1].set_title('Test R²')
+axes[1, 1].set_ylabel('R² Score')
+
+# Adjust layout
+plt.tight_layout()
+
+# Display the plots in Streamlit
 st.pyplot(fig)
