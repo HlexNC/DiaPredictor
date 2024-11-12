@@ -1,10 +1,11 @@
 import pandas as pd
+import matplotlib as plot
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import train_test_split
 
 # Load the dataset
-df = pd.read_csv('/home/morningstar/Desktop/assistance-systems-project/Datasets/cat_to_num.csv')
+df = pd.read_csv('/home/morningstar/Desktop/assistance-systems-project/Datasets/modified_dataset.csv')
 
 # Separate features (X) and target (y)
 X = df.drop('diabetes_1', axis=1)  # Use 'diabetes_1' as the target column
