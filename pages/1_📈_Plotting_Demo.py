@@ -1,44 +1,39 @@
-import streamlit as st
-import time
-from sklearn.utils import shuffle
-import numpy as np
 import pandas as pd
+from sklearn.linear_model import LogisticRegression, LinearRegression
+from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_squared_error, r2_score
-from sklearn.metrics import accuracy_score, f1_score
 
-st.set_page_config(page_title="Plotting Demo", page_icon="📈")
+# Read the dataset
+df = pd.read_csv('/home/morningstar/Desktop/assistance-systems-project/Datasets/cleaned_normalized_dataset.csv')
 
-st.markdown("# Plotting Demo")
-st.sidebar.header("Plotting Demo")
-st.write(
-    """This demo illustrates a combination of plotting and animation with
-Streamlit. We're generating a bunch of random numbers in a loop for around
-5 seconds. Enjoy!"""
-)
+# Separate features (X) and target (y)
+X = df.drop('diabetes_1', axis=1)
+y = df['diabetes_1']
 
-data = pd.read_csv("Datasets/cat_to_num.csv")
-data = shuffle(data, random_state=42).reset_index(drop=True)
-X = data.drop(columns=['diabetes_1'])
-y = data['diabetes_1']
-X_train, X_temp, y_train, y_temp = train_test_split(X, y, test_size=0.3, random_state=42)  # 70% training, 30% temp
-X_val, X_test, y_val, y_test = train_test_split(X_temp, y_temp, test_size=0.5, random_state=42)  # 15% validation, 15% test
+# Split: 70% training, 30% temporary set (which will be split into test and validation)
+X_train, X_temp, y_train, y_temp = train_test_split(X, y, 
+                                                    test_size=0.3, 
+                                                    random_state=104, 
+                                                    shuffle=True)
 
-model = LinearRegression()
+# Split the temporary set into 50% test and 50% validation
+X_validation, X_test, y_validation, y_test = train_test_split(X_temp, y_temp, 
+                                                              test_size=0.5, 
+                                                              random_state=104, 
+                                                              shuffle=True)
+
+# Train model with train data
+model = LogisticRegression(max_iter=1000)
 model.fit(X_train, y_train)
 
-# 1. Make predictions on the validation set
-y_val_pred = model.predict(X_val)
+# Predict for validation dataset
+y_valid_prob = model.predict_proba(X_validation)[:, 1]  # We take the probability for class 1 (diabetes)
+mse_valid = mean_squared_error(y_validation, y_valid_prob)
 
-# 2. Evaluate the predictions
-# Choose appropriate metrics based on your task
+print(f"Validation Mean Squared Error: {mse_valid}")
 
-# For regression:
-mse = mean_squared_error(y_val, y_val_pred)
-r2 = r2_score(y_val, y_val_pred)
-print("Validation Mean Squared Error:", mse)
-print("Validation R-squared:", r2)
+# Predict for test dataset
+y_test_prob = model.predict_proba(X_test)[:, 1]  # We take the probability for class 1 (diabetes)
+mse_test = mean_squared_error(y_test, y_test_prob)
 
-
-
+print(f"Test Mean Squared Error: {mse_test}")
