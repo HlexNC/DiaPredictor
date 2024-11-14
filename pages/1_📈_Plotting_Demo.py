@@ -1,87 +1,121 @@
+import streamlit as st
 import pandas as pd
-from sklearn.linear_model import LogisticRegression, LinearRegression
-from sklearn.metrics import mean_squared_error
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression,LogisticRegression
-from sklearn.metrics import mean_squared_error, r2_score
-from sklearn.metrics import accuracy_score, f1_score
 import matplotlib.pyplot as plt
+import numpy as np
+from sklearn.utils import shuffle
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression, LogisticRegression
+from sklearn.metrics import mean_squared_error, r2_score
 
-st.set_page_config(page_title="Plotting Demo", page_icon="📈")
+# Page Configuration
+st.set_page_config(page_title="Model Training Comparison", page_icon="📊")
 
-st.markdown("# Plotting Demo")
-st.sidebar.header("Plotting Demo")
+# Main Title
+st.markdown("# Model Training: Linear vs Logistic Regression on Original Dataset")
+
+# Sidebar Header
+st.sidebar.header("Training Comparison Settings")
+
+# Information Text
 st.write(
-    """This demo illustrates a combination of plotting and animation with
-Streamlit. We're generating a bunch of random numbers in a loop for around
-5 seconds. Enjoy!"""
+    """This page demonstrates the difference in results between training a
+Linear Regression model and a Logistic Regression model using the original dataset.
+Visualizations are provided to compare the models' performance and predictions."""
 )
-@st.cache_data
-def open_database():
-    data = pd.read_csv("Datasets/cat_to_num.csv")
-    return data
 
-data = open_database()
-data = shuffle(data, random_state=42).reset_index(drop=True)
-X = data.drop(columns=['diabetes_1'])
-y = data['diabetes_1']
-X_train, X_temp, y_train, y_temp = train_test_split(X, y, test_size=0.3, random_state=42)  # 70% training, 30% temp
-X_val, X_test, y_val, y_test = train_test_split(X_temp, y_temp, test_size=0.5, random_state=42)  # 15% validation, 15% test
+# Read the dataset
+df = pd.read_csv('Datasets/modified_dataset_probability.csv')
 
-# Step 1: Train Linear Regression
-linear_model = LinearRegression()
-linear_model.fit(X_train, y_train)
-y_val_pred_linear = linear_model.predict(X_val)
-y_test_pred_linear = linear_model.predict(X_test)
+# Shuffle the data
+df = shuffle(df, random_state=42).reset_index(drop=True)
 
-# Step 2: Train Logistic Regression
-logistic_model = LogisticRegression()
-logistic_model.fit(X_train, y_train)
-y_val_pred_logistic = logistic_model.predict(X_val)
-y_test_pred_logistic = logistic_model.predict(X_test)
+# Separate features and target
+X = df.drop(columns=['diabetes'])
+y = df['diabetes']
 
-# Step 3: Calculate the loss (MSE) and R² for both models on the validation and test sets
-# Linear Regression on Validation
-mse_val_linear = mean_squared_error(y_val, y_val_pred_linear)
-r2_val_linear = r2_score(y_val, y_val_pred_linear)
+# Split: 70% training, 30% temporary set (which will be split into test and validation)
+X_train, X_temp, y_train, y_temp = train_test_split(X, y, test_size=0.3, random_state=42)
 
-# Logistic Regression on Validation
-mse_val_logistic = mean_squared_error(y_val, y_val_pred_logistic)  # Mean Squared Error for comparison
-accuracy_val_logistic = accuracy_score(y_val, y_val_pred_logistic)
+# Split the temporary set into 50% test and 50% validation
+X_val, X_test, y_val, y_test = train_test_split(X_temp, y_temp, test_size=0.5, random_state=42)
 
-# Linear Regression on Test
-mse_test_linear = mean_squared_error(y_test, y_test_pred_linear)
-r2_test_linear = r2_score(y_test, y_test_pred_linear)
+# Train Linear Regression model
+lr_model = LinearRegression()
+lr_model.fit(X_train, y_train)
 
-# Logistic Regression on Test
-mse_test_logistic = mean_squared_error(y_test, y_test_pred_logistic)
-accuracy_test_logistic = accuracy_score(y_test, y_test_pred_logistic)
+# Make predictions on the validation and test sets for Linear Regression
+y_val_pred_lr = lr_model.predict(X_val)
+y_test_pred_lr = lr_model.predict(X_test)
 
-# Display validation and test results
-st.write("Validation Results:")
-st.write("Linear Regression - MSE:", mse_val_linear)
-st.write("Linear Regression - R²:", r2_val_linear)
-st.write("Logistic Regression - MSE (for comparison):", mse_val_logistic)
-st.write("Logistic Regression - Accuracy:", accuracy_val_logistic)
+# Calculate MSE and R² for Linear Regression
+mse_val_lr = mean_squared_error(y_val, y_val_pred_lr)
+r2_val_lr = r2_score(y_val, y_val_pred_lr)
+mse_test_lr = mean_squared_error(y_test, y_test_pred_lr)
+r2_test_lr = r2_score(y_test, y_test_pred_lr)
 
-st.write("Test Results:")
-st.write("Linear Regression - MSE:", mse_test_linear)
-st.write("Linear Regression - R²:", r2_test_linear)
-st.write("Logistic Regression - MSE (for comparison):", mse_test_logistic)
-st.write("Logistic Regression - Accuracy:", accuracy_test_logistic)
+# Train Logistic Regression model
+log_model = LogisticRegression(max_iter=1000)
+log_model.fit(X_train, y_train)
 
-# Step 4: Plot predictions from both models on the same graph for comparison
-plt.figure(figsize=(8, 6))
-plt.scatter(y_test, y_test_pred_linear, color='blue', alpha=0.5, label="Linear Regression Predictions")
-plt.scatter(y_test, y_test_pred_logistic, color='green', alpha=0.5, label="Logistic Regression Predictions")
-plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], 'k--', lw=2, label="Perfect Prediction Line")
-plt.xlabel("Actual Values")
-plt.ylabel("Predicted Values")
-plt.title("Comparison of Predictions from Linear and Logistic Regression Models (Test Set)")
-plt.legend()
+# Make predictions on the validation and test sets for Logistic Regression
+y_val_pred_log = log_model.predict_proba(X_val)[:, 1]  # Get probability for class 1 (diabetes)
+y_test_pred_log = log_model.predict_proba(X_test)[:, 1]
 
-# Show the plot in Streamlit
-st.pyplot(plt)
+# Calculate MSE and R² for Logistic Regression
+mse_val_log = mean_squared_error(y_val, y_val_pred_log)
+r2_val_log = r2_score(y_val, y_val_pred_log)
+mse_test_log = mean_squared_error(y_test, y_test_pred_log)
+r2_test_log = r2_score(y_test, y_test_pred_log)
 
-st.write("Sine Logistic regression has higher accuracy number, it is better for this dataset")
+st.write(" R2: the greater the value, the better the model is predicting.")
+st.write(" MSE: the lower the value, the better the model is predicting. ")
 
+# Display results in a table
+st.markdown("### Model Performance Summary")
+
+st.write("""
+| Metric                            | Linear Regression | Logistic Regression |
+|-----------------------------------|-------------------|---------------------|
+| **Validation MSE**                | {:.4f}            | {:.4f}              |
+| **Validation R²**                 | {:.4f}            | {:.4f}              |
+| **Test MSE**                      | {:.4f}            | {:.4f}              |
+| **Test R²**                       | {:.4f}            | {:.4f}              |
+""".format(
+    mse_val_lr, mse_val_log,
+    r2_val_lr, r2_val_log,
+    mse_test_lr, mse_test_log,
+    r2_test_lr, r2_test_log
+))
+
+# Plotting MSE and R² for both models
+metrics = ['Validation MSE', 'Test MSE', 'Validation R²', 'Test R²']
+linear_values = [mse_val_lr, mse_test_lr, r2_val_lr, r2_test_lr]
+logistic_values = [mse_val_log, mse_test_log, r2_val_log, r2_test_log]
+
+fig, axes = plt.subplots(2, 2, figsize=(10, 8))
+
+# Validation MSE
+axes[0, 0].bar(['Linear', 'Logistic'], [mse_val_lr, mse_val_log], color=['blue', 'orange'])
+axes[0, 0].set_title('Validation MSE')
+axes[0, 0].set_ylabel('Mean Squared Error')
+
+# Test MSE
+axes[0, 1].bar(['Linear', 'Logistic'], [mse_test_lr, mse_test_log], color=['blue', 'orange'])
+axes[0, 1].set_title('Test MSE')
+axes[0, 1].set_ylabel('Mean Squared Error')
+
+# Validation R²
+axes[1, 0].bar(['Linear', 'Logistic'], [r2_val_lr, r2_val_log], color=['blue', 'orange'])
+axes[1, 0].set_title('Validation R²')
+axes[1, 0].set_ylabel('R² Score')
+
+# Test R²
+axes[1, 1].bar(['Linear', 'Logistic'], [r2_test_lr, r2_test_log], color=['blue', 'orange'])
+axes[1, 1].set_title('Test R²')
+axes[1, 1].set_ylabel('R² Score')
+
+# Adjust layout
+plt.tight_layout()
+
+# Display the plots in Streamlit
+st.pyplot(fig)
