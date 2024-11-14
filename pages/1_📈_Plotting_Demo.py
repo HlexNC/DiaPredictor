@@ -1,8 +1,6 @@
-import streamlit as st
-import time
-from sklearn.utils import shuffle
-import numpy as np
 import pandas as pd
+from sklearn.linear_model import LogisticRegression, LinearRegression
+from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression,LogisticRegression
 from sklearn.metrics import mean_squared_error, r2_score
