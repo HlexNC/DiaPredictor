@@ -1,96 +1,36 @@
 import streamlit as st
 import pandas as pd
-import pydeck as pdk
-from urllib.error import URLError
 
-st.set_page_config(page_title="Mapping Demo", page_icon="🌍")
+# Page configuration
+st.set_page_config(page_title="Dataset Overview", page_icon="📊")
 
-st.markdown("# Mapping Demo")
-st.sidebar.header("Mapping Demo")
+# Page title and description
+st.markdown("# Diabetes Prediction Dataset Overview")
 st.write(
-    """This demo shows how to use
-[`st.pydeck_chart`](https://docs.streamlit.io/develop/api-reference/charts/st.pydeck_chart)
-to display geospatial data."""
+    """
+    This dataset is designed for predicting diabetes status based on several health indicators and lifestyle factors. Below is an overview of the dataset's features:
+    
+    - **Gender**: Represents the gender of the individual, with values as "Male" or "Female".
+    - **Age**: The age of the individual, represented as an integer.
+    - **Hypertension**: Indicates high blood pressure presence. It is binary: `0 = No`, `1 = Yes`.
+    - **Heart Disease**: Indicates heart disease presence. It is binary: `0 = No`, `1 = Yes`.
+    - **Smoking History**: Categorical data that represents smoking status, such as "never smoked," "used to smoke," or "currently smoking."
+    - **BMI (Body Mass Index)**: A measure of body fat based on height and weight, represented by float values.
+    - **Average Blood Glucose Level**: The average blood glucose level over the past 2-3 months, usually used to monitor diabetes. Represented as floats, typically between `4.0` to `14.0`.
+    - **Blood Glucose Level**: The current blood glucose level, typically represented by float values starting from `80 mg/dL` and above.
+    - **Diabetes**: Indicates if the individual has diabetes, where `0 = No` and `1 = Yes`.
+    """
 )
 
+# Load the dataset
+df = pd.read_csv('Datasets/original_dataset.csv')
 
-@st.cache_data
-def from_data_file(filename):
-    url = (
-        "http://raw.githubusercontent.com/streamlit/"
-        "example-data/master/hello/v1/%s" % filename
-    )
-    return pd.read_json(url)
+# Display the dataset
+st.markdown("## Dataset Sample")
+st.write("Here is a preview of the dataset used for the diabetes prediction task:")
+st.write(df.head())
 
-
-try:
-    ALL_LAYERS = {
-        "Bike Rentals": pdk.Layer(
-            "HexagonLayer",
-            data=from_data_file("bike_rental_stats.json"),
-            get_position=["lon", "lat"],
-            radius=200,
-            elevation_scale=4,
-            elevation_range=[0, 1000],
-            extruded=True,
-        ),
-        "Bart Stop Exits": pdk.Layer(
-            "ScatterplotLayer",
-            data=from_data_file("bart_stop_stats.json"),
-            get_position=["lon", "lat"],
-            get_color=[200, 30, 0, 160],
-            get_radius="[exits]",
-            radius_scale=0.05,
-        ),
-        "Bart Stop Names": pdk.Layer(
-            "TextLayer",
-            data=from_data_file("bart_stop_stats.json"),
-            get_position=["lon", "lat"],
-            get_text="name",
-            get_color=[0, 0, 0, 200],
-            get_size=15,
-            get_alignment_baseline="'bottom'",
-        ),
-        "Outbound Flow": pdk.Layer(
-            "ArcLayer",
-            data=from_data_file("bart_path_stats.json"),
-            get_source_position=["lon", "lat"],
-            get_target_position=["lon2", "lat2"],
-            get_source_color=[200, 30, 0, 160],
-            get_target_color=[200, 30, 0, 160],
-            auto_highlight=True,
-            width_scale=0.0001,
-            get_width="outbound",
-            width_min_pixels=3,
-            width_max_pixels=30,
-        ),
-    }
-    st.sidebar.markdown("### Map Layers")
-    selected_layers = [
-        layer
-        for layer_name, layer in ALL_LAYERS.items()
-        if st.sidebar.checkbox(layer_name, True)
-    ]
-    if selected_layers:
-        st.pydeck_chart(
-            pdk.Deck(
-                map_style="mapbox://styles/mapbox/light-v9",
-                initial_view_state={
-                    "latitude": 37.76,
-                    "longitude": -122.4,
-                    "zoom": 11,
-                    "pitch": 50,
-                },
-                layers=selected_layers,
-            )
-        )
-    else:
-        st.error("Please choose at least one layer above.")
-except URLError as e:
-    st.error(
-        """
-        **This demo requires internet access.**
-        Connection error: %s
-    """
-        % e.reason
-    )
+# Display dataset information
+st.markdown("## Dataset Details")
+st.write("The dataset contains the following columns and data types:")
+st.write(df.describe())
