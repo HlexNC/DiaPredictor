@@ -5,7 +5,7 @@ import numpy as np
 from sklearn.utils import shuffle
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
-from sklearn.tree import DecisionTreeClassifier
+from sklearn.tree import DecisionTreeRegressor
 from sklearn.metrics import mean_squared_error, r2_score
 
 # Page Configuration
@@ -59,13 +59,13 @@ r2_val_lr = r2_score(y_val, y_val_pred_lr)
 mse_test_lr = mean_squared_error(y_test, y_test_pred_lr)
 r2_test_lr = r2_score(y_test, y_test_pred_lr)
 
-# Train Decision Tree model
-tree_model = DecisionTreeClassifier(random_state=42)
-tree_model.fit(X_train, y_train)
+# Initialize and train Random Forest Regressor
+rf_model = DecisionTreeRegressor()
+rf_model.fit(X_train, y_train)
 
-# Make predictions on the validation and test sets for Decision Tree
-y_val_pred_tree = tree_model.predict_proba(X_val)[:, 1]  # Get probability for class 1 (diabetes)
-y_test_pred_tree = tree_model.predict_proba(X_test)[:, 1]
+# Make predictions on validation and test sets
+y_val_pred_tree = rf_model.predict(X_val)
+y_test_pred_tree = rf_model.predict(X_test)
 
 # Calculate MSE and R² for Decision Tree
 mse_val_tree = mean_squared_error(y_val, y_val_pred_tree)
