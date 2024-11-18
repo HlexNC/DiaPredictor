@@ -24,9 +24,13 @@ st.write(
 Linear Regression model and a Logistic Regression model using the original dataset.
 Visualizations are provided to compare the models' performance and predictions."""
 )
+@st.cache_data
+def open_database():
+    data = pd.read_csv("Datasets/modified_dataset_probability.csv")
+    return data
 
 # Read the dataset
-df = pd.read_csv('Datasets/modified_dataset_probability.csv')
+df = open_database()
 
 # Shuffle the data
 df = shuffle(df, random_state=42).reset_index(drop=True)

@@ -24,8 +24,13 @@ Linear Regression model and a Decision Tree model using the original dataset.
 Visualizations are provided to compare the models' performance and predictions."""
 )
 
+@st.cache_data
+def open_database():
+    data = pd.read_csv('Datasets/original_dataset.csv')
+    return data
+
 # Read the dataset
-df = pd.read_csv('Datasets/original_dataset.csv')
+df = open_database()
 
 # Shuffle the data
 df = shuffle(df, random_state=42).reset_index(drop=True)
