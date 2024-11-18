@@ -25,7 +25,7 @@ Visualizations are provided to compare the models' performance and predictions."
 )
 
 # Read the dataset
-df = pd.read_csv('/home/morningstar/Desktop/assistance-systems-project/Datasets/modified_dataset.csv')
+df = pd.read_csv('Datasets/original_dataset.csv')
 
 # Shuffle the data
 df = shuffle(df, random_state=42).reset_index(drop=True)
