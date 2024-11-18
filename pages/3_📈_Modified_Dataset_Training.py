@@ -26,7 +26,7 @@ Visualizations are provided to compare the models' performance and predictions."
 
 @st.cache_data
 def open_database():
-    data = pd.read_csv('Datasets/modified_dataset_probability.csv')
+    data = pd.read_csv('Datasets/modified_dataset.csv')
     return data
 
 # Read the dataset

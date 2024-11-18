@@ -22,8 +22,13 @@ st.write(
     """
 )
 
+@st.cache_data
+def open_database():
+    data = pd.read_csv('Datasets/original_dataset.csv')
+    return data
+
 # Load the dataset
-df = pd.read_csv('Datasets/original_dataset.csv')
+df = open_database()
 
 # Display the dataset
 st.markdown("## Dataset Sample")
