@@ -7,6 +7,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.metrics import mean_squared_error, r2_score
+import time
+import joblib
 
 # Page Configuration
 st.set_page_config(page_title="Model Training Comparison", page_icon="📊")
@@ -14,8 +16,15 @@ st.set_page_config(page_title="Model Training Comparison", page_icon="📊")
 # Main Title
 st.markdown("# Model Training: Linear vs Decision Trees on Modified Dataset")
 
-# Sidebar Header
-st.sidebar.header("Training Comparison Settings")
+
+progress_text = "Training in progress. Please wait."
+my_bar = st.progress(0, text=progress_text)
+
+for percent_complete in range(100):
+    time.sleep(0.01)
+    my_bar.progress(percent_complete + 1, text=progress_text)
+time.sleep(1)
+my_bar.empty()
 
 # Information Text
 st.write(
@@ -48,6 +57,9 @@ X_val, X_test, y_val, y_test = train_test_split(X_temp, y_temp, test_size=0.5, r
 # Train Linear Regression model
 lr_model = LinearRegression()
 lr_model.fit(X_train, y_train)
+
+#Storing it to be used in the 5th page since it is the best resulting model.
+joblib.dump(lr_model, "Datasets/model.pkl")
 
 # Make predictions on the validation and test sets for Linear Regression
 y_val_pred_lr = lr_model.predict(X_val)

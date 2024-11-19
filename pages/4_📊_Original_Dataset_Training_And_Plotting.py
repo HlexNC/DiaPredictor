@@ -7,15 +7,23 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.metrics import mean_squared_error, r2_score
+import time
 
 # Page Configuration
 st.set_page_config(page_title="Model Training Comparison", page_icon="📊")
 
 # Main Title
 st.markdown("# Model Training: Linear vs Decision Trees on Original Dataset")
+progress_text = "Training in progress. Please wait."
+my_bar = st.progress(0, text=progress_text)
 
-# Sidebar Header
-st.sidebar.header("Training Comparison Settings")
+for percent_complete in range(100):
+    time.sleep(0.01)
+    my_bar.progress(percent_complete + 1, text=progress_text)
+time.sleep(1)
+my_bar.empty()
+
+
 
 # Information Text
 st.write(
