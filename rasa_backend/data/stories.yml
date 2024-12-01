@@ -1,154 +1,192 @@
 version: "3.1"
 
+# Use Case 1
 stories:
+  - story: Diabetes Prediction Check (Moderate Risk)
+    steps:
+      - intent: ask_for_diabetes_check
+      - action: utter_age
+      - intent: provide_age
+        entities:
+          - age: "45"
+      - action: utter_hypertension
+      - intent: provide_hypertension_status
+        entities:
+          - hypertension: "No"
+      - action: utter_heart_disease
+      - intent: provide_heart_disease_status
+        entities:
+          - heart_disease: "No"
+      - action: utter_bmi
+      - intent: provide_bmi
+        entities:
+          - bmi: "28.5"
+      - action: utter_average_glucose
+      - intent: provide_average_glucose
+        entities:
+          - average_glucose: "120 mg/dL"
+      - action: utter_current_glucose
+      - intent: provide_current_glucose
+        entities:
+          - current_glucose: "140 mg/dL"
+      - action: utter_smoking_history
+      - intent: provide_smoking_history
+        entities:
+          - smoking_history: "Former"
+      - action: diabetes_risk_moderate
+      - intent: goodbye
+      - action: utter_goodbye
 
-# These are the dialogs for the Use Case 1
-- story: Full Data Collection
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: provide_age
-    entities:
-      - age: 45
-  - action: utter_ask_hypertension_heart_disease
-  - intent: provide_hypertension_heart_disease
-    entities:
-      - hypertension: "No"
-      - heart_disease: "No"
-  - action: utter_ask_bmi
-  - intent: provide_bmi
-    entities:
-      - bmi: 28.5
-  - action: utter_ask_avg_glucose
-  - intent: provide_avg_glucose
-    entities:
-      - avg_glucose: 120
-  - action: utter_ask_current_glucose
-  - intent: provide_current_glucose
-    entities:
-      - current_glucose: 140
-  - action: utter_ask_smoking_history
-  - intent: provide_smoking_history
-    entities:
-      - smoking_history: "Former"
-  - action: action_predict_diabetes
-  - action: utter_show_result
+  - story: Diabetes Prediction Check (Low Risk)
+    steps:
+      - intent: ask_for_diabetes_check
+      - action: utter_age
+      - intent: provide_age
+        entities:
+          - age: "35"
+      - action: utter_hypertension
+      - intent: provide_hypertension_status
+        entities:
+          - hypertension: "No"
+      - action: utter_heart_disease
+      - intent: provide_heart_disease_status
+        entities:
+          - heart_disease: "No"
+      - action: utter_bmi
+      - intent: provide_bmi
+        entities:
+          - bmi: "24"
+      - action: utter_average_glucose
+      - intent: provide_average_glucose
+        entities:
+          - average_glucose: "100 mg/dL"
+      - action: utter_current_glucose
+      - intent: provide_current_glucose
+        entities:
+          - current_glucose: "110 mg/dL"
+      - action: utter_smoking_history
+      - intent: provide_smoking_history
+        entities:
+          - smoking_history: "Never"
+      - action: diabetes_risk_low
 
-- story: Handling Partial Data
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: provide_age
-    entities:
-      - age: 30
-  - intent: provide_bmi
-    entities:
-      - bmi: 24
-  - intent: provide_hypertension_heart_disease
-    entities:
-      - hypertension: "No"
-      - heart_disease: "No"
-  - action: utter_ask_avg_glucose
-  - intent: provide_missing_data
-  - action: utter_ask_smoking_history
-  - intent: provide_smoking_history
-    entities:
-      - smoking_history: "Never"
-  - action: action_predict_diabetes
-  - action: utter_show_result
+  - story: Diabetes Prediction Check (High Risk)
+    steps:
+      - intent: ask_for_diabetes_check
+      - action: utter_age
+      - intent: provide_age
+        entities:
+          - age: "60"
+      - action: utter_hypertension
+      - intent: provide_hypertension_status
+        entities:
+          - hypertension: "Yes"
+      - action: utter_heart_disease
+      - intent: provide_heart_disease_status
+        entities:
+          - heart_disease: "Yes"
+      - action: utter_bmi
+      - intent: provide_bmi
+        entities:
+          - bmi: "32"
+      - action: utter_average_glucose
+      - intent: provide_average_glucose
+        entities:
+          - average_glucose: "145 mg/dL"
+      - action: utter_current_glucose
+      - intent: provide_current_glucose
+        entities:
+          - current_glucose: "150 mg/dL"
+      - action: utter_smoking_history
+      - intent: provide_smoking_history
+        entities:
+          - smoking_history: "Current"
+      - action: diabetes_risk_high
 
-- story: Error Correction
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: provide_age
-    entities:
-      - age: 50
-  - intent: provide_bmi
-    entities:
-      - bmi: 29
-  - action: utter_ask_hypertension_heart_disease
-  - intent: provide_hypertension_heart_disease
-    entities:
-      - hypertension: "Yes"
-      - heart_disease: "No"
-  - action: utter_ask_smoking_history
-  - intent: provide_smoking_history
-    entities:
-      - smoking_history: "Current"
-  - action: utter_ask_avg_glucose
-  - intent: provide_missing_data
-  - action: utter_show_result_with_risk
+# Use Case 2
+  - story: Manage diabetes tips for Sarah (Dialogue 1)
+    steps:
+      - intent: ask_for_tips
+      - action: utter_age
+      - intent: provide_age
+        entities:
+          - age: 40
+      - action: utter_bmi
+      - intent: provide_bmi
+        entities:
+          - bmi: 27
+      - action: utter_smoking_history
+      - intent: provide_smoking_history
+        entities:
+          - smoking_history: "Former"
+      - action: utter_hypertension
+      - intent: provide_hypertension_status
+        entities:
+          - hypertension: "No"
+      - action: utter_heart_disease
+      - intent: provide_heart_disease_status
+        entities:
+          - heart_disease: "No"
+      - action: utter_current_glucose
+      - intent: provide_current_glucose
+        entities:
+          - current_glucose: 110
+      - action: action_provide_tips
 
-  # These are the dialogs for Use Case 2
-  - story: Managing Diabetes Tips
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: request_tips
-  - action: utter_ask_age_bmi_smoking_history
-  - intent: provide_age_bmi_smoking_history
-    entities:
-      - age: 40
-      - bmi: 27
-      - smoking_history: "Former"
-  - action: utter_provide_diabetes_management_tips
+  - story: Manage diabetes tips for Sarah (Dialogue 2)
+    steps:
+      - intent: ask_for_tips
+      - action: utter_age
+      - intent: provide_age
+        entities:
+          - age: 55
+      - action: utter_bmi
+      - intent: provide_bmi
+        entities:
+          - bmi: 30
+      - action: utter_smoking_history
+      - intent: provide_smoking_history
+        entities:
+          - smoking_history: "Never"
+      - action: utter_hypertension
+      - intent: provide_hypertension_status
+        entities:
+          - hypertension: "Yes"
+      - action: utter_heart_disease
+      - intent: provide_heart_disease_status
+        entities:
+          - heart_disease: "No"
+      - action: utter_current_glucose
+      - intent: provide_current_glucose
+        entities:
+          - current_glucose: 120
+      - action: action_provide_tips
 
-- story: Managing Diabetes with High Glucose
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: request_tips
-  - action: utter_ask_age_bmi_glucose
-  - intent: provide_age_bmi_glucose
-    entities:
-      - age: 50
-      - bmi: 30
-      - current_glucose: 160
-  - action: utter_provide_exercise_routines
-
-- story: Updating Data for Diabetes Tips
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: request_tips
-  - action: utter_ask_age_bmi_smoking_history
-  - intent: provide_age_bmi_smoking_history
-    entities:
-      - age: 35
-      - bmi: 28
-      - smoking_history: "Never"
-  - action: utter_ask_avg_glucose
-  - intent: provide_avg_glucose
-    entities:
-      - avg_glucose: "Missing"
-  - action: utter_provide_diabetes_management_tips
-
-# These are the dialogs for Use Case 3
-
-- story: Exploring Key Diabetes Factors
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: request_analysis
-  - action: utter_provide_key_factors
-  - intent: ask_for_more_details
-  - action: utter_summarize_key_factors
-
-- story: Simplifying Complex Insights
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: request_analysis
-  - action: utter_provide_detailed_insights
-  - intent: ask_for_simplified_data
-  - action: utter_summarize_detailed_insights
-
-- story: Error Handling for Dataset Access
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: request_dataset_access
-  - action: utter_troubleshoot_access
-  - intent: provide_troubleshooting_steps
-  - action: action_fetch_data
+  - story: Manage diabetes tips for Sarah (Dialogue 3)
+    steps:
+      - intent: ask_for_tips
+      - action: utter_age
+      - intent: provide_age
+        entities:
+          - age: 60
+      - action: utter_bmi
+      - intent: provide_bmi
+        entities:
+          - bmi: 30
+      - action: utter_smoking_history
+      - intent: provide_smoking_history
+        entities:
+          - smoking_history: "Never"
+      - action: utter_hypertension
+      - intent: provide_hypertension_status
+        entities:
+          - hypertension: "Yes"
+      - action: utter_heart_disease
+      - intent: provide_heart_disease_status
+        entities:
+          - heart_disease: "Yes"
+      - action: utter_current_glucose
+      - intent: provide_current_glucose
+        entities:
+          - current_glucose: 180
+      - action: action_provide_tips

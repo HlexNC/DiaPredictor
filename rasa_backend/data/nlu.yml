@@ -1,107 +1,69 @@
 version: "3.1"
 
 nlu:
-- intent: greet
-  examples: |
-    - hey
-    - hello
-    - hi
-    - hello there
-    - good morning
-    - good evening
-    - moin
-    - hey there
-    - let's go
-    - hey dude
-    - goodmorning
-    - goodevening
-    - good afternoon
+  - intent: goodbye
+    examples: |
+      - Goodbye
+      - See you later
+      - Bye
+      - Take care
 
-- intent: affirm
-  examples: |
-    - yes
-    - y
-    - indeed
-    - of course
-    - that sounds good
-    - correct
+  - intent: bot_challenge
+    examples: |
+      - Are you a bot?
+      - Are you human?
+      - Are you real?
 
-- intent: provide_age
-  examples: |
-    - I am [45](age) years old.
-    - I am [60](age).
-    - My age is [30](age).
-  
-- intent: provide_bmi
-  examples: |
-    - My BMI is [25](bmi).
-    - I have a BMI of [30](bmi).
-    - My BMI reading is [22](bmi).
+  - intent: ask_for_diabetes_check
+    examples: |
+      - Hi, can you check if I might have diabetes?
+      - Can you help me find out if I might have diabetes?
+      - Can you check if I have a high chance of having diabetes?
 
-- intent: provide_smoking_history
-  examples: |
-    - I [currently smoke](smoking_history).
-    - I am a current smoker
-    - I used to smoke, but I quit ([Former](smoking_history)).
-    - I have never smoked ([Never](smoking_history)).
+  - intent: provide_age
+    examples: |
+      - I'm 45.
+      - I’m 35.
+      - I’m 60.
 
-- intent: provide_hypertension
-  examples: |
-    - I have [hypertension](hypertension).
-    - I suffer from high blood pressure.
-    - I don't have [hypertension](hypertension).
+  - intent: provide_hypertension_status
+    examples: |
+      - No, I don’t have hypertension.
+      - Yes, I have hypertension.
+      - No.
 
-- intent: provide_heart_disease
-  examples: |
-    - I have a history of [heart disease](heart_disease).
-    - I was diagnosed with [heart disease](heart_disease).
-    - I don’t have [heart disease](heart_disease).
+  - intent: provide_heart_disease_status
+    examples: |
+      - No, I don’t have heart disease.
+      - Yes, I have heart disease.
+      - No.
 
-- intent: provide_avg_glucose
-  examples: |
-    - My average glucose level is [120](avg_glucose).
-    - I had an average glucose reading of [95](avg_glucose).
-    - The average glucose in my test was [130](avg_glucose).
+  - intent: provide_bmi
+    examples: |
+      - It's 28.5.
+      - My BMI is 24.
+      - It’s 32.
 
-- intent: provide_current_glucose
-  examples: |
-    - My current glucose level is [105](current_glucose).
-    - I just checked my glucose, and it's [150](current_glucose).
-    - My current blood glucose is [110](current_glucose).
+  - intent: provide_average_glucose
+    examples: |
+      - Around 120 mg/dL.
+      - 100 mg/dL.
+      - 145 mg/dL.
 
-- intent: request_tips
-  examples: |
-    - Can you give me tips for managing diabetes?
-    - I need advice on how to manage my diabetes.
-    - What are the best tips for living with diabetes?
+  - intent: provide_current_glucose
+    examples: |
+      - It’s 140 mg/dL.
+      - 110 mg/dL.
+      - 150 mg/dL.
 
-- intent: request_analysis
-  examples: |
-    - Can you analyze the factors contributing to diabetes?
-    - I want to know what factors are important in diabetes risk.
-    - Please analyze the dataset for diabetes risk factors.
+  - intent: provide_smoking_history
+    examples: |
+      - Former.
+      - Never.
+      - Current.
 
-- intent: provide_missing_data
-  examples: |
-    - Sorry, I don’t know my average glucose level.
-    - I don’t have my current glucose level.
-    - I’m not sure about my BMI right now.
-
-- intent: ask_for_more_details
-  examples: |
-    - Can you give me more detailed information?
-    - Tell me more about these factors.
-    - I need further clarification on these points.
-
-- intent: ask_for_simplified_data
-  examples: |
-    - Can you simplify the data for me?
-    - Please give me a summary of the information.
-    - Can you make it easier to understand?
-
-- intent: provide_troubleshooting_steps
-  examples: |
-    - Can you guide me on troubleshooting?
-    - How can I fix this issue with the dataset?
-    - Please provide troubleshooting steps.
-
+  - intent: ask_for_tips
+    examples: |
+      - I want some tips to manage my diabetes!
+      - Can you provide some tips so that I can manage my diabetes?
+      - Do you have any tips to help me manage my diabetes?

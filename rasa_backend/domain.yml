@@ -1,100 +1,62 @@
 version: "3.1"
 
 intents:
-  - greet
-  - affirm
-  - provide_data
+  - goodbye
+  - bot_challenge
+  - ask_for_missing_data
+  - provide_avg_glucose
+  - provide_hypertension_status
+  - ask_result
+  - provide_smoking_history
+  - provide_heart_disease_status
   - provide_age
   - provide_bmi
-  - provide_smoking_history
-  - provide_hypertension_heart_disease
-  - provide_heart_disease
-  - provide_avg_glucose
-  - provide_current_glucose
-  - ask_result
-  - request_tips
-  - ask_for_more_details
-  - ask_for_simplified_data
-  - request_analysis
-  - provide_missing_data
-  - bot_challenge
+  - provide_current_glucose_level
 
 responses:
-  utter_greet:
-  - text: "Hey! How are you?"
-
-  utter_cheer_up:
-  - text: "Here is something to cheer you up:"
-    image: "https://i.imgur.com/nGF1K8f.jpg"
-
-  utter_did_that_help:
-  - text: "Did that help you?"
-
-  utter_happy:
-  - text: "Great, carry on!"
-
   utter_goodbye:
-  - text: "Bye!"
-
+    - text: "Goodbye! Have a nice day."
+  
   utter_iamabot:
-  - text: "I am DiaPredictor, a diabetes prediction ChatBot."
+    - text: "I am your diabetes prediction assistant."
 
-  utter_ask_hypertension_heart_disease:
-  - text: "Do you have hypertension or heart disease?"
-
-  utter_ask_bmi:
-  - text: "Can you tell me your BMI?"
-
-  utter_ask_avg_glucose:
-  - text: "What's your average glucose level?"
-
-  utter_ask_current_glucose:
-  - text: "Can you provide your current glucose level?"
-
-  utter_ask_smoking_history:
-  - text: "Do you smoke? If so, what is your smoking history? (Valid answers are: Never, Former or Current)"
-
-  utter_ask_age_bmi_smoking_history:
-  - text: "Please provide your age, BMI, and smoking history."
-
-  utter_ask_age_bmi_glucose:
-  - text: "Can you provide your age, BMI, and current glucose level?"
-
-  utter_ask_age_bmi_smoking_history:
-  - text: "Please provide your age, BMI, and smoking history for better tips."
-
+  utter_hypertension:
+    - text: "Do you have hypertension?"
+  
+  utter_glucose_level:
+    - text: "What is your current glucose level?"
+  
+  utter_smoking_history:
+    - text: "Do you smoke?"
+  
   utter_show_result:
-  - text: "Based on your data, here is the diabetes risk prediction."
+    - text: "Here is your diabetes risk result."
+  
+  utter_clarification:
+    - text: "Could you clarify your answer?"
+  
+  utter_missing_data:
+    - text: "Could you provide the missing data?"
+  
+  utter_age:
+    - text: "How old are you?"
+  
+  utter_bmi:
+    - text: "What is your BMI?"
 
-  utter_show_result_with_risk:
-  - text: "Your risk of diabetes is high based on the data provided."
-
-  utter_provide_diabetes_management_tips:
-  - text: "Here are some tips for managing your diabetes."
-
-  utter_provide_exercise_routines:
-  - text: "Based on your glucose levels, here are some recommended exercises."
-
-  utter_no_data_provided:
-  - text: "No worries! We can proceed with what we have."
-
-  utter_summarize_key_factors:
-  - text: "The key factors affecting diabetes risk include age, BMI, glucose levels, and smoking history."
-
-  utter_summarize_detailed_insights:
-  - text: "Here are some more insights based on your data."
-
-  utter_troubleshoot_access:
-  - text: "There seems to be an issue accessing your dataset. Let's troubleshoot this."
-
-  utter_ask_clarification:
-  - text: "I'm sorry, could you please clarify?"
+  utter_diabetes_risk_high:
+    - text: "Your diabetes risk is high. You should visit a doctor."
+  
+  utter_diabetes_risk_moderate:
+    - text: "Your diabetes risk is moderate. Consider visiting a doctor for a checkup."
+  
+  utter_diabetes_risk_low:
+    - text: "Your diabetes risk is low."
+  
+  utter_diabetes_risk_recommendation:
+    - text: "We recommend that you consult a healthcare provider for further advice."
 
 actions:
   - action_save_user_data
   - action_predict_diabetes
-  - action_fetch_data
-
-session_config:
-  session_expiration_time: 60
-  carry_over_slots_to_new_session: true
+  - action_provide_missing_data
