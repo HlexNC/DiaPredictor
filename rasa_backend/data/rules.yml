@@ -6,41 +6,52 @@ rules:
   - intent: goodbye
   - action: utter_goodbye
 
-- rule: Say 'I am a ChatBot called DiaPredictor.' anytime the user challenges
+- rule: Say 'I am DiaPredictor, a diabetes prediction assistant.' anytime the user challenges
   steps:
   - intent: bot_challenge
   - action: utter_iamabot
 
-- rule: Collect user data and confirm age, hypertension, heart disease, BMI
+- rule: Collect user data and confirm age
   steps:
+  - action: utter_age
   - intent: provide_age
-  - action: action_save_user_data
-  - action: utter_ask_hypertension  # "Do you have hypertension?"
+
+- rule: Collect user data and confirm bmi
+  steps:
+  - action: utter_bmi
+  - intent: provide_bmi
+
+- rule: Collect user data and confirm hypertension
+  steps:
+  - action: utter_hypertension
+  - intent: provide_hypertension_status
+
+- rule: Collect user data and confirm heart disease
+  steps:
+  - action: utter_heart_disease
+  - intent: provide_heart_disease_status
+
+- rule: Collect user data and confirm current glucose level
+  steps:
+  - action: utter_current_glucose_level
+  - intent: provide_current_glucose_level
   
-- rule: Collect user data and confirm glucose level and smoking history
+- rule: Collect user data and confirm average glucose level
   steps:
-  - intent: provide_hypertension
-  - action: action_save_user_data
-  - action: utter_ask_glucose_level  # "What’s your average glucose level?"
+  - action: utter_average_glucose_level
+  - intent: provide_average_glucose_level
 
-- rule: Collect remaining data (e.g., smoking history)
+- rule: Collect smoking history
   steps:
-  - intent: provide_avg_glucose
-  - action: action_save_user_data
-  - action: utter_ask_smoking_history  # "Do you smoke?"
-  
-- rule: Predict diabetes after user provides all data
-  steps:
-  - intent: ask_result
-  - action: action_predict_diabetes  # Custom action to process data and predict
-  - action: utter_show_result  # Action that delivers the prediction result
+  - action: utter_smoking_history
+  - intent: provide_smoking_history
 
-- rule: Handle unclear user input
+- rule: Greet user
   steps:
-  - intent: nlu_fallback  # Triggered when no intent matches or confidence is low
-  - action: utter_ask_clarification  # Response asking the user to rephrase, e.g., "I'm sorry, could you please clarify?"
+  - intent: greet
+  - action: utter_greet
 
-- rule: Ask for missing data if the user didn't provide full information
+- rule: Give back the results of the diabetes prediction
   steps:
-  - intent: ask_for_missing_data  # Intent to prompt the user for missing details
-  - action: utter_ask_missing_data  # Response asking for missing data
+  - action: action_predict_diabetes
+  - action: utter_show_result

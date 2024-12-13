@@ -1,192 +1,154 @@
 version: "3.1"
 
-# Use Case 1
 stories:
-  - story: Diabetes Prediction Check (Moderate Risk)
+# Use Case 1
+  - story: user starts diabetes check
     steps:
+      - action: utter_hello
       - intent: ask_for_diabetes_check
       - action: utter_age
       - intent: provide_age
         entities:
-          - age: "45"
-      - action: utter_hypertension
-      - intent: provide_hypertension_status
-        entities:
-          - hypertension: "No"
-      - action: utter_heart_disease
-      - intent: provide_heart_disease_status
-        entities:
-          - heart_disease: "No"
-      - action: utter_bmi
-      - intent: provide_bmi
-        entities:
-          - bmi: "28.5"
-      - action: utter_average_glucose
-      - intent: provide_average_glucose
-        entities:
-          - average_glucose: "120 mg/dL"
-      - action: utter_current_glucose
-      - intent: provide_current_glucose
-        entities:
-          - current_glucose: "140 mg/dL"
-      - action: utter_smoking_history
-      - intent: provide_smoking_history
-        entities:
-          - smoking_history: "Former"
-      - action: diabetes_risk_moderate
-      - intent: goodbye
-      - action: utter_goodbye
+          - age: "my age is 45"
+      - checkpoint: got_age
 
-  - story: Diabetes Prediction Check (Low Risk)
+  - story: get hypertension
     steps:
-      - intent: ask_for_diabetes_check
-      - action: utter_age
-      - intent: provide_age
-        entities:
-          - age: "35"
+      - checkpoint: got_age
       - action: utter_hypertension
       - intent: provide_hypertension_status
         entities:
-          - hypertension: "No"
-      - action: utter_heart_disease
-      - intent: provide_heart_disease_status
-        entities:
-          - heart_disease: "No"
-      - action: utter_bmi
-      - intent: provide_bmi
-        entities:
-          - bmi: "24"
-      - action: utter_average_glucose
-      - intent: provide_average_glucose
-        entities:
-          - average_glucose: "100 mg/dL"
-      - action: utter_current_glucose
-      - intent: provide_current_glucose
-        entities:
-          - current_glucose: "110 mg/dL"
-      - action: utter_smoking_history
-      - intent: provide_smoking_history
-        entities:
-          - smoking_history: "Never"
-      - action: diabetes_risk_low
+          - hypertension: "No, i dont have hypertension"
+      - checkpoint: got_hypertension
 
-  - story: Diabetes Prediction Check (High Risk)
+  - story: get heart disease
     steps:
-      - intent: ask_for_diabetes_check
-      - action: utter_age
-      - intent: provide_age
-        entities:
-          - age: "60"
-      - action: utter_hypertension
-      - intent: provide_hypertension_status
-        entities:
-          - hypertension: "Yes"
+      - checkpoint: got_hypertension
       - action: utter_heart_disease
       - intent: provide_heart_disease_status
         entities:
-          - heart_disease: "Yes"
+          - heart_disease: "No, i dont have heart disease"
+      - checkpoint: got_heart_disease
+
+  - story: provide bmi
+    steps:
+      - checkpoint: got_heart_disease
       - action: utter_bmi
       - intent: provide_bmi
         entities:
-          - bmi: "32"
-      - action: utter_average_glucose
-      - intent: provide_average_glucose
-        entities:
-          - average_glucose: "145 mg/dL"
-      - action: utter_current_glucose
-      - intent: provide_current_glucose
-        entities:
-          - current_glucose: "150 mg/dL"
-      - action: utter_smoking_history
-      - intent: provide_smoking_history
-        entities:
-          - smoking_history: "Current"
-      - action: diabetes_risk_high
+          - bmi: "28.5 bmi"
+      - checkpoint: got_bmi
+
+  - story: provide average glucose
+    steps:
+    - checkpoint: got_bmi
+    - action: utter_average_glucose_level
+    - intent: provide_average_glucose_level
+      entities:
+        - average_glucose: "120 mg/dL average glucose"
+    - checkpoint: got_average_glucose
+
+  - story: provide current glucose
+    steps:
+    - checkpoint: got_average_glucose
+    - action: utter_current_glucose_level
+    - intent: provide_current_glucose_level
+      entities:
+        - current_glucose: "140 mg/dL current glucose"
+    - checkpoint: got_current_glucose
+
+  - story: smoking history and save data
+    steps:
+    - checkpoint: got_current_glucose
+    - action: utter_smoking_history
+    - intent: provide_smoking_history
+      entities:
+        - smoking_history: "Former"
+    - action: action_save_user_data
+    - checkpoint: got_smoking_history
+
+  - story: get diabetes prediction
+    steps:
+    - checkpoint: got_smoking_history
+    - action: action_predict_diabetes
+    - action: utter_show_result
+    - intent: goodbye
+    - action: utter_goodbye
 
 # Use Case 2
-  - story: Manage diabetes tips for Sarah (Dialogue 1)
+  - story: user starts diabetes tips
     steps:
+      - action: utter_hello
       - intent: ask_for_tips
       - action: utter_age
       - intent: provide_age
         entities:
-          - age: 40
-      - action: utter_bmi
-      - intent: provide_bmi
-        entities:
-          - bmi: 27
-      - action: utter_smoking_history
-      - intent: provide_smoking_history
-        entities:
-          - smoking_history: "Former"
-      - action: utter_hypertension
-      - intent: provide_hypertension_status
-        entities:
-          - hypertension: "No"
-      - action: utter_heart_disease
-      - intent: provide_heart_disease_status
-        entities:
-          - heart_disease: "No"
-      - action: utter_current_glucose
-      - intent: provide_current_glucose
-        entities:
-          - current_glucose: 110
-      - action: action_provide_tips
+          - age: "45 years old"
+      - checkpoint: got_age_tips
 
-  - story: Manage diabetes tips for Sarah (Dialogue 2)
+  - story: get hypertension
     steps:
-      - intent: ask_for_tips
-      - action: utter_age
-      - intent: provide_age
-        entities:
-          - age: 55
-      - action: utter_bmi
-      - intent: provide_bmi
-        entities:
-          - bmi: 30
-      - action: utter_smoking_history
-      - intent: provide_smoking_history
-        entities:
-          - smoking_history: "Never"
+      - checkpoint: got_age_tips
       - action: utter_hypertension
       - intent: provide_hypertension_status
         entities:
-          - hypertension: "Yes"
-      - action: utter_heart_disease
-      - intent: provide_heart_disease_status
-        entities:
-          - heart_disease: "No"
-      - action: utter_current_glucose
-      - intent: provide_current_glucose
-        entities:
-          - current_glucose: 120
-      - action: action_provide_tips
+          - hypertension: "No, i dont have hypertension"
+      - checkpoint: got_hypertension_tips
 
-  - story: Manage diabetes tips for Sarah (Dialogue 3)
+  - story: get heart disease
     steps:
-      - intent: ask_for_tips
-      - action: utter_age
-      - intent: provide_age
-        entities:
-          - age: 60
-      - action: utter_bmi
-      - intent: provide_bmi
-        entities:
-          - bmi: 30
-      - action: utter_smoking_history
-      - intent: provide_smoking_history
-        entities:
-          - smoking_history: "Never"
-      - action: utter_hypertension
-      - intent: provide_hypertension_status
-        entities:
-          - hypertension: "Yes"
+      - checkpoint: got_hypertension_tips
       - action: utter_heart_disease
       - intent: provide_heart_disease_status
         entities:
-          - heart_disease: "Yes"
-      - action: utter_current_glucose
-      - intent: provide_current_glucose
+          - heart_disease: "No, i dont have heart disease"
+      - checkpoint: got_heart_disease_tips
+
+  - story: provide bmi
+    steps:
+      - checkpoint: got_heart_disease_tips
+      - action: utter_bmi
+      - intent: provide_bmi
         entities:
-          - current_glucose: 180
-      - action: action_provide_tips
+          - bmi: "28.5 bmi"
+      - checkpoint: got_bmi_tips
+
+  - story: provide average glucose
+    steps:
+    - checkpoint: got_bmi_tips
+    - action: utter_average_glucose_level
+    - intent: provide_average_glucose_level
+      entities:
+        - average_glucose: "120 mg/dL average glucose"
+    - checkpoint: got_average_glucose_tips
+
+  - story: provide current glucose
+    steps:
+    - checkpoint: got_average_glucose_tips
+    - action: utter_current_glucose_level
+    - intent: provide_current_glucose_level
+      entities:
+        - current_glucose: "140 mg/dL current glucose"
+    - checkpoint: got_current_glucose_tips
+
+  - story: smoking history and results
+    steps:
+    - checkpoint: got_current_glucose_tips
+    - action: utter_smoking_history
+    - intent: provide_smoking_history
+      entities:
+        - smoking_history: "Former"
+    - action: action_save_user_data
+    - checkpoint: got_smoking_history_tips
+
+  - story: get tips based off of user entries
+    steps:
+    - checkpoint: got_smoking_history_tips
+    - action: action_provide_tips
+    - intent: goodbye
+    - action: utter_goodbye
+
+  - story: greet the user
+    steps:
+    - intent: greet
+    - action: utter_greet

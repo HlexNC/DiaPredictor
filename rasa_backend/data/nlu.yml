@@ -7,63 +7,190 @@ nlu:
       - See you later
       - Bye
       - Take care
+      - Farewell
+      - See you soon
+      - Have a great day
+      - It was nice talking to you
+      - bye
+      - see ya
+      - cya
+      - hav a gud day
+      - later
+      - it was nice talk to you
 
   - intent: bot_challenge
     examples: |
       - Are you a bot?
       - Are you human?
       - Are you real?
+      - Who are you?
+      - What is this system?
+      - Are you a robot?
+      - Can I talk to a real person?
+      - are you bot
+      - you real?
+      - who r u
+      - this robot?
+      - wat is dis
+      - can i chat w a human?
+
+  - intent: greet
+    examples: |
+      - Hello
+      - Hi
+      - Hey there
+      - Good morning
+      - Hiya
+      - Hey
+      - hello
+      - hi
+
 
   - intent: ask_for_diabetes_check
     examples: |
       - Hi, can you check if I might have diabetes?
       - Can you help me find out if I might have diabetes?
       - Can you check if I have a high chance of having diabetes?
+      - I want to know if I have diabetes.
+      - Can you tell me if I am at risk for diabetes?
+      - Can you predict if I have diabetes?
+      - Do I have a chance of having diabetes?
+      - How can I know if I have diabetes?
+      - hi can u check if I hav diabetes
+      - help me kno if hav diabetes
+      - check if diabetes possible for me
+      - do i hav diabetes
+      - pls tel me my diabetes risk
+      - check my diabetes
 
   - intent: provide_age
     examples: |
-      - I'm 45.
-      - I’m 35.
-      - I’m 60.
+      - I'm [45](age).
+      - I am [24](age).
+      - My age is [50](age).
+      - I’m [38](age) years old.
+      - I’m [29](age).
+      - I’ll be [40](age) soon.
+      - I’m [33](age) years old.
+      - i [45](age)
+      - im [24](age)
+      - i am [33](age)
+      - age is [38](age)
 
   - intent: provide_hypertension_status
     examples: |
-      - No, I don’t have hypertension.
-      - Yes, I have hypertension.
-      - No.
+      - [No](hypertension), I don’t have hypertension.
+      - [Yes](hypertension), I have hypertension.
+      - [Yes](hypertension), I have high blood pressure.
+      - [no] i dont have it
+      - [yes](hypertension), i have high bp
 
   - intent: provide_heart_disease_status
     examples: |
-      - No, I don’t have heart disease.
-      - Yes, I have heart disease.
-      - No.
+      - [No](heart_disease), I don’t have.
+      - [Yes](heart_disease), I have heart disease.
+      - [Yes](heart_disease), I’ve been diagnosed with heart disease.
+      - [No](heart_disease), my heart is healthy.
+      - [no](heart_disease) i dont hav heart prob
+      - [yes](heart_disease) hav heart issue
+      - [no](heart_disease) heart problem
 
   - intent: provide_bmi
     examples: |
-      - It's 28.5.
-      - My BMI is 24.
-      - It’s 32.
+      - It's [28.5](bmi).
+      - My BMI is [24](bmi).
+      - It’s [32](bmi).
+      - I have a BMI of [27](bmi).
+      - My BMI is [30](bmi).
+      - I’m BMI [23](bmi).
+      - My BMI is considered normal.
+      - I have a high BMI of [35](bmi).
+      - bmi [27](bmi)
+      - my bmi [23](bmi)
+      - it is [30.5](bmi)
 
-  - intent: provide_average_glucose
+  - intent: provide_average_glucose_level
     examples: |
-      - Around 120 mg/dL.
-      - 100 mg/dL.
-      - 145 mg/dL.
+      - Around [120](average_glucose) mg/dL.
+      - [100](average_glucose) mg/dL.
+      - [145](average_glucose) mg/dL.
+      - My average glucose is [130](average_glucose) mg/dL.
+      - I usually have a glucose level of [115](average_glucose) mg/dL.
+      - My average glucose is [110](average_glucose) mg/dL.
+      - It’s typically [125](average_glucose) mg/dL.
+      - My glucose level averages at [140](average_glucose) mg/dL.
+      - glucose [130](average_glucose)
+      - avg glucose [110](average_glucose)
+      - glucose level is normal
+      - avg sugar [120](average_glucose) mg
+      - glucose is [125](average_glucose)
+      - [145](average_glucose) glucose
 
-  - intent: provide_current_glucose
+  - intent: provide_current_glucose_level
     examples: |
-      - It’s 140 mg/dL.
-      - 110 mg/dL.
-      - 150 mg/dL.
+      - It’s [140](current_glucose) mg/dL.
+      - [110](current_glucose) mg/dL.
+      - [150](current_glucose) mg/dL.
+      - My current glucose is [130](current_glucose) mg/dL.
+      - I just measured my glucose and it’s [160](current_glucose) mg/dL.
+      - It was [145](current_glucose) mg/dL when I checked.
+      - My current blood sugar level is [120](current_glucose) mg/dL.
+      - My glucose is currently at [135](current_glucose) mg/dL.
+      - current glucose [140](current_glucose)
+      - my glucose now [150](current_glucose)
+      - sugar is [135](current_glucose)
+      - it [145](current_glucose)
+      - glucose is [120](current_glucose) now
+      - [140](current_glucose) sugar level
 
   - intent: provide_smoking_history
     examples: |
-      - Former.
-      - Never.
-      - Current.
+      - [Former](smoking_history).
+      - [Never](smoking_history).
+      - [Current](smoking_history).
+      - [former](smoking_history) smoker
+      - [current](smoking_history) smoker
+      - [never](smoking_history) smoked
+      - [Former](smoking_history) smoker.
+      - [Current](smoking_history) smoker.
+      - [Never](smoking_history) smoked.
 
   - intent: ask_for_tips
     examples: |
-      - I want some tips to manage my diabetes!
-      - Can you provide some tips so that I can manage my diabetes?
-      - Do you have any tips to help me manage my diabetes?
+      - Can you give me some tips to manage my diabetes?
+      - I need tips to manage my diabetes.
+      - Do you have any advice for me?
+      - How could I manage my diabetes?
+      - How do I take better care of my diabetes?
+      - Could you provide advice on managing diabetes?
+      - What are some effective ways to manage diabetes?
+      - What should I do to keep my diabetes in check?
+      - Are there any tricks to manage diabetes effectively?
+      - What lifestyle changes can help with diabetes?
+      - Tips for managing diabetes?
+
+
+entities:
+  - age
+  - hypertension
+  - heart_disease
+  - bmi
+  - average_glucose
+  - current_glucose
+  - smoking_history
+
+slots:
+  age:
+    type: number
+  hypertension:
+    type: binary
+  heart_disease:
+    type: binary
+  bmi:
+    type: number
+  average_glucose:
+    type: number
+  current_glucose:
+    type: number
+  smoking_history:
+    type: unfeaturized

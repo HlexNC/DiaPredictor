@@ -3,6 +3,8 @@ from typing import Any, Text, Dict, List
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.events import SlotSet
+import joblib
+from Additional_Scripts import normalizing_inputs
 
 class ActionProvideTips(Action):
     def name(self) -> str:
@@ -64,3 +66,75 @@ class ActionProvideTips(Action):
         dispatcher.utter_message("\n".join(tips))
 
         return []
+    
+class ActionPredictDiabetes(Action):
+    def name(self) -> str:
+        return "action_predict_diabetes"
+    
+    # Load the model
+    def __init__(self):
+        self.model = joblib.load("Datasets/model.pkl")
+    
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: dict) -> list:
+        # Retrieve the slots
+        age = tracker.get_slot("age")
+        bmi = tracker.get_slot("bmi")
+        smoking_history = tracker.get_slot("smoking_history")
+        hypertension = tracker.get_slot("hypertension")
+        heart_disease = tracker.get_slot("heart_disease")
+        current_glucose = tracker.get_slot("current_glucose")
+        average_glucose = tracker.get_slot("average_glucose")
+
+        # Normalizes input values
+        inputs = [[age, bmi, average_glucose, current_glucose]]
+
+        # Prepare user input as a feature vector
+        features = normalizing_inputs.normalize_inputs(inputs, smoking_history, hypertension, heart_disease)
+
+        prediction = self.model.predict(features)[0]  # Predict using the model
+
+        if prediction < 0.3:
+            dispatcher.utter_message("You are unlikely to have diabetes. Nonetheless, it’s always good to keep track of your health.")
+        elif prediction < 0.7:
+            dispatcher.utter_message("You have a moderate risk of diabetes. Consider adopting healthier lifestyle choices and monitor your health regularly.")
+        else:
+            dispatcher.utter_message("You have a high risk of diabetes. I strongly recommend consulting a doctor for further testing.")
+
+class ActionProvideMissingData(Action):
+    def name(self) -> str:
+        return "action_provide_missing_data"
+
+    def run(self, dispatcher, tracker, domain):
+        missing_data = []
+
+        # Check for each slot, and if missing, add it to the list
+        if not tracker.get_slot("age"):
+            missing_data.append("age")
+        if not tracker.get_slot("hypertension"):
+            missing_data.append("hypertension")
+        if not tracker.get_slot("heart_disease"):
+            missing_data.append("heart_disease")
+        if not tracker.get_slot("bmi"):
+            missing_data.append("bmi")
+        if not tracker.get_slot("average_glucose"):
+            missing_data.append("average_glucose")
+        if not tracker.get_slot("current_glucose"):
+            missing_data.append("current_glucose")
+        if not tracker.get_slot("smoking_history"):
+            missing_data.append("smoking_history")
+
+        if missing_data:
+            # If any data is missing, prompt the user for each one
+            message = "I need the following information to proceed: "
+            message += ", ".join(missing_data)
+            dispatcher.utter_message(message)
+
+class ActionRepeatMessage(Action):
+    def name(self):
+        return "action_repeat_message"
+
+    def run(self, dispatcher, tracker, domain):
+        dispatcher.utter_message(text="Please respond only with one of the provided possible answers.")
+        return []
+
+

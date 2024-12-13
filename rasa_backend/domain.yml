@@ -3,60 +3,120 @@ version: "3.1"
 intents:
   - goodbye
   - bot_challenge
-  - ask_for_missing_data
-  - provide_avg_glucose
+  - provide_average_glucose_level
   - provide_hypertension_status
-  - ask_result
   - provide_smoking_history
   - provide_heart_disease_status
   - provide_age
   - provide_bmi
   - provide_current_glucose_level
+  - ask_for_diabetes_check
+  - ask_for_tips
+  - greet
+
+entities:
+  - age
+  - hypertension
+  - heart_disease
+  - bmi
+  - average_glucose
+  - current_glucose
+  - smoking_history
+
 
 responses:
+
+  utter_greet:
+    - text: "Hello! How can I assist you today?"
+
   utter_goodbye:
     - text: "Goodbye! Have a nice day."
   
   utter_iamabot:
-    - text: "I am your diabetes prediction assistant."
+    - text: "I am DiaPredictor, a diabetes prediction assistant."
 
   utter_hypertension:
-    - text: "Do you have hypertension?"
+    - text: "Do you have hypertension? Please respond with Yes or No."
+
+  utter_heart_disease:
+    - text: "Do you have heart disease? Please respond with Yes or No."
   
-  utter_glucose_level:
+  utter_average_glucose_level:
+    - text: "What is your average glucose level?"
+
+  utter_current_glucose_level:
     - text: "What is your current glucose level?"
   
   utter_smoking_history:
-    - text: "Do you smoke?"
+    - text: "What’s your smoking history: Never, Former, or Current? Please respond with one of the provided answers."
   
   utter_show_result:
     - text: "Here is your diabetes risk result."
   
-  utter_clarification:
-    - text: "Could you clarify your answer?"
-  
-  utter_missing_data:
-    - text: "Could you provide the missing data?"
-  
   utter_age:
-    - text: "How old are you?"
+    - text: "Okay, let's do that! How old are you?"
   
   utter_bmi:
     - text: "What is your BMI?"
 
-  utter_diabetes_risk_high:
-    - text: "Your diabetes risk is high. You should visit a doctor."
-  
-  utter_diabetes_risk_moderate:
-    - text: "Your diabetes risk is moderate. Consider visiting a doctor for a checkup."
-  
-  utter_diabetes_risk_low:
-    - text: "Your diabetes risk is low."
-  
-  utter_diabetes_risk_recommendation:
-    - text: "We recommend that you consult a healthcare provider for further advice."
+  utter_hello:
+    - text: "Hello. How can I help you today?"
 
 actions:
   - action_save_user_data
   - action_predict_diabetes
-  - action_provide_missing_data
+  - action_provide_tips
+
+slots:
+  age:
+    type: float
+    mappings:
+      - type: from_entity
+        entity: age
+
+  hypertension:
+    type: categorical
+    values:
+      - yes
+      - no
+    mappings:
+      - type: from_entity
+        entity: hypertension
+
+  heart_disease:
+    type: categorical
+    values:
+      - yes
+      - no
+    mappings:
+      - type: from_entity
+        entity: heart_disease
+
+  bmi:
+    type: float
+    mappings:
+      - type: from_entity
+        entity: bmi
+
+  average_glucose:
+    type: float
+    mappings:
+      - type: from_entity
+        entity: average_glucose
+
+  current_glucose:
+    type: float
+    mappings:
+      - type: from_entity
+        entity: current_glucose
+
+  smoking_history:
+    type: categorical
+    values:
+      - never
+      - former
+      - current
+    mappings:
+      - type: from_entity
+        entity: smoking_history
+

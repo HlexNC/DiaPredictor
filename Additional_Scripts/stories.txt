@@ -1,0 +1,198 @@
+version: "3.1"
+
+# Use Case 1
+stories:
+  - story: Diabetes Prediction Check (Moderate Risk)
+    steps:
+      - action: utter_hello
+      - intent: ask_for_diabetes_check
+      - action: utter_age
+      - intent: provide_age
+        entities:
+          - age: "45"
+      - action: utter_hypertension
+      - intent: provide_hypertension_status
+        entities:
+          - hypertension: "No"
+      - action: utter_heart_disease
+      - intent: provide_heart_disease_status
+        entities:
+          - heart_disease: "No"
+      - action: utter_bmi
+      - intent: provide_bmi
+        entities:
+          - bmi: "28.5"
+      - action: utter_average_glucose
+      - intent: provide_average_glucose
+        entities:
+          - average_glucose: "120 mg/dL"
+      - action: utter_current_glucose
+      - intent: provide_current_glucose
+        entities:
+          - current_glucose: "140 mg/dL"
+      - action: utter_smoking_history
+      - intent: provide_smoking_history
+        entities:
+          - smoking_history: "Former"
+      - action: action_predict_diabetes
+      - intent: goodbye
+      - action: utter_goodbye
+
+  - story: Diabetes Prediction Check (Low Risk)
+    steps:
+      - action: utter_hello
+      - intent: ask_for_diabetes_check
+      - action: utter_age
+      - intent: provide_age
+        entities:
+          - age: "35"
+      - action: utter_hypertension
+      - intent: provide_hypertension_status
+        entities:
+          - hypertension: "No"
+      - action: utter_heart_disease
+      - intent: provide_heart_disease_status
+        entities:
+          - heart_disease: "No"
+      - action: utter_bmi
+      - intent: provide_bmi
+        entities:
+          - bmi: "24"
+      - action: utter_average_glucose
+      - intent: provide_average_glucose
+        entities:
+          - average_glucose: "100 mg/dL"
+      - action: utter_current_glucose
+      - intent: provide_current_glucose
+        entities:
+          - current_glucose: "110 mg/dL"
+      - action: utter_smoking_history
+      - intent: provide_smoking_history
+        entities:
+          - smoking_history: "Never"
+      - action: action_predict_diabetes
+
+  - story: Diabetes Prediction Check (High Risk)
+    steps:
+      - action: utter_hello
+      - intent: ask_for_diabetes_check
+      - action: utter_age
+      - intent: provide_age
+        entities:
+          - age: "60"
+      - action: utter_hypertension
+      - intent: provide_hypertension_status
+        entities:
+          - hypertension: "Yes"
+      - action: utter_heart_disease
+      - intent: provide_heart_disease_status
+        entities:
+          - heart_disease: "Yes"
+      - action: utter_bmi
+      - intent: provide_bmi
+        entities:
+          - bmi: "32"
+      - action: utter_average_glucose
+      - intent: provide_average_glucose
+        entities:
+          - average_glucose: "145 mg/dL"
+      - action: utter_current_glucose
+      - intent: provide_current_glucose
+        entities:
+          - current_glucose: "150 mg/dL"
+      - action: utter_smoking_history
+      - intent: provide_smoking_history
+        entities:
+          - smoking_history: "Current"
+      - action: action_predict_diabetes
+
+# Use Case 2
+  - story: Manage diabetes tips for Sarah (Dialogue 1)
+    steps:
+      - action: utter_hello
+      - intent: ask_for_tips
+      - action: utter_age
+      - intent: provide_age
+        entities:
+          - age: 40
+      - action: utter_bmi
+      - intent: provide_bmi
+        entities:
+          - bmi: 27
+      - action: utter_smoking_history
+      - intent: provide_smoking_history
+        entities:
+          - smoking_history: "Former"
+      - action: utter_hypertension
+      - intent: provide_hypertension_status
+        entities:
+          - hypertension: "No"
+      - action: utter_heart_disease
+      - intent: provide_heart_disease_status
+        entities:
+          - heart_disease: "No"
+      - action: utter_current_glucose
+      - intent: provide_current_glucose
+        entities:
+          - current_glucose: 110
+      - action: action_provide_tips
+
+  - story: Manage diabetes tips for Sarah (Dialogue 2)
+    steps:
+      - action: utter_hello
+      - intent: ask_for_tips
+      - action: utter_age
+      - intent: provide_age
+        entities:
+          - age: 55
+      - action: utter_bmi
+      - intent: provide_bmi
+        entities:
+          - bmi: 30
+      - action: utter_smoking_history
+      - intent: provide_smoking_history
+        entities:
+          - smoking_history: "Never"
+      - action: utter_hypertension
+      - intent: provide_hypertension_status
+        entities:
+          - hypertension: "Yes"
+      - action: utter_heart_disease
+      - intent: provide_heart_disease_status
+        entities:
+          - heart_disease: "No"
+      - action: utter_current_glucose
+      - intent: provide_current_glucose
+        entities:
+          - current_glucose: 120
+      - action: action_provide_tips
+
+  - story: Manage diabetes tips for Sarah (Dialogue 3)
+    steps:
+      - action: utter_hello
+      - intent: ask_for_tips
+      - action: utter_age
+      - intent: provide_age
+        entities:
+          - age: 60
+      - action: utter_bmi
+      - intent: provide_bmi
+        entities:
+          - bmi: 30
+      - action: utter_smoking_history
+      - intent: provide_smoking_history
+        entities:
+          - smoking_history: "Never"
+      - action: utter_hypertension
+      - intent: provide_hypertension_status
+        entities:
+          - hypertension: "Yes"
+      - action: utter_heart_disease
+      - intent: provide_heart_disease_status
+        entities:
+          - heart_disease: "Yes"
+      - action: utter_current_glucose
+      - intent: provide_current_glucose
+        entities:
+          - current_glucose: 180
+      - action: action_provide_tips

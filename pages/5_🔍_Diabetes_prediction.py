@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import joblib  # For loading the saved model
-from sklearn.preprocessing import  MinMaxScaler # For the normalization fo values
+from Additional_Scripts import normalizing_inputs
 
 # Page configuration
 st.set_page_config(page_title="Diabetes Prediction", page_icon="🔍")
@@ -37,35 +37,10 @@ smoking_history = st.selectbox(
 
 # Normalizes input values
 inputs = [[age, bmi, avg_glucose, current_glucose]]
-scaler = MinMaxScaler(feature_range=(0, 1))
-scaler.fit([[0, 10.0, 4.0, 4.0], [100, 50.0, 14.0, 14.0]])  # Min and max values for each feature to be able to utilize the Min-Max Scaler
-normalized_inputs = scaler.transform(inputs)
-age, bmi, avg_glucose, current_glucose = normalized_inputs[0]
-
-# Create a DataFrame for one-hot encoding
-# Convert smoking history to a single numeric variable
-if smoking_history == "Never":
-    smoking_history_encoded = 0  # 0 for Never
-elif smoking_history == "Former":
-    smoking_history_encoded = 1  # 1 for Former
-else:
-    smoking_history_encoded = 2  # 2 for Current
-
-# Normalize smoking history (scaling between 0 and 1)
-smoking_history_normalized = smoking_history_encoded / 2  # Dividing by 2 to scale between 0 and 1
 
 # Prepare user input as a feature vector
-feature_vector = np.array([
-    [
-        age,
-        bmi,
-        avg_glucose,
-        current_glucose,
-        int(hypertension),             # Convert checkbox to binary
-        int(heart_disease),            # Convert checkbox to binary
-        smoking_history_normalized   # One-hot encoding for "Current"    
-    ]
-])
+feature_vector = normalizing_inputs.normalize_inputs(inputs, smoking_history, hypertension, heart_disease)
+
 
 # Button to trigger prediction
 if st.button("Predict Diabetes Risk"):
