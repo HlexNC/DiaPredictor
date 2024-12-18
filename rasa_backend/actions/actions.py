@@ -3,8 +3,10 @@ from typing import Any, Text, Dict, List
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.events import SlotSet
-import joblib
-from Additional_Scripts import normalizing_inputs
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+from Additional_Scripts.normalizing_inputs_and_prediction import normalize_inputs
 
 class ActionProvideTips(Action):
     def name(self) -> str:
@@ -71,10 +73,6 @@ class ActionPredictDiabetes(Action):
     def name(self) -> str:
         return "action_predict_diabetes"
     
-    # Load the model
-    def __init__(self):
-        self.model = joblib.load("Datasets/model.pkl")
-    
     def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: dict) -> list:
         # Retrieve the slots
         age = tracker.get_slot("age")
@@ -89,9 +87,7 @@ class ActionPredictDiabetes(Action):
         inputs = [[age, bmi, average_glucose, current_glucose]]
 
         # Prepare user input as a feature vector
-        features = normalizing_inputs.normalize_inputs(inputs, smoking_history, hypertension, heart_disease)
-
-        prediction = self.model.predict(features)[0]  # Predict using the model
+        prediction = normalize_inputs(inputs, smoking_history, hypertension, heart_disease)
 
         if prediction < 0.3:
             dispatcher.utter_message("You are unlikely to have diabetes. Nonetheless, it’s always good to keep track of your health.")

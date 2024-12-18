@@ -1,154 +1,61 @@
 version: "3.1"
 
 stories:
-# Use Case 1
+  # Use Case 1
   - story: user starts diabetes check
     steps:
-      - action: utter_hello
+      - intent: greet
+      - action: utter_greet
       - intent: ask_for_diabetes_check
       - action: utter_age
       - intent: provide_age
         entities:
           - age: "my age is 45"
-      - checkpoint: got_age
+      - checkpoint: age_collected
 
-  - story: get hypertension
+  - story: collect bmi, hypertension and heart disease
     steps:
-      - checkpoint: got_age
-      - action: utter_hypertension
-      - intent: provide_hypertension_status
-        entities:
-          - hypertension: "No, i dont have hypertension"
-      - checkpoint: got_hypertension
-
-  - story: get heart disease
-    steps:
-      - checkpoint: got_hypertension
-      - action: utter_heart_disease
-      - intent: provide_heart_disease_status
-        entities:
-          - heart_disease: "No, i dont have heart disease"
-      - checkpoint: got_heart_disease
-
-  - story: provide bmi
-    steps:
-      - checkpoint: got_heart_disease
       - action: utter_bmi
       - intent: provide_bmi
         entities:
-          - bmi: "28.5 bmi"
-      - checkpoint: got_bmi
+          - bmi: "My BMI is 25"
+      - action: utter_hypertension
+      - intent: provide_hypertension_status
+        entities:
+          - hypertension: "No, I don't have hypertension"
+      - action: utter_heart_disease
+      - intent: provide_heart_disease_status
+        entities:
+          - heart_disease: "Yes, I have heart disease"
+      - checkpoint: collected_diseases
 
-  - story: provide average glucose
+  - story: collect glucose levels
     steps:
-    - checkpoint: got_bmi
-    - action: utter_average_glucose_level
-    - intent: provide_average_glucose_level
-      entities:
-        - average_glucose: "120 mg/dL average glucose"
-    - checkpoint: got_average_glucose
-
-  - story: provide current glucose
-    steps:
-    - checkpoint: got_average_glucose
-    - action: utter_current_glucose_level
-    - intent: provide_current_glucose_level
-      entities:
-        - current_glucose: "140 mg/dL current glucose"
-    - checkpoint: got_current_glucose
+      - checkpoint: collected_diseases
+      - action: utter_average_glucose_level
+      - intent: provide_average_glucose_level
+        entities:
+          - average_glucose: "Average glucose level is 110"
+      - action: utter_current_glucose_level
+      - intent: provide_current_glucose_level
+        entities:
+          - current_glucose: "Current glucose is 120"
+      - checkpoint: collected_glucose_levels
 
   - story: smoking history and save data
     steps:
-    - checkpoint: got_current_glucose
-    - action: utter_smoking_history
-    - intent: provide_smoking_history
-      entities:
-        - smoking_history: "Former"
-    - action: action_save_user_data
-    - checkpoint: got_smoking_history
+      - checkpoint: collected_glucose_levels
+      - action: utter_smoking_history
+      - intent: provide_smoking_history
+        entities:
+          - smoking_history: "Former"
+      - checkpoint: got_smoking_history
 
   - story: get diabetes prediction
     steps:
-    - checkpoint: got_smoking_history
-    - action: action_predict_diabetes
-    - action: utter_show_result
-    - intent: goodbye
-    - action: utter_goodbye
+      - checkpoint: got_smoking_history
+      - action: action_predict_diabetes
+      - action: utter_show_result
+      - intent: goodbye
+      - action: utter_goodbye
 
-# Use Case 2
-  - story: user starts diabetes tips
-    steps:
-      - action: utter_hello
-      - intent: ask_for_tips
-      - action: utter_age
-      - intent: provide_age
-        entities:
-          - age: "45 years old"
-      - checkpoint: got_age_tips
-
-  - story: get hypertension
-    steps:
-      - checkpoint: got_age_tips
-      - action: utter_hypertension
-      - intent: provide_hypertension_status
-        entities:
-          - hypertension: "No, i dont have hypertension"
-      - checkpoint: got_hypertension_tips
-
-  - story: get heart disease
-    steps:
-      - checkpoint: got_hypertension_tips
-      - action: utter_heart_disease
-      - intent: provide_heart_disease_status
-        entities:
-          - heart_disease: "No, i dont have heart disease"
-      - checkpoint: got_heart_disease_tips
-
-  - story: provide bmi
-    steps:
-      - checkpoint: got_heart_disease_tips
-      - action: utter_bmi
-      - intent: provide_bmi
-        entities:
-          - bmi: "28.5 bmi"
-      - checkpoint: got_bmi_tips
-
-  - story: provide average glucose
-    steps:
-    - checkpoint: got_bmi_tips
-    - action: utter_average_glucose_level
-    - intent: provide_average_glucose_level
-      entities:
-        - average_glucose: "120 mg/dL average glucose"
-    - checkpoint: got_average_glucose_tips
-
-  - story: provide current glucose
-    steps:
-    - checkpoint: got_average_glucose_tips
-    - action: utter_current_glucose_level
-    - intent: provide_current_glucose_level
-      entities:
-        - current_glucose: "140 mg/dL current glucose"
-    - checkpoint: got_current_glucose_tips
-
-  - story: smoking history and results
-    steps:
-    - checkpoint: got_current_glucose_tips
-    - action: utter_smoking_history
-    - intent: provide_smoking_history
-      entities:
-        - smoking_history: "Former"
-    - action: action_save_user_data
-    - checkpoint: got_smoking_history_tips
-
-  - story: get tips based off of user entries
-    steps:
-    - checkpoint: got_smoking_history_tips
-    - action: action_provide_tips
-    - intent: goodbye
-    - action: utter_goodbye
-
-  - story: greet the user
-    steps:
-    - intent: greet
-    - action: utter_greet

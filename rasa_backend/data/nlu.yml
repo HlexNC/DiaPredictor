@@ -111,9 +111,6 @@ nlu:
 
   - intent: provide_average_glucose_level
     examples: |
-      - Around [120](average_glucose) mg/dL.
-      - [100](average_glucose) mg/dL.
-      - [145](average_glucose) mg/dL.
       - My average glucose is [130](average_glucose) mg/dL.
       - I usually have a glucose level of [115](average_glucose) mg/dL.
       - My average glucose is [110](average_glucose) mg/dL.
