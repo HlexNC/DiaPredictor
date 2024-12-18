@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import joblib  # For loading the saved model
-from Additional_Scripts import normalizing_inputs
+from DiaPredictor.Additional_Scripts import normalizing_inputs_and_prediction
 
 # Page configuration
 st.set_page_config(page_title="Diabetes Prediction", page_icon="🔍")
@@ -39,7 +39,7 @@ smoking_history = st.selectbox(
 inputs = [[age, bmi, avg_glucose, current_glucose]]
 
 # Prepare user input as a feature vector
-feature_vector = normalizing_inputs.normalize_inputs(inputs, smoking_history, hypertension, heart_disease)
+feature_vector = normalizing_inputs_and_prediction.normalize_inputs(inputs, smoking_history, hypertension, heart_disease)
 
 
 # Button to trigger prediction

@@ -1,5 +1,6 @@
 import numpy as np
 from sklearn.preprocessing import  MinMaxScaler # For the normalization fo values
+import joblib
 
 def normalize_inputs(inputs, smoking_history, hypertension, heart_disease):
     if smoking_history == "Never":
@@ -41,4 +42,9 @@ def normalize_inputs(inputs, smoking_history, hypertension, heart_disease):
         ]
     ])
 
-    return features
+    # Load the model and predict
+    model = joblib.load("../Datasets/model.pkl")
+
+    prediction = model.predict(features)[0]  # Predict using the model
+
+    return prediction
