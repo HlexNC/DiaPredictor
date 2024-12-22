@@ -1,6 +1,8 @@
 import streamlit as st
+import pandas as pd
 import numpy as np
 import joblib  # For loading the saved model
+from DiaPredictor.Additional_Scripts import normalizing_inputs_and_prediction
 
 # Page configuration
 st.set_page_config(page_title="Diabetes Prediction", page_icon="🔍")
@@ -33,18 +35,12 @@ smoking_history = st.selectbox(
     index=0
 )
 
+# Normalizes input values
+inputs = [[age, bmi, avg_glucose, current_glucose]]
+
 # Prepare user input as a feature vector
-feature_vector = np.array([
-    [
-        age,
-        bmi,
-        avg_glucose,
-        current_glucose,
-        int(hypertension),             # Convert checkbox to binary
-        int(heart_disease),            # Convert checkbox to binary
-        1 if smoking_history == "Former" else 0
-    ]
-])
+feature_vector = normalizing_inputs_and_prediction.normalize_inputs(inputs, smoking_history, hypertension, heart_disease)
+
 
 # Button to trigger prediction
 if st.button("Predict Diabetes Risk"):
@@ -53,10 +49,28 @@ if st.button("Predict Diabetes Risk"):
         model = load_model()
         prediction = model.predict(feature_vector)[0]  # Predict using the model
         st.success(f"Predicted Diabetes Probability: {prediction:.2f}")
+
+        # Bar to show severity of prediction 
+        progress_percentage = int(prediction * 100)
+        color = "background-color: red;" if progress_percentage > 50 else "background-color: green;"
+
+        # Display the progress bar with percentage value
+        st.markdown(
+            f"""
+            <div style="width: 100%; height: 30px; border-radius: 5px; {color} width: {progress_percentage}%;"></div>
+            <span style="color: black; font-weight: bold; position: absolute; width: 100%; text-align: center; line-height: 30px;">
+                {progress_percentage}%
+            </span>
+            """, 
+            unsafe_allow_html=True
+        )
+
+
         if prediction > 0.5:
             st.warning("You might be at risk for diabetes. Consider consulting a healthcare professional.")
         else:
             st.info("You have a low risk of diabetes. Keep maintaining a healthy lifestyle!")
+
     except FileNotFoundError:
         st.error("Model file not found. Please ensure the model file is in the correct location.")
 

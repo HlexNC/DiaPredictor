@@ -1,0 +1,73 @@
+version: "3.1"
+
+rules:
+- rule: Say goodbye anytime the user says goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: Say 'I am DiaPredictor, a diabetes prediction assistant.' anytime the user challenges
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+
+- rule: Greet user
+  steps:
+  - intent: greet
+  - action: utter_greet
+
+- rule: Confirm age when user has provided it
+  steps:
+  - action: utter_age
+  - intent: provide_age
+  - action: utter_bmi
+  wait_for_user_input: false
+
+
+- rule: Collect user data and confirm bmi
+  steps:
+  - action: utter_bmi
+  - intent: provide_bmi
+  - action: utter_hypertension
+  wait_for_user_input: false
+
+
+- rule: Collect user data and confirm hypertension
+  steps:
+  - action: utter_hypertension
+  - intent: provide_hypertension_status
+  - action: utter_heart_disease
+  wait_for_user_input: false
+
+- rule: Collect user data and confirm heart disease
+  steps:
+  - action: utter_heart_disease
+  - intent: provide_heart_disease_status
+  - action: utter_average_glucose_level
+  wait_for_user_input: false
+
+- rule: Collect user data and confirm current glucose level
+  steps:
+  - action: utter_average_glucose_level
+  - intent: provide_average_glucose_level
+  - action: utter_current_glucose_level
+  wait_for_user_input: false
+  
+- rule: Collect user data and confirm average glucose level
+  steps:
+  - action: utter_current_glucose_level
+  - intent: provide_current_glucose_level
+  - action: utter_smoking_history
+  wait_for_user_input: false
+
+- rule: Collect smoking history
+  steps:
+  - action: utter_smoking_history
+  - intent: provide_smoking_history
+  - action: action_predict_diabetes
+  wait_for_user_input: false
+
+- rule: Give back the results of the diabetes prediction
+  steps:
+  - action: action_predict_diabetes
+  - action: utter_show_result

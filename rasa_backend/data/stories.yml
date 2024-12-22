@@ -1,0 +1,61 @@
+version: "3.1"
+
+stories:
+  # Use Case 1
+  - story: user starts diabetes check
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_for_diabetes_check
+      - action: utter_age
+      - intent: provide_age
+        entities:
+          - age: "my age is 45"
+      - checkpoint: age_collected
+
+  - story: collect bmi, hypertension and heart disease
+    steps:
+      - action: utter_bmi
+      - intent: provide_bmi
+        entities:
+          - bmi: "My BMI is 25"
+      - action: utter_hypertension
+      - intent: provide_hypertension_status
+        entities:
+          - hypertension: "No, I don't have hypertension"
+      - action: utter_heart_disease
+      - intent: provide_heart_disease_status
+        entities:
+          - heart_disease: "Yes, I have heart disease"
+      - checkpoint: collected_diseases
+
+  - story: collect glucose levels
+    steps:
+      - checkpoint: collected_diseases
+      - action: utter_average_glucose_level
+      - intent: provide_average_glucose_level
+        entities:
+          - average_glucose: "Average glucose level is 110"
+      - action: utter_current_glucose_level
+      - intent: provide_current_glucose_level
+        entities:
+          - current_glucose: "Current glucose is 120"
+      - checkpoint: collected_glucose_levels
+
+  - story: smoking history and save data
+    steps:
+      - checkpoint: collected_glucose_levels
+      - action: utter_smoking_history
+      - intent: provide_smoking_history
+        entities:
+          - smoking_history: "Former"
+      - checkpoint: got_smoking_history
+
+  - story: get diabetes prediction
+    steps:
+      - checkpoint: got_smoking_history
+      - action: action_predict_diabetes
+      - action: utter_show_result
+      - intent: goodbye
+      - action: utter_goodbye
+
