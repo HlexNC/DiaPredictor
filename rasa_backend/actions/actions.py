@@ -132,5 +132,18 @@ class ActionRepeatMessage(Action):
     def run(self, dispatcher, tracker, domain):
         dispatcher.utter_message(text="Please respond only with one of the provided possible answers.")
         return []
+    
+class ActionRememberName(Action):
+    def name(self) -> Text:
+        return "action_remember_name"
+
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        user_name = next(tracker.get_latest_entity_values("name"), None)
+        if user_name:
+            return [SlotSet("name", user_name)]
+        else:
+            dispatcher.utter_message(text="I didn't quite catch your name. Could you repeat it?")
+            return []
+
 
 

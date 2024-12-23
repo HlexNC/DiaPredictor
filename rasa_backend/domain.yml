@@ -13,6 +13,12 @@ intents:
   - ask_for_diabetes_check
   - ask_for_tips
   - greet
+  - joke
+  - provide_name
+  - how_are_you
+  - ask_day
+  - fun_fact
+  - ask_name
 
 entities:
   - age
@@ -22,12 +28,16 @@ entities:
   - average_glucose
   - current_glucose
   - smoking_history
+  - name
 
 
 responses:
 
   utter_greet:
-    - text: "Hello! How can I assist you today?"
+    - text: "Hello! I am DiaPredictor, your diabetes prediction chatbot! What is your name?"
+
+  utter_provide_help:
+    - text: "Nice to meet you! Then, with what can I help you today?"
 
   utter_goodbye:
     - text: "Goodbye! Have a nice day."
@@ -59,13 +69,38 @@ responses:
   utter_bmi:
     - text: "What is your BMI?"
 
-  utter_hello:
-    - text: "Hello. How can I help you today?"
+  utter_joke:
+    - text: "Why did the scarecrow win an award? Because he was outstanding in his field! 🌾"
+    - text: "What do you call cheese that isn't yours? Nacho cheese! 🧀"
+    - text: "I once told a glucose molecule a joke... it didn't react. 😂"
+    - text: "Why don't skeletons fight each other? They don't have the guts! 💀"
+    - text: "What do you call fake spaghetti? An impasta! 🍝"
+    - text: "Why did the math book look sad? Because it had too many problems. 📚"
+
+  utter_fun_fact:
+    - text: "Did you know? The average human body contains about 37.2 trillion cells!"
+    - text: "Here's a fun one: Honey never spoils. Archaeologists have found pots of it in ancient tombs!"
+    - text: "Fun fact: Your brain generates enough electricity to power a lightbulb!"
+    - text: "Did you know? Octopuses have three hearts and blue blood! 🐙"
+    - text: "Here's a fun one: A day on Venus is longer than a year on Venus! 🌍"
+    - text: "Fun fact: Bananas are berries, but strawberries aren’t! 🍌🍓"
+
+  utter_respond_name:
+    - text: "Your name is {name}! What could I help you with?"
+
+  utter_how_are_you:
+    - text: "How are you feeling today?"
+    - text: "How's everything going for you?"
+
+  utter_ask_day:
+    - text: "How's your day been so far?"
+    - text: "I hope you're having a good day! Tell me about it."
 
 actions:
   - action_save_user_data
   - action_predict_diabetes
   - action_provide_tips
+  - action_remember_name
 
 slots:
   age:
@@ -119,4 +154,10 @@ slots:
     mappings:
       - type: from_entity
         entity: smoking_history
-
+    
+  name:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_entity
+      entity: name

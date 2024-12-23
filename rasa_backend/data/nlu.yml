@@ -18,6 +18,45 @@ nlu:
       - later
       - it was nice talk to you
 
+
+  - intent: joke
+    examples: |
+      - Tell me a joke
+      - Make me laugh
+      - Do you know any jokes?
+      - Cheer me up with a joke
+
+  - intent: ask_name
+    examples: |
+      - What's my name?
+      - Do you remember my name?
+
+  - intent: provide_name
+    examples: |
+      - My name is [John](name)
+      - I'm [Alice](name)
+      - Call me [David](name)
+      - You can call me [Sophia](name)
+
+  - intent: how_are_you
+    examples: |
+      - How are you?
+      - How are you doing?
+      - What's up?
+
+  - intent: ask_day
+    examples: |
+      - How's my day going?
+      - How is your day?
+      - What's up today?
+
+  - intent: fun_fact
+    examples: |
+      - Tell me a fun fact
+      - Do you know something interesting?
+      - Share a fun fact
+      - I want to hear something cool
+
   - intent: bot_challenge
     examples: |
       - Are you a bot?
@@ -190,4 +229,6 @@ slots:
   current_glucose:
     type: number
   smoking_history:
+    type: unfeaturized
+  name:
     type: unfeaturized
