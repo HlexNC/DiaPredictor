@@ -206,6 +206,24 @@ nlu:
       - Tips for managing diabetes?
 
 
+  - intent: agree_tips
+    examples: |
+      - Yes, please.
+      - I’d love to.
+      - Sure.
+      - Ofc.
+      - Of course.
+      - If possible yes.
+      
+  - intent: deny_tips
+    examples: |
+      - No, thanks.
+      - I’m good.
+      - Not now.
+      - Thank you.
+      - Thanks for the offer but I don't need it.
+
+
 entities:
   - age
   - hypertension

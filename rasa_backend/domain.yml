@@ -19,6 +19,8 @@ intents:
   - ask_day
   - fun_fact
   - ask_name
+  - agree_tips
+  - deny_tips
 
 entities:
   - age
@@ -95,6 +97,12 @@ responses:
   utter_ask_day:
     - text: "How's your day been so far?"
     - text: "I hope you're having a good day! Tell me about it."
+  utter_ask_tips:
+    - text: "Would you like some tips based on your prediction?"
+  utter_tips:
+    - text: "Here are some tips for managing your health: {tips}"
+  utter_no_tips:
+    - text: "Alright, let me know if there's anything else I can help with!"
 
 actions:
   - action_save_user_data
