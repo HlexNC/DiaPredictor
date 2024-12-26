@@ -125,14 +125,7 @@ class ActionProvideMissingData(Action):
             message += ", ".join(missing_data)
             dispatcher.utter_message(message)
 
-class ActionRepeatMessage(Action):
-    def name(self):
-        return "action_repeat_message"
-
-    def run(self, dispatcher, tracker, domain):
-        dispatcher.utter_message(text="Please respond only with one of the provided possible answers.")
-        return []
-    
+# Remember user name #
 class ActionRememberName(Action):
     def name(self) -> Text:
         return "action_remember_name"

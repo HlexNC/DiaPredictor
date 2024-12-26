@@ -1,6 +1,7 @@
 import numpy as np
 from sklearn.preprocessing import  MinMaxScaler # For the normalization fo values
 import joblib
+import os
 
 def normalize_inputs(inputs, smoking_history, hypertension, heart_disease):
     if smoking_history == "Never":
@@ -21,10 +22,12 @@ def normalize_inputs(inputs, smoking_history, hypertension, heart_disease):
     else:
         heart_disease_normalized = 0
 
+    inputs_2d = np.array(inputs).reshape(1, -1)
+
     # Normalizes input values
     scaler = MinMaxScaler(feature_range=(0, 1))
-    scaler.fit([[0, 10.0, 4.0, 4.0], [100, 50.0, 14.0, 14.0]])  # Min and max values for each feature to be able to utilize the Min-Max Scaler
-    normalized_inputs = scaler.transform(inputs)
+    scaler.fit([[0, 10.0, 4.0, 70.0], [100, 50.0, 14.0, 300.0]])    
+    normalized_inputs = scaler.transform(inputs_2d)
     age, bmi, avg_glucose, current_glucose = normalized_inputs[0]
 
     smoking_history_normalized = smoking_history_encoded / 2  # Dividing by 2 to scale between 0 and 1
@@ -42,9 +45,11 @@ def normalize_inputs(inputs, smoking_history, hypertension, heart_disease):
         ]
     ])
 
+    script_dir = os.path.dirname(os.path.abspath(__file__))  # Directory of the current script  
+    model_path = os.path.join(script_dir, "../Datasets/model.pkl")  # Go one level up, then to Datasets
     # Load the model and predict
-    model = joblib.load("../Datasets/model.pkl")
-
+    model = joblib.load(model_path)    
     prediction = model.predict(features)[0]  # Predict using the model
 
-    return prediction
+    print("This is the prediction: ", prediction)
+    return prediction   

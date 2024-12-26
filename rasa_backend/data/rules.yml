@@ -1,5 +1,7 @@
 version: "3.1"
 
+# TODO: add rules for tips
+
 rules:
 - rule: Say goodbye anytime the user says goodbye
   steps:
@@ -17,6 +19,12 @@ rules:
   - action: utter_greet
   wait_for_user_input: false
 
+- rule: begin diabetes check
+  steps:
+  - intent: ask_for_diabetes_check
+  - action: utter_age
+  wait_for_user_input: false
+  
 - rule: Confirm age when user has provided it
   steps:
   - action: utter_age
@@ -64,13 +72,10 @@ rules:
   steps:
   - action: utter_smoking_history
   - intent: provide_smoking_history
+  - action: action_provide_missing_data
   - action: action_predict_diabetes
+  - action: utter_tips
   wait_for_user_input: false
-
-- rule: Give back the results of the diabetes prediction
-  steps:
-  - action: action_predict_diabetes
-  - action: utter_show_result
 
 - rule: User asks for their name
   steps:
@@ -82,7 +87,7 @@ rules:
     - intent: joke
     - action: utter_joke
 
-- rule: Provide a fun fact
+- rule: fun fact
   steps:
     - intent: fun_fact
     - action: utter_fun_fact

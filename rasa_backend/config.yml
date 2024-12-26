@@ -6,15 +6,12 @@ language: en
 # NLU pipeline configuration (How the assistant understands the user's input)
 pipeline:
 - name: WhitespaceTokenizer
-- name: RegexFeaturizer
-- name: LexicalSyntacticFeaturizer
 - name: CountVectorsFeaturizer
 - name: DIETClassifier
-  epochs: 100
+  epochs: 200
   constrain_similarities: true
   intent_classification: true
   entity_recognition: true
-    # Explicitly specify the user features
   user_features:
   - intent
   - entities
@@ -31,8 +28,8 @@ pipeline:
 # Configuration for Rasa Core policies
 policies:
 - name: MemoizationPolicy
-- name: RulePolicy    # Add RulePolicy
-  core_fallback_threshold: 0.3
+- name: RulePolicy
+  core_fallback_threshold: 0.4
   core_fallback_action_name: "action_default_fallback"
   enable_fallback_intents: true
 - name: TEDPolicy
