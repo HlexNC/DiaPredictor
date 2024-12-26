@@ -1,4 +1,24 @@
 import streamlit as st
+import json
+import requests
+
+def get_bot_response(user_input):
+    rasa_url = "http://localhost:5005/webhooks/rest/webhook"
+
+    try:
+        payload = {"sender": "user", "message": user_input}
+        response = requests.post(rasa_url, json=payload)
+        response = json.dumps(response.json())
+        response = json.loads(response)
+
+        if isinstance(response, list) and response:  # Check if it's a non-empty list
+                bot_response = response[0].get("text", "I didn't understand that.")
+        else:  # Handle empty responses
+            bot_response = "Sorry, it seems there was an error when handling the response. Could you please repeat that?"
+    except requests.exceptions.RequestException as e:
+        bot_response = f"Error communicating with the bot: {e}"
+
+    return bot_response
 
 # Set up the page
 st.set_page_config(page_title="Chatbot Interface", layout="wide")
@@ -26,9 +46,10 @@ if prompt:
     st.session_state["messages"].append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
-        
-    # Example bot response (you would replace this with a response from Rasa)
-    bot_response = f"Bot: I see you said '{prompt}'."
+    
+    bot_response = get_bot_response(prompt)    # send message to bot
+
+    # Bot Response
     st.session_state["messages"].append({"role": "assistant", "content": bot_response})
     with st.chat_message("assistant"):
         st.markdown(bot_response)
