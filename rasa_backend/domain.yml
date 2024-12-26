@@ -97,11 +97,8 @@ responses:
     - text: "I hope you're having a good day! Tell me about it."
   utter_ask_tips:
     - text: "Would you like some tips based on your prediction?"
-  utter_tips:
-    - text: "Here are some tips for managing your health: {tips}"
   utter_no_tips:
     - text: "Alright, let me know if there's anything else I can help with!"
-
   utter_tips:
     - text: "Would you like to receive some tips?"
 
