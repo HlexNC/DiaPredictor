@@ -138,5 +138,51 @@ class ActionRememberName(Action):
             dispatcher.utter_message(text="I didn't quite catch your name. Could you repeat it?")
             return []
 
+class ActionProvideTips(Action):
+    def name(self) -> str:
+        return "action_provide_tips"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: dict) -> list:
+        # Get the prediction from a slot
+        prediction = tracker.get_slot("diabetes_prediction")
+        
+        if prediction:
+            prediction = float(prediction)  # Ensure the prediction is a float
+            if prediction < 0.3:
+                # Low risk of diabetes
+                tips = (
+                    "Here are some tips:\n"
+                    "- Eat a balanced diet with plenty of fruits and vegetables.\n"
+                    "- Stay physically active.\n"
+                    "- Get regular check-ups to ensure your health stays on track."
+                )
+            elif prediction < 0.7:
+                # Moderate risk of diabetes
+                tips = (
+                    "- Limit your sugar and processed food intake.\n"
+                    "- Exercise regularly (e.g., walking, jogging, or cycling).\n"
+                    "- Maintain a healthy weight and monitor your blood sugar levels."
+                )
+            else:
+                # High risk of diabetes
+                tips = (
+                    "- Schedule an appointment with a doctor for further testing and advice.\n"
+                    "- Consider a low-carbohydrate diet to manage blood sugar levels.\n"
+                    "- Incorporate daily physical activities like walking or swimming.\n"
+                    "- Monitor your health closely and consult a healthcare professional regularly."
+                )
+        else:
+            # Handle case where prediction is missing
+            tips = (
+                "I'm unable to provide specific tips because I couldn't retrieve your prediction. "
+                "Please try again or make sure your data is provided."
+            )
+
+        # Send the tips as a response
+        dispatcher.utter_message(text=tips)
+        return []
+
 
 

@@ -25,3 +25,13 @@ stories:
       - action: action_provide_missing_data
       - action: action_predict_diabetes
 
+
+      
+  - story: offer_tips
+    steps:
+      - intent: ask_for_tips
+      - action: utter_ask_tips
+      - intent: agree_tips
+      - action: action_provide_tips
+      - intent: deny_tips
+      - action: utter_no_tips

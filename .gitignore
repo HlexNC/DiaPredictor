@@ -2,5 +2,7 @@
 *.pyc
 __pycache__/
 .DS_Store
+.rasa_venv/
 .rasa/
 *.pkl
+rasa_backend/.rasa/cache/cache.db
