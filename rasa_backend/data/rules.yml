@@ -32,10 +32,6 @@ rules:
   - action: utter_bmi
   wait_for_user_input: false
 
-- rule: Handle ambiguous intent fallback
-  steps:
-    - action: action_ask_rephrase
-
 - rule: Collect user data and confirm bmi
   steps:
   - action: utter_bmi
