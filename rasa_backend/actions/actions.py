@@ -3,6 +3,7 @@ from typing import Any, Text, Dict, List
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.events import SlotSet
+from rasa_sdk.forms import FormValidationAction
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
@@ -68,7 +69,8 @@ class ActionProvideTips(Action):
         dispatcher.utter_message("\n".join(tips))
 
         return []
-    
+
+# PREDICTS DIABETES AND SENDS BACK RESULTS
 class ActionPredictDiabetes(Action):
     def name(self) -> str:
         return "action_predict_diabetes"
@@ -96,36 +98,49 @@ class ActionPredictDiabetes(Action):
         else:
             dispatcher.utter_message("You have a high risk of diabetes. I strongly recommend consulting a doctor for further testing.")
 
+# TELLS USER TO PROVIDE MISSING DATA
 class ActionProvideMissingData(Action):
-    def name(self) -> str:
+    def name(self) -> Text:
         return "action_provide_missing_data"
 
-    def run(self, dispatcher, tracker, domain):
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         missing_data = []
 
         # Check for each slot, and if missing, add it to the list
-        if not tracker.get_slot("age"):
-            missing_data.append("age")
-        if not tracker.get_slot("hypertension"):
-            missing_data.append("hypertension")
-        if not tracker.get_slot("heart_disease"):
-            missing_data.append("heart_disease")
-        if not tracker.get_slot("bmi"):
-            missing_data.append("bmi")
-        if not tracker.get_slot("average_glucose"):
-            missing_data.append("average_glucose")
-        if not tracker.get_slot("current_glucose"):
-            missing_data.append("current_glucose")
-        if not tracker.get_slot("smoking_history"):
-            missing_data.append("smoking_history")
+        slots_to_check = ["age", "hypertension", "heart_disease", "bmi", "average_glucose", "current_glucose", "smoking_history"]
+        for slot in slots_to_check:
+            if not tracker.get_slot(slot):
+                missing_data.append(slot)
 
         if missing_data:
-            # If any data is missing, prompt the user for each one
-            message = "I need the following information to proceed: "
-            message += ", ".join(missing_data)
-            dispatcher.utter_message(message)
+            # If any data is missing, prompt the user
+            message = "I have not correctly understood your previous responses. Please, provide them again: "
+            message += ", ".join(missing_data) + ". Please provide them one at a time."
+            dispatcher.utter_message(text=message)
+            return [SlotSet("requested_slots", missing_data)]  # Save which slots need to be collected
+        else:
+            dispatcher.utter_message(text="All required information has already been provided.")
+            return []
 
-# Remember user name #
+# MAY REMOVE THIS
+# VALIDATES THE MISSING DATA THE USER SENDS
+class ValidateMissingDataForm(FormValidationAction):
+    def name(self) -> Text:
+        return "validate_missing_data_form"
+
+    def validate_requested_slots(self, value: Any, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> Dict[Text, Any]:
+        # Get the next requested slot to collect
+        missing_slots = tracker.get_slot("requested_slots") or []
+        if missing_slots:
+            next_slot = missing_slots.pop(0)
+            dispatcher.utter_message(text=f"Thank you for providing {next_slot}.")
+            return {next_slot: value, "requested_slots": missing_slots}
+        else:
+            dispatcher.utter_message(text="All missing information has been collected.")
+            return {"requested_slots": None}
+
+
+# REMEMBER USER NAME
 class ActionRememberName(Action):
     def name(self) -> Text:
         return "action_remember_name"
@@ -137,52 +152,6 @@ class ActionRememberName(Action):
         else:
             dispatcher.utter_message(text="I didn't quite catch your name. Could you repeat it?")
             return []
-
-class ActionProvideTips(Action):
-    def name(self) -> str:
-        return "action_provide_tips"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: dict) -> list:
-        # Get the prediction from a slot
-        prediction = tracker.get_slot("diabetes_prediction")
-        
-        if prediction:
-            prediction = float(prediction)  # Ensure the prediction is a float
-            if prediction < 0.3:
-                # Low risk of diabetes
-                tips = (
-                    "Here are some tips:\n"
-                    "- Eat a balanced diet with plenty of fruits and vegetables.\n"
-                    "- Stay physically active.\n"
-                    "- Get regular check-ups to ensure your health stays on track."
-                )
-            elif prediction < 0.7:
-                # Moderate risk of diabetes
-                tips = (
-                    "- Limit your sugar and processed food intake.\n"
-                    "- Exercise regularly (e.g., walking, jogging, or cycling).\n"
-                    "- Maintain a healthy weight and monitor your blood sugar levels."
-                )
-            else:
-                # High risk of diabetes
-                tips = (
-                    "- Schedule an appointment with a doctor for further testing and advice.\n"
-                    "- Consider a low-carbohydrate diet to manage blood sugar levels.\n"
-                    "- Incorporate daily physical activities like walking or swimming.\n"
-                    "- Monitor your health closely and consult a healthcare professional regularly."
-                )
-        else:
-            # Handle case where prediction is missing
-            tips = (
-                "I'm unable to provide specific tips because I couldn't retrieve your prediction. "
-                "Please try again or make sure your data is provided."
-            )
-
-        # Send the tips as a response
-        dispatcher.utter_message(text=tips)
-        return []
 
 
 
