@@ -64,7 +64,7 @@ responses:
     - text: "What’s your smoking history: Never, Former, or Current? Please respond with one of the provided answers."
   
   utter_age:
-    - text: "Okay, let's do that! How old are you?"
+    - text: "Okay, let's do that! Unless otherwise stated, please provide full sentences in order for me to properly process your data. How old are you?"
   
   utter_bmi:
     - text: "What is your BMI?"

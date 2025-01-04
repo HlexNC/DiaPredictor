@@ -32,7 +32,6 @@ rules:
   - action: utter_bmi
   wait_for_user_input: false
 
-
 - rule: Collect user data and confirm bmi
   steps:
   - action: utter_bmi
@@ -72,7 +71,6 @@ rules:
   steps:
   - action: utter_smoking_history
   - intent: provide_smoking_history
-  - action: action_provide_missing_data
   - action: action_predict_diabetes
   - action: utter_tips
   wait_for_user_input: false
