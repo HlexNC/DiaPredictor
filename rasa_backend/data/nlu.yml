@@ -250,6 +250,7 @@ entities:
   - average_glucose
   - current_glucose
   - smoking_history
+  - name
 
 slots:
   age:
