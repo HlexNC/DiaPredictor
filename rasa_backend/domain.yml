@@ -107,6 +107,7 @@ actions:
   - action_provide_tips
   - action_provide_missing_data
   - action_remember_name
+  - validate_missing_data_form
 
 slots:
   age:
