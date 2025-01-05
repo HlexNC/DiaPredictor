@@ -153,5 +153,3 @@ class ActionRememberName(Action):
             dispatcher.utter_message(text="I didn't quite catch your name. Could you repeat it?")
             return []
 
-
-
