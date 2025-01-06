@@ -5,11 +5,9 @@ import time
 
 def check_server_ready():
     rasa_url = "http://localhost:5005/status"
-
     while True:
         try:
             server_response = requests.get(rasa_url)
-
             if server_response.status_code == 200:
                 return True
         except requests.exceptions.ConnectionError:
@@ -18,59 +16,60 @@ def check_server_ready():
 
 def get_bot_response(user_input):
     rasa_url = "http://localhost:5005/webhooks/rest/webhook"
-
     try:
         payload = {"sender": "user", "message": user_input}
         response = requests.post(rasa_url, json=payload)
-        response = json.dumps(response.json())
-        response = json.loads(response)
-
-        if isinstance(response, list) and response:  # Check if it's a non-empty list
-                bot_response = response[0].get("text", "I didn't understand that.")
-        else:  # Handle empty responses
-            bot_response = "Sorry, it seems there was an error when handling the response. Could you please repeat that?"
+        response_json = response.json()
+        
+        # Handle multiple responses
+        bot_responses = []
+        if isinstance(response_json, list):
+            for resp in response_json:
+                if "text" in resp:
+                    bot_responses.append(resp["text"])
+        
+        if not bot_responses:  # Handle empty responses
+            bot_responses = ["Sorry, it seems there was an error when handling the response. Could you please repeat that?"]
+            
+        return bot_responses
+        
     except requests.exceptions.RequestException as e:
-        bot_response = f"Error communicating with the bot: {e}"
-
-    return bot_response
+        return [f"Error communicating with the bot: {e}"]
 
 # Set up the page
 st.set_page_config(page_title="Chatbot Interface", layout="wide")
 
 with st.spinner("Loading DiaPreditor..."):
     server_response = check_server_ready()
-
+    
 if server_response:
     # Title and welcome message
     st.title("Chatbot Interface")
     st.markdown("Welcome to the chatbot! Type your messages below to start the conversation.")
 
-    # Placeholder for the chat history
-    chat_placeholder = st.empty()  # This is where we'll render the chat history
-
-    # A list to keep track of chat history
+    # Initialize session state
     if "messages" not in st.session_state:
         st.session_state["messages"] = []
 
-
+    # Display chat history
     for message in st.session_state["messages"]:
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
-            
+
+    # Handle user input
     prompt = st.chat_input("Say something", key='user_input', max_chars=150)
 
-    # Add a button to send the message
     if prompt:
+        # Add user message to chat
         st.session_state["messages"].append({"role": "user", "content": prompt})
         with st.chat_message("user"):
             st.markdown(prompt)
+
+        # Get and display bot responses
+        bot_responses = get_bot_response(prompt)
         
-        bot_response = get_bot_response(prompt)    # send message to bot
-
-        # Bot Response
-        st.session_state["messages"].append({"role": "assistant", "content": bot_response})
-        with st.chat_message("assistant"):
-            st.markdown(bot_response)
-        
-
-
+        # Add each bot response separately to the chat
+        for response in bot_responses:
+            st.session_state["messages"].append({"role": "assistant", "content": response})
+            with st.chat_message("assistant"):
+                st.markdown(response)

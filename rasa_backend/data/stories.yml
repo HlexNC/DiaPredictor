@@ -7,34 +7,9 @@ stories:
       - intent: ask_for_diabetes_check
       - action: utter_age
 
-  - story: user provides incomplete data
-    steps:
-      - intent: provide_smoking_history
-        entities:
-          - smoking_history: "Former"
-      - action: action_provide_missing_data
-      - intent: provide_bmi
-        entities:
-          - smoking_history: "Bmi 28"
-      - action: action_provide_missing_data
-      - action: action_predict_diabetes
-
-  - story: Offer Tips - Accepted
-    steps:
-      - action: action_predict_diabetes
-      - action: utter_ask_tips
-      - intent: agree_tips
-      - action: action_provide_tips
-
-  - story: Offer Tips - Rejected
-    steps:
-      - action: action_predict_diabetes
-      - action: utter_ask_tips
-      - intent: deny_tips
-      - action: utter_no_tips
-
   - story: Handle out-of-scope queries
     steps:
       - intent: out_of_scope
       - action: utter_out_of_scope
+
 

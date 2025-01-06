@@ -67,13 +67,24 @@ rules:
   - action: utter_smoking_history
   wait_for_user_input: false
 
-- rule: Collect smoking history
+- rule: Collect smoking history and predict diabetes
   steps:
-  - action: utter_smoking_history
-  - intent: provide_smoking_history
-  - action: action_predict_diabetes
-  - action: utter_tips
-  wait_for_user_input: false
+    - action: utter_smoking_history
+    - intent: provide_smoking_history
+    - action: action_predict_diabetes
+    - action: utter_ask_tips
+  wait_for_user_input: true
+
+- rule: Handle tips response
+  condition:
+    - active_loop: null
+  steps:
+    - action: utter_ask_tips
+    - or:
+        - intent: agree_tips
+        - intent: deny_tips
+    - action: action_provide_tips
+  wait_for_user_input: true
   
 - rule: User asks for their name
   steps:
