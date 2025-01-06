@@ -9,6 +9,7 @@ from sklearn.tree import DecisionTreeRegressor
 from sklearn.metrics import mean_squared_error, r2_score
 import time
 import joblib
+from Additional_Scripts.model_training import train_and_save_model
 
 # Page Configuration
 st.set_page_config(page_title="Model Training Comparison", page_icon="📊")
@@ -34,38 +35,24 @@ Visualizations are provided to compare the models' performance and predictions."
 )
 
 @st.cache_data
-def open_database():
-    data = pd.read_csv('Datasets/modified_dataset.csv')
-    return data
+def load_model_and_data():
+    # Call the training function
+    results = train_and_save_model("Datasets/modified_dataset.csv")
+    return results
 
-# Read the dataset
-df = open_database()
+# Load and train the model
+results = load_model_and_data()
+lr_model = results["model"]
+splits = results["splits"]
+metrics = results["metrics"]
 
-# Shuffle the data
-df = shuffle(df, random_state=42).reset_index(drop=True)
-
-# Separate features and target
-X = df.drop(columns=['diabetes'])
-y = df['diabetes']
-
-# Split: 70% training, 30% temporary set (which will be split into test and validation)
-X_train, X_temp, y_train, y_temp = train_test_split(X, y, test_size=0.3, random_state=42)
-
-# Split the temporary set into 50% test and 50% validation
-X_val, X_test, y_val, y_test = train_test_split(X_temp, y_temp, test_size=0.5, random_state=42)
-
-# Train Linear Regression model
-lr_model = LinearRegression()
-lr_model.fit(X_train, y_train)
-
-#Storing it to be used in the 5th page since it is the best resulting model.
-joblib.dump(lr_model, "Datasets/model.pkl")
-
-# Make predictions on the validation and test sets for Linear Regression
+# Extract validation and test metrics
+X_val, y_val = metrics["X_val"], metrics["y_val"]
+X_test, y_test = metrics["X_test"], metrics["y_test"]
+X_train, y_train = splits['X_train'], splits['y_train']
 y_val_pred_lr = lr_model.predict(X_val)
 y_test_pred_lr = lr_model.predict(X_test)
 
-# Calculate MSE and R² for Linear Regression
 mse_val_lr = mean_squared_error(y_val, y_val_pred_lr)
 r2_val_lr = r2_score(y_val, y_val_pred_lr)
 mse_test_lr = mean_squared_error(y_test, y_test_pred_lr)

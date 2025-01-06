@@ -1,9 +1,8 @@
-# This file was created in order to simplify the process of running everything. #
-# It will start all the necessary services for the DiaPredictor application: the Rasa servers and the Streamlit webpage. It will train a model if one does not exist. #
 import subprocess
 import time
 import sys
 import os
+from Additional_Scripts.model_training import train_and_save_model
 
 def start_process(command, name):
     try:
@@ -14,8 +13,8 @@ def start_process(command, name):
         print(f"Failed to start {name}: {error}")
         return None
 
-# Checks for model. Trains if no model present. #
-def check_and_train_model():
+# Checks for the Rasa model. Trains if no model is present. #
+def check_and_train_rasa_model():
     # Ensure we're in the Rasa project directory
     os.chdir(os.path.join(os.path.dirname(os.path.abspath(__file__)), "rasa_backend"))
 
@@ -26,17 +25,36 @@ def check_and_train_model():
         train_command = "rasa train"
         try:
             subprocess.run(train_command, shell=True, check=True)
-            print("Model training completed.")
+            print("Rasa model training completed.")
         except subprocess.CalledProcessError as e:
-            print(f"Model training failed: {e}")
+            print(f"Rasa model training failed: {e}")
             sys.exit(1)
     else:
         print("Rasa model found. Skipping training.")
 
+# Check for the model.pkl file. Train if it doesn't exist. #
+def check_and_train_diabetes_model():
+    datasets_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "Datasets")
+    model_path = os.path.join(datasets_dir, "model.pkl")
+    dataset_path = os.path.join(datasets_dir, "modified_dataset.csv")
+
+    if not os.path.exists(model_path):
+        print("No diabetes model (model.pkl) found. Training a new model...")
+        try:
+            train_and_save_model(dataset_path,save_path=model_path)
+            print("Diabetes model training completed and saved as model.pkl.")
+        except Exception as e:
+            print(f"Diabetes model training failed: {e}")
+            sys.exit(1)
+    else:
+        print("Diabetes model (model.pkl) found. Skipping training.")
 
 if __name__ == "__main__":
-    # Check if model exists 
-    check_and_train_model()
+    # Check and train the Rasa model
+    check_and_train_rasa_model()
+
+    # Check and train the diabetes model
+    check_and_train_diabetes_model()
 
     # Start Rasa server
     rasa_server_command = "rasa run --enable-api"
@@ -47,7 +65,7 @@ if __name__ == "__main__":
     rasa_actions = start_process(rasa_actions_command, "Rasa actions")
 
     # Start Streamlit app
-    os.chdir(os.path.dirname(os.path.abspath(__file__))) # navigate back to root directory
+    os.chdir(os.path.dirname(os.path.abspath(__file__)))  # Navigate back to root directory
     streamlit_command = "streamlit run 🩺_Intro.py"
     streamlit_app = start_process(streamlit_command, "Streamlit app")
 
