@@ -95,10 +95,13 @@ responses:
   utter_ask_day:
     - text: "How's your day been so far?"
     - text: "I hope you're having a good day! Tell me about it."
+
   utter_ask_tips:
     - text: "Would you like some tips based on your prediction?"
+
   utter_no_tips:
     - text: "Alright, let me know if there's anything else I can help with!"
+    
   utter_tips:
     - text: "Would you like to receive some tips?"
 

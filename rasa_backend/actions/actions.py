@@ -74,7 +74,7 @@ class ActionProvideTips(Action):
 class ActionPredictDiabetes(Action):
     def name(self) -> str:
         return "action_predict_diabetes"
-    
+
     def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: dict) -> list:
         # Retrieve the slots
         age = tracker.get_slot("age")
@@ -85,18 +85,77 @@ class ActionPredictDiabetes(Action):
         current_glucose = tracker.get_slot("current_glucose")
         average_glucose = tracker.get_slot("average_glucose")
 
-        # Normalizes input values
-        inputs = [[age, bmi, average_glucose, current_glucose]]
+        # Define valid ranges for numerical inputs
+        valid_ranges = {
+            "age": (1, 120),
+            "bmi": (10, 70),
+            "current_glucose": (40, 600),
+            "average_glucose": (0, 100),
+        }
 
-        # Prepare user input as a feature vector
-        prediction = normalize_inputs(inputs, smoking_history, hypertension, heart_disease)
+        # Convert "Yes"/"No" inputs to numerical values for hypertension and heart disease
+        yes_no_mapping = {"Yes": 1, "No": 0}
+        try:
+            hypertension = yes_no_mapping.get(hypertension, hypertension)  # Convert if possible
+            heart_disease = yes_no_mapping.get(heart_disease, heart_disease)
+        except Exception as e:
+            dispatcher.utter_message(
+                text=f"An error occurred while processing 'Yes' or 'No' responses: {str(e)}"
+            )
+            return []
 
-        if prediction < 0.3:
-            dispatcher.utter_message("You are unlikely to have diabetes. Nonetheless, it’s always good to keep track of your health.")
-        elif prediction < 0.7:
-            dispatcher.utter_message("You have a moderate risk of diabetes. Consider adopting healthier lifestyle choices and monitor your health regularly.")
-        else:
-            dispatcher.utter_message("You have a high risk of diabetes. I strongly recommend consulting a doctor for further testing.")
+        # Validate inputs
+        errors = []
+        for slot, value in [("age", age), ("bmi", bmi), ("current_glucose", current_glucose), ("average_glucose", average_glucose)]:
+            if value is None:
+                errors.append(f"{slot} is missing.")
+            else:
+                try:
+                    value = float(value)  # Ensure value can be cast to a float
+                    min_val, max_val = valid_ranges[slot]
+                    if not (min_val <= value <= max_val):
+                        errors.append(f"{slot} ({value}) is out of the valid range ({min_val}-{max_val}).")
+                except ValueError:
+                    errors.append(f"{slot} must be a number.")
+
+        # Validate categorical inputs
+        valid_smoking_history = ["Never", "Current", "Former"]
+        if smoking_history not in valid_smoking_history:
+            errors.append(f"smoking_history must be one of {valid_smoking_history}.")
+        if hypertension not in [0, 1]:
+            errors.append("hypertension must be 'Yes' or 'No'.")
+        if heart_disease not in [0, 1]:
+            errors.append("heart_disease must be 'Yes' or 'No'.")
+
+        # If there are validation errors, inform the user
+        if errors:
+            dispatcher.utter_message(text="There were issues with your inputs:\n" + "\n".join(errors) + "\n Please ask for your request again.")
+            return []
+
+        try:
+            # Normalize inputs and make prediction
+            inputs = [[float(age), float(bmi), float(average_glucose), float(current_glucose)]]
+            prediction = normalize_inputs(inputs, smoking_history, hypertension, heart_disease)
+
+            # Provide a message based on the prediction
+            if prediction < 0.3:
+                dispatcher.utter_message(
+                    text="Based on your inputs, you are unlikely to have diabetes. However, maintaining a healthy lifestyle is always beneficial."
+                )
+            elif prediction < 0.7:
+                dispatcher.utter_message(
+                    text="You are at a moderate risk of diabetes. Consider adopting healthier lifestyle choices and monitoring your health regularly."
+                )
+            else:
+                dispatcher.utter_message(
+                    text="Your risk of diabetes is high. I strongly recommend consulting a doctor for further testing and guidance."
+                )
+        except Exception as e:
+            dispatcher.utter_message(
+                text=f"An error occurred while processing your inputs: {str(e)}. Please try again or contact support."
+            )
+
+        return []
 
 # TELLS USER TO PROVIDE MISSING DATA
 class ActionProvideMissingData(Action):
