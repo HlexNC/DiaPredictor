@@ -52,3 +52,7 @@ Prerequisites:
    ```bash
    python start.py
 
+## Data
+### Original dataset
+
+We used the [Diabetes prediction dataset] (https://www.kaggle.com/datasets/iammustafatz/diabetes-prediction-dataset) from Kaggle for training the models and later enhance the dataset.
