@@ -74,7 +74,7 @@ rules:
   - action: action_predict_diabetes
   - action: utter_tips
   wait_for_user_input: false
-
+  
 - rule: User asks for their name
   steps:
     - intent: ask_name

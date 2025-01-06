@@ -95,12 +95,15 @@ responses:
   utter_ask_day:
     - text: "How's your day been so far?"
     - text: "I hope you're having a good day! Tell me about it."
+
   utter_ask_tips:
     - text: "Would you like some tips based on your prediction?"
+
   utter_no_tips:
     - text: "Alright, let me know if there's anything else I can help with!"
-  utter_tips:
-    - text: "Would you like to receive some tips?"
+
+  utter_out_of_scope:
+    - text: "I'm sorry, I can't help with that. I specialize in diabetes predictions. Can I assist you with something else?
 
 actions:
   - action_predict_diabetes

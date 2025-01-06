@@ -14,10 +14,7 @@ nlu:
       - bye
       - see ya
       - cya
-      - hav a gud day
       - later
-      - it was nice talk to you
-
 
   - intent: joke
     examples: |
@@ -85,6 +82,14 @@ nlu:
       - Hey
       - hello
       - hi
+
+  - intent: out_of_scope
+    examples: |
+      - What is the capital of France?
+      - Who won the World Cup in 2022?
+      - What's the weather like today?
+      - Can you order me some pizza?
+      - How big is a German Shepard?
 
 
   - intent: ask_for_diabetes_check
