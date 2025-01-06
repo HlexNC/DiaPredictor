@@ -26,7 +26,7 @@ def get_bot_response(user_input):
         response = json.loads(response)
 
         if isinstance(response, list) and response:  # Check if it's a non-empty list
-                bot_response = response[0].get("text", "I didn't understand that.")
+            bot_response = response[0].get("text", "I didn't understand that.")
         else:  # Handle empty responses
             bot_response = "Sorry, it seems there was an error when handling the response. Could you please repeat that?"
     except requests.exceptions.RequestException as e:
@@ -37,10 +37,12 @@ def get_bot_response(user_input):
 # Set up the page
 st.set_page_config(page_title="Chatbot Interface", layout="wide")
 
-with st.spinner("Loading DiaPreditor..."):
-    server_response = check_server_ready()
+# Check server readiness only once
+if "server_ready" not in st.session_state:
+    with st.spinner("Loading DiaPreditor..."):
+        st.session_state["server_ready"] = check_server_ready()
 
-if server_response:
+if st.session_state["server_ready"]:
     # Title and welcome message
     st.title("Chatbot Interface")
     st.markdown("Welcome to the chatbot! Type your messages below to start the conversation.")
@@ -52,25 +54,24 @@ if server_response:
     if "messages" not in st.session_state:
         st.session_state["messages"] = []
 
-
+    # Display previous chat messages
     for message in st.session_state["messages"]:
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
-            
+
+    # Input for user messages
     prompt = st.chat_input("Say something", key='user_input', max_chars=150)
 
-    # Add a button to send the message
     if prompt:
+        # Add user message to chat history
         st.session_state["messages"].append({"role": "user", "content": prompt})
         with st.chat_message("user"):
             st.markdown(prompt)
-        
-        bot_response = get_bot_response(prompt)    # send message to bot
 
-        # Bot Response
+        # Get bot response
+        bot_response = get_bot_response(prompt)
+
+        # Add bot response to chat history
         st.session_state["messages"].append({"role": "assistant", "content": bot_response})
         with st.chat_message("assistant"):
             st.markdown(bot_response)
-        
-
-
