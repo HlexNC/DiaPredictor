@@ -52,5 +52,3 @@ Prerequisites:
    ```bash
    python start.py
 
-
-
