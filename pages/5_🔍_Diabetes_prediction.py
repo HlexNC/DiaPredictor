@@ -81,11 +81,13 @@ if st.button("Predict Diabetes Risk"):
             unsafe_allow_html=True
         )
 
-
-        if prediction > 0.5:
-            st.warning("You might be at risk for diabetes. Consider consulting a healthcare professional.")
+        if prediction < 0.3:
+            st.info("Based on your inputs, you are unlikely to have diabetes. However, maintaining a healthy lifestyle is always beneficial.")
+                
+        elif prediction < 0.7:
+            st.info("You are at a moderate risk of diabetes. Consider adopting healthier lifestyle choices and monitoring your health regularly.")
         else:
-            st.info("You have a low risk of diabetes. Keep maintaining a healthy lifestyle!")
+            st.warning("Your risk of diabetes is high. I strongly recommend consulting a doctor for further testing and guidance.")
 
     except FileNotFoundError:
         st.error("Model file not found. Please ensure the model file is in the correct location.")

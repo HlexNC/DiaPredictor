@@ -6,3 +6,5 @@ __pycache__/
 .rasa/
 *.pkl
 rasa_backend/.rasa/cache/cache.db
+rasa_backend/models
+venv

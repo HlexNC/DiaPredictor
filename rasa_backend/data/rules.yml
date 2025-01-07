@@ -95,7 +95,7 @@ rules:
   steps:
     - intent: joke
     - action: utter_joke
-
+    
 - rule: fun fact
   steps:
     - intent: fun_fact
