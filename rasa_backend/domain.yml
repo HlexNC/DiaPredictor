@@ -104,6 +104,9 @@ responses:
   utter_tips:
     - text: "Would you like to receive some tips?"
 
+  utter_out_of_scope:
+    - text: "I'm sorry, I can't help with that. I specialize in diabetes predictions. Can I assist you with something else?"
+
 actions:
   - action_predict_diabetes
   - action_provide_tips
