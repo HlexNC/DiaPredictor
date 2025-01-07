@@ -109,6 +109,7 @@ actions:
   - action_predict_diabetes
   - action_provide_tips
   - action_remember_name
+  - action_session_start
 
 slots:
   age:
@@ -119,21 +120,15 @@ slots:
         entity: age
 
   hypertension:
-    type: categorical
+    type: text
     influence_conversation: true
-    values:
-      - yes
-      - no
     mappings:
       - type: from_entity
         entity: hypertension
 
   heart_disease:
-    type: categorical
+    type: text
     influence_conversation: true
-    values:
-      - yes
-      - no
     mappings:
       - type: from_entity
         entity: heart_disease

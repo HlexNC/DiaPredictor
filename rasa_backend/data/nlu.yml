@@ -36,6 +36,7 @@ nlu:
       - You can call me [Sophia](name)
       - Name's [Alex](name)
       - name is [Alex](name)
+      - im [alex](name)
 
   - intent: how_are_you
     examples: |

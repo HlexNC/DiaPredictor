@@ -1,9 +1,9 @@
 import random
 from typing import Any, Text, Dict, List
 from rasa_sdk import Action, Tracker
+from rasa_sdk.events import SessionStarted, ActionExecuted
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.events import SlotSet
-from rasa_sdk.forms import FormValidationAction
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
@@ -19,9 +19,9 @@ class ActionProvideTips(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
         # Get user's health conditions
-        smoking_history = next(tracker.get_latest_entity_values("smoking_history"), None)
-        has_hypertension = next(tracker.get_latest_entity_values("hypertension"), None)
-        has_heart_disease = next(tracker.get_latest_entity_values("heart_disease"), None)
+        smoking_history = tracker.get_slot("smoking_history")
+        has_hypertension = tracker.get_slot("hypertension")
+        has_heart_disease = tracker.get_slot("heart_disease")
         
         # Basic general tips (keeping it short)
         general_tips = [
@@ -43,14 +43,14 @@ class ActionProvideTips(Action):
         # Get hypertension tip if applicable
         hypertension_tip = (
             "keep your blood pressure in check with regular monitoring and reduced salt intake"
-            if has_hypertension == "yes" else None
+            if has_hypertension.lower() == "yes" else None
         )
 
         # Get heart disease tip if applicable
         heart_disease_tip = (
             "work closely with your doctor to manage both heart disease and diabetes risk"
-            if has_heart_disease == "yes" else None
-)
+            if has_heart_disease.lower() == "yes" else None
+        )
         
         # Combine all tips into a single message
         message = "Here are some helpful tips for managing diabetes risk:\n\n"
@@ -62,6 +62,7 @@ class ActionProvideTips(Action):
 
         message += f"\n\nBased on your smoking history:\n {smoking_tip}"
         
+        print(hypertension_tip, heart_disease_tip)
         if hypertension_tip:
             message += f"\n\nFor your hypertension:\n{hypertension_tip}"
 
