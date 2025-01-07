@@ -1,6 +1,7 @@
 import numpy as np
 from sklearn.preprocessing import  MinMaxScaler # For the normalization fo values
 import joblib
+import pandas as pd
 import os
 
 def normalize_inputs(inputs, smoking_history, hypertension, heart_disease):
@@ -12,17 +13,17 @@ def normalize_inputs(inputs, smoking_history, hypertension, heart_disease):
         smoking_history_encoded = 2  
 
     # Normalize hypertension value: "Yes"/"No" to 1/0
-    if hypertension == "Yes" or hypertension == True:
+    if hypertension.lower() == "yes" or hypertension == True:
         hypertension_normalized = 1  
     else:
         hypertension_normalized = 0 
 
-    if heart_disease == "Yes" or heart_disease == True:
+    if heart_disease.lower() == "yes" or heart_disease == True:
         heart_disease_normalized = 1
     else:
         heart_disease_normalized = 0
 
-    inputs_2d = np.array(inputs).reshape(1, -1)
+    inputs_2d = np.array(inputs)
 
     # Normalizes input values
     scaler = MinMaxScaler(feature_range=(0, 1))
@@ -32,18 +33,27 @@ def normalize_inputs(inputs, smoking_history, hypertension, heart_disease):
 
     smoking_history_normalized = smoking_history_encoded / 2  # Dividing by 2 to scale between 0 and 1
 
-    # Prepare user input as a feature vector
-    features = np.array([
+    feature_names = [
+    "age", 
+    "bmi", 
+    "average_blood_glucose_level", 
+    "current_blood_glucose_level", 
+    "hypertension_1", 
+    "heart_disease_1", 
+    "smoking_history_former"
+]
+
+    features = pd.DataFrame(np.array([
         [
             age,
             bmi,
             avg_glucose,
             current_glucose,
-            hypertension_normalized,             # Convert checkbox to binary
-            heart_disease_normalized,            # Convert checkbox to binary
-            smoking_history_normalized   # One-hot encoding for "Current"    
+            hypertension_normalized,  # Convert checkbox to binary
+            heart_disease_normalized,  # Convert checkbox to binary
+            smoking_history_normalized  # One-hot encoding for "Current"
         ]
-    ])
+    ]), columns=feature_names)
 
     script_dir = os.path.dirname(os.path.abspath(__file__))  # Directory of the current script  
     model_path = os.path.join(script_dir, "../Datasets/model.pkl")  # Go one level up, then to Datasets

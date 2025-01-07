@@ -14,10 +14,7 @@ nlu:
       - bye
       - see ya
       - cya
-      - hav a gud day
       - later
-      - it was nice talk to you
-
 
   - intent: joke
     examples: |
@@ -39,6 +36,7 @@ nlu:
       - You can call me [Sophia](name)
       - Name's [Alex](name)
       - name is [Alex](name)
+      - im [alex](name)
 
   - intent: how_are_you
     examples: |
@@ -85,6 +83,14 @@ nlu:
       - Hey
       - hello
       - hi
+
+  - intent: out_of_scope
+    examples: |
+      - What is the capital of France?
+      - Who won the World Cup in 2022?
+      - What's the weather like today?
+      - Can you order me some pizza?
+      - How big is a German Shepard?
 
 
   - intent: ask_for_diabetes_check
@@ -224,11 +230,9 @@ nlu:
   - intent: agree_tips
     examples: |
       - Yes, please.
-      - I’d love to.
-      - Sure.
-      - Ofc.
-      - Of course.
-      - If possible yes.
+      - yes, id like tips
+      - i do want tips
+      - yes, give me tips
       
   - intent: deny_tips
     examples: |
@@ -237,6 +241,7 @@ nlu:
       - Not now.
       - Thank you.
       - Thanks for the offer but I don't need it.
+      - no, i dont want tips
 
 synonyms:
 - high blood pressure: hypertension

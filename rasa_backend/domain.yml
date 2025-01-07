@@ -101,16 +101,17 @@ responses:
 
   utter_no_tips:
     - text: "Alright, let me know if there's anything else I can help with!"
-    
   utter_tips:
     - text: "Would you like to receive some tips?"
+
+  utter_out_of_scope:
+    - text: "I'm sorry, I can't help with that. I specialize in diabetes predictions. Can I assist you with something else?"
 
 actions:
   - action_predict_diabetes
   - action_provide_tips
-  - action_provide_missing_data
   - action_remember_name
-  - validate_missing_data_form
+  - action_session_start
 
 slots:
   age:
@@ -121,21 +122,15 @@ slots:
         entity: age
 
   hypertension:
-    type: categorical
+    type: text
     influence_conversation: true
-    values:
-      - yes
-      - no
     mappings:
       - type: from_entity
         entity: hypertension
 
   heart_disease:
-    type: categorical
+    type: text
     influence_conversation: true
-    values:
-      - yes
-      - no
     mappings:
       - type: from_entity
         entity: heart_disease

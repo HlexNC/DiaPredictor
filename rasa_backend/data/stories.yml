@@ -1,35 +1,20 @@
 version: "3.1"
 
 stories:
-  - story: get diabetes prediction
-    steps:
-      - action: action_predict_diabetes
-      - intent: goodbye
-      - action: utter_goodbye
-
   - story: user starts diabetes check
     steps:
       - action: utter_greet
       - intent: ask_for_diabetes_check
       - action: utter_age
 
-  - story: user provides incomplete data
+  - story: Handle out-of-scope queries
     steps:
-      - intent: provide_smoking_history
-        entities:
-          - smoking_history: "Former"
-      - action: action_provide_missing_data
-      - intent: provide_bmi
-        entities:
-          - smoking_history: "Bmi 28"
-      - action: action_provide_missing_data
-      - action: action_predict_diabetes
-      
-  - story: offer_tips
+      - intent: out_of_scope
+      - action: utter_out_of_scope
+
+  - story: Give name randomly
     steps:
-      - intent: ask_for_tips
-      - action: utter_ask_tips
-      - intent: agree_tips
-      - action: action_provide_tips
-      - intent: deny_tips
-      - action: utter_no_tips
+    - action: utter_out_of_scope
+    - intent: provide_name
+    - action: action_remember_name
+
