@@ -39,10 +39,11 @@ def get_bot_response(user_input):
 # Set up the page
 st.set_page_config(page_title="Chatbot Interface", layout="wide")
 
-with st.spinner("Loading DiaPreditor..."):
-    server_response = check_server_ready()
-    
-if server_response:
+if "server_ready" not in st.session_state:
+    with st.spinner("Loading DiaPredictor..."):
+        st.session_state["server_ready"] = check_server_ready()
+
+if st.session_state["server_ready"]:
     # Title and welcome message
     st.title("Chatbot Interface")
     st.markdown("Welcome to the chatbot! Type your messages below to start the conversation.")

@@ -75,17 +75,21 @@ rules:
     - action: utter_ask_tips
   wait_for_user_input: true
 
-- rule: Handle tips response
-  condition:
-    - active_loop: null
+- rule: Ask for tips
   steps:
     - action: utter_ask_tips
-    - or:
-        - intent: agree_tips
-        - intent: deny_tips
-    - action: action_provide_tips
   wait_for_user_input: true
-  
+
+- rule: When User Wants Tips
+  steps:
+    - intent: agree_tips
+    - action: action_provide_tips
+
+- rule: When User Doesn't Want Tips
+  steps:
+    - intent: deny_tips
+    - action: utter_no_tips
+
 - rule: User asks for their name
   steps:
     - intent: ask_name

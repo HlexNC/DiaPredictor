@@ -3,8 +3,6 @@
 __pycache__/
 .DS_Store
 .rasa_venv/
-.rasa/
+rasa_backend/.rasa/
 *.pkl
-rasa_backend/.rasa/cache/cache.db
-rasa_backend/models
-venv
+rasa_backend/models/

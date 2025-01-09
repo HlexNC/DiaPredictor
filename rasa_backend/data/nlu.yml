@@ -150,10 +150,6 @@ nlu:
       - [No](heart_disease), I don’t have heart issues.
       - [Yes](heart_disease), I have a heart problem.
       - [Yes](heart_disease), I have a diagnosed heart issue.
-      - [Yes](heart_disease), I have.
-      - [No](heart_disease), I don't have.
-      - [Yes](heart_disease), I do.
-      - [No](heart_disease), I don't.
 
   - intent: provide_bmi
     examples: |
@@ -222,10 +218,6 @@ nlu:
       - Are there any tricks to manage diabetes effectively?
       - What lifestyle changes can help with diabetes?
       - Tips for managing diabetes?
-    
-  - intent: provide_tips
-    examples: |
-      - Do you want some tips?
       
   - intent: agree_tips
     examples: |
@@ -242,16 +234,6 @@ nlu:
       - Thank you.
       - Thanks for the offer but I don't need it.
       - no, i dont want tips
-
-synonyms:
-- high blood pressure: hypertension
-- high bp: hypertension
-- elevated blood pressure: hypertension
-- heart problem: heart_disease
-- heart issue: heart_disease
-- heart condition: heart_disease
-- heart trouble: heart_disease
-- cardiovascular disease: heart_disease
 
 entities:
   - age
