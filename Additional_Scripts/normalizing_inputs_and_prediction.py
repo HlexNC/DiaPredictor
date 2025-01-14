@@ -13,15 +13,17 @@ def normalize_inputs(inputs, smoking_history, hypertension, heart_disease):
         smoking_history_encoded = 2  
 
     # Normalize hypertension value: "Yes"/"No" to 1/0
-    if hypertension.lower() == "yes" or hypertension == True:
-        hypertension_normalized = 1  
-    else:
-        hypertension_normalized = 0 
+    if not isinstance(hypertension, bool):
+        if hypertension.lower() == "yes" or hypertension == True:
+            hypertension = 1  
+        else:
+            hypertension = 0 
 
-    if heart_disease.lower() == "yes" or heart_disease == True:
-        heart_disease_normalized = 1
-    else:
-        heart_disease_normalized = 0
+    if not isinstance(heart_disease, bool):
+        if heart_disease.lower() == "yes" or heart_disease == True:
+            heart_disease = 1
+        else:
+            heart_disease = 0
 
     inputs_2d = np.array(inputs)
 
@@ -49,8 +51,8 @@ def normalize_inputs(inputs, smoking_history, hypertension, heart_disease):
             bmi,
             avg_glucose,
             current_glucose,
-            hypertension_normalized,  # Convert checkbox to binary
-            heart_disease_normalized,  # Convert checkbox to binary
+            hypertension,  # Convert checkbox to binary
+            heart_disease,  # Convert checkbox to binary
             smoking_history_normalized  # One-hot encoding for "Current"
         ]
     ]), columns=feature_names)

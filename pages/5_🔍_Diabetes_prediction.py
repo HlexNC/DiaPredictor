@@ -55,10 +55,6 @@ smoking_history = st.selectbox(
 # Normalizes input values
 inputs = [[age, bmi, average_glucose, current_glucose]]
 
-# Prepare user input as a feature vector
-feature_vector = normalize_inputs(inputs, smoking_history, hypertension, heart_disease)
-
-
 # Button to trigger prediction
 if st.button("Predict Diabetes Risk"):
     # Load your trained model (replace 'model.pkl' with your model's filename)
