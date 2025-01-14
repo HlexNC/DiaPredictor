@@ -1,12 +1,12 @@
-Vaidasigan Name2-Iulia 22301079
+Firstname2, Lastname2, 12345
 
-Elbermawy Name1 12306597
+Firstname1, Lastname1, 12345
 
 DiaPredictor
 
-[GitHub Repository](https://github.com/FaresM7/DiaPredictor)
+https://github.com/FaresM7/DiaPredictor
 
-[GitHub Wiki](https://github.com/FaresM7/DiaPredictor/-/wikis/home)
+https://github.com/FaresM7/DiaPredictor/-/wikis/home
 
 ## Project Description
 
