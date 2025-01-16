@@ -33,6 +33,7 @@ Prerequisites:
 
 - **Python**: version 3.10
 - **Git**: For cloning the repository and managing submodules.
+- The rest of the requirements are included in the requirements.txt file and are installed if the script was followed
 
 ### Installation Steps
 1. Clone the repository:
@@ -51,8 +52,83 @@ Prerequisites:
 4. Run the application
    ```bash
    python start.py
+5. In case you were not redirected to the Streamlit pages you can open your browser and navigate to:
+http://localhost:8501
 
 ## Data
+
 ### Original dataset
 
 We used the [Diabetes prediction dataset](https://www.kaggle.com/datasets/iammustafatz/diabetes-prediction-dataset) from Kaggle for training the models and later enhance the dataset.
+
+### Data Analysis Before Transformation
+Initial data visualization revealed the following:
+- A slight drop in diabetes cases between ages 60–70, followed by a sharp increase at 80+.
+- Minimal differences in diabetes cases between males and females.
+- Nearly symmetrical distribution with minimal differences between mean and median values.
+- Quartiles exhibited expected variations across attributes.
+
+### Data Cleaning and Handling
+- **Incomplete Data:** Removed incomplete examples using Pandas. Labels were verified to ensure direct labeling.
+- **Balancing:** The dataset originally had a 10:1 imbalance favoring non-diabetic cases.
+  - **Downsampling:** Majority class reduced to 20% (1:2 ratio).
+  - **Oversampling:** SMOTENC (Synthetic Minority Over-sampling for Nominal and Continuous data) was applied to the minority class to balance the dataset while addressing potential overfitting concerns.
+
+### Transformations Applied to Original and Modified Datasets
+1. **Splitting:** Dataset divided into Training (70%), Validation (15%), and Test (15%) sets. Initial splits showed a 1:3 imbalance for diabetic cases.
+2. **Categorical Data Encoding:** Hot-end encoding converted categorical features into binary columns for model training.
+3. **Normalization:** Linear scaling normalized feature values, addressing right-skewed distributions (e.g., age). Z-Score standardization was avoided due to non-normal distributions and minimal outliers.
+4. **Removal of Unnecessary Attributes:** Attributes with minimal model impact (e.g., gender, certain smoking history categories) were excluded from the modified dataset.
+
+### Post-Balancing Observations
+- Diabetes correlation with age showed a zigzag pattern, with a sharp increase in cases at ages 75–80.
+- Slight gender differences in diabetes cases remained.
+- Blood glucose levels displayed increased variation after SMOTENC, with standard deviation rising from 40.90 to 52.55.
+- Quartiles maintained expected variation, with slightly increased spread compared to the original dataset.
+
+## Basic usage
+
+### Diabetes Prediction
+
+#### Navigate to Diabetes Prediction:
+- From the sidebar, select **Diabetes Prediction**.
+
+#### Input Your Health Metrics:
+- Enter your personal details such as age, BMI, glucose levels, smoking status, blood pressure, etc.
+
+#### Receive Your Diabetes Risk Assessment:
+- The system will calculate and display your diabetes risk along with actionable recommendations to reduce the risk, if applicable.
+
+###change this
+### Interactive Data Analysis
+
+#### Navigate to Data Analysis:
+- Select **Data Analysis** from the sidebar.
+
+#### Explore and Filter Data:
+- Use interactive widgets to filter the dataset based on health parameters like age, BMI, or glucose levels.
+
+#### Visualize Insights:
+- View interactive charts, scatterplots, and heatmaps to uncover key patterns and correlations related to diabetes risk factors.
+
+
+### Chatbot Assistance
+
+#### Access the Chatbot:
+- Click on **Chatbot** in the sidebar to open the conversational assistant.
+
+#### Interact with the Chatbot:
+- Ask questions related to diabetes risk, health tips, or dataset insights.
+- Receive real-time, context-aware responses to help you understand and manage your health better.
+
+###change this
+### Dataset Overview
+
+#### Navigate to Dataset Overview:
+- From the sidebar, select **Dataset Overview**.
+
+#### Learn About the Dataset:
+- Explore both the original and modified datasets with detailed feature descriptions.
+
+#### Understand Transformations:
+- View the steps taken to preprocess and transform the data, along with the rationale behind these changes.
