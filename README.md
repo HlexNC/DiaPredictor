@@ -132,3 +132,31 @@ Initial data visualization revealed the following:
 
 #### Understand Transformations:
 - View the steps taken to preprocess and transform the data, along with the rationale behind these changes.
+
+## Implementation of the Requests
+
+## Work done
+
+### Me  
+- Collected the dataset.  
+- Handled dataset transformation and description.  
+- Performed dataset analysis and handled outliers.  
+- Added realistic fake data and documented its effects.  
+- Created and documented sample dialogs for chatbot use cases.  
+- Recorded a video/screencast of the project.  
+
+### My Colleague  
+- Developed the multi-page Web App using Streamlit.  
+- Described 3 personas in the Wiki.  
+- Identified and documented 5 use cases for the application.  
+- Added input widgets to the application.  
+- Applied two Scikit-Learn model training algorithms and documented the best fit.  
+- Created the system persona for the chatbot.  
+- Designed and documented the high-level dialog flow for chatbot use cases.  
+
+### Both  
+- Handled all documentation, including:  
+  - The `requirements.txt` file.  
+  - The `README.md` file.  
+  - The Wiki.
+- Developed the chatbot using Rasa.
