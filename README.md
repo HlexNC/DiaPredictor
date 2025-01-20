@@ -244,6 +244,53 @@ These pages compare the performance of two models, Linear Regression and Decisio
 
 This script creates a chatbot interface that interacts with a locally running Rasa server, receives and sends messages, and displays both user and bot messages in a continuous chat history.
 
+### ChatBot Implementation with Rasa
+#### 1. NLU (Natural Language Understanding)
+- **Purpose**: Interprets user input (e.g., "I feel unwell").
+- **Outputs**: 
+  - **Intent**: What the user wants (e.g., "Report Illness").
+  - **Entities**: Key details (e.g., "unwell").
+
+#### 2. Rules
+- **Purpose**: Define actions for specific situations.
+- **Example**: 
+  - If the user says "Hello", respond with a greeting.
+
+#### 3. Stories
+- **Purpose**: Define conversational flow.
+- **Example**:
+  - User: "Hi"
+  - Bot: "Hello, how can I assist you today?"
+  - User: "I feel unwell"
+  - Bot: "Sorry to hear that, can you describe your symptoms?"
+
+#### 4. Actions
+Purpose of Actions in Rasa:
+- **Interact with external systems**: Call APIs, query databases, or run models.
+- **Manage conversation flow**: Determine next steps, ask questions, and provide responses.
+- **Handle complex logic**: Define custom logic based on user inputs or conditions.
+
+1. `ActionProvideTips`
+- **Purpose**: Provides personalized health tips based on user input.
+- **How it works**:
+  - Retrieves user's health conditions (e.g., smoking history, hypertension, heart disease).
+  - Gives general tips (e.g., exercise, hydration).
+  - Adds personalized tips based on health conditions.
+- **Message**: Sends a message with relevant tips to the user.
+
+2. `ActionPredictDiabetes`
+- **Purpose**: Predicts diabetes risk based on user inputs.
+- **How it works**:
+  - Retrieves user data (e.g., age, BMI, glucose levels).
+  - Normalizes inputs and calculates prediction using a machine learning model.
+  - Sends a message with the risk level (low, moderate, high) and recommendations.
+
+3. `ActionRememberName`
+- **Purpose**: Remembers the user's name.
+- **How it works**:
+  - Extracts the user's name from the input.
+  - Sets the name in a slot to remember for later use.
+  - If no name is detected, asks the user to repeat it.
 
 ## Work done
 
