@@ -138,11 +138,15 @@ Initial data visualization revealed the following:
 
 This page sets up the initial configuration and layout for the web app. The `st.set_page_config` function is used to define the page title, icon, and layout style. The title and introductory text explain the purpose of the web app. This section also outlines the app's key features, such as dataset exploration, data visualizations, and model comparison. Finally, users are encouraged to use the sidebar to navigate through other sections of the app.
 
+*The entirety of the page was handled by Name1 Elbermawy.*
+
 #### Original and Modified Dataset Overview Page
 
 These pages provide overviews of the datasets. The page of the modified dataset outlines the key transformations applied to improve its quality and suitability for analysis. 
 
 The `st.set_page_config` function sets the page title and icon. The dataset is loaded using the `load_modified_dataset` function, which uses `pandas` to read the dataset from a CSV file. The page then displays a sample of the dataset and its statistical summary using `st.write`.
+
+*The entirety of the page was handled by Name1 Elbermawy.*
 
 #### Model Training Comparison Page Code Explanation
 
@@ -163,6 +167,8 @@ These pages compare the performance of two models, Linear Regression and Decisio
    - Visualizations of MSE and R² scores for both models are plotted using `matplotlib`. Four bar plots are created to compare the models' performance for both validation and test sets.
 
 5. **Interactive Features**: The page includes interactive elements like a progress bar to indicate training progress and displays the performance comparison in both text and graphical formats.
+
+*The entirety of the page was handled by Name1 Elbermawy.*
 
 ### Diabetes Risk Prediction Page Explanation
 
@@ -196,8 +202,9 @@ These pages compare the performance of two models, Linear Regression and Decisio
 #### **6. Error Handling:**
 - If the model file is not found, an error message is shown using `st.error`.
 
-### Chatbot Interface with Rasa and Streamlit
+*Name1 worked on most of this page. Name2 worked on the normalization of the data, such that the model could predict.*
 
+### Chatbot Interface with Rasa and Streamlit
 #### **1. Importing Libraries:**
 - `streamlit`: For building the web interface.
 - `json`: For handling JSON data.
@@ -244,10 +251,12 @@ These pages compare the performance of two models, Linear Regression and Decisio
 
 This script creates a chatbot interface that interacts with a locally running Rasa server, receives and sends messages, and displays both user and bot messages in a continuous chat history.
 
+*Name2 worked on the merging of Rasa and Streamlit.*
+
 ### ChatBot Implementation with Rasa
 #### 1. NLU (Natural Language Understanding)
 - **Purpose**: Interprets user input (e.g., "I feel unwell").
-- **Outputs**: 
+- **Example**: 
   - **Intent**: What the user wants (e.g., "Report Illness").
   - **Entities**: Key details (e.g., "unwell").
 
@@ -291,7 +300,8 @@ Purpose of Actions in Rasa:
   - Extracts the user's name from the input.
   - Sets the name in a slot to remember for later use.
   - If no name is detected, asks the user to repeat it.
-
+ 
+*Name2 handled the prediction part, and Name1 worked on the tips part.*
 ## Work done
 
 ### Name2 
