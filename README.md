@@ -270,7 +270,7 @@ Purpose of Actions in Rasa:
 - **Manage conversation flow**: Determine next steps, ask questions, and provide responses.
 - **Handle complex logic**: Define custom logic based on user inputs or conditions.
 
-1. `ActionProvideTips`
+1. ActionProvideTips
 - **Purpose**: Provides personalized health tips based on user input.
 - **How it works**:
   - Retrieves user's health conditions (e.g., smoking history, hypertension, heart disease).
@@ -278,14 +278,14 @@ Purpose of Actions in Rasa:
   - Adds personalized tips based on health conditions.
 - **Message**: Sends a message with relevant tips to the user.
 
-2. `ActionPredictDiabetes`
+2. ActionPredictDiabetes
 - **Purpose**: Predicts diabetes risk based on user inputs.
 - **How it works**:
   - Retrieves user data (e.g., age, BMI, glucose levels).
   - Normalizes inputs and calculates prediction using a machine learning model.
   - Sends a message with the risk level (low, moderate, high) and recommendations.
 
-3. `ActionRememberName`
+3. ActionRememberName
 - **Purpose**: Remembers the user's name.
 - **How it works**:
   - Extracts the user's name from the input.
