@@ -137,7 +137,7 @@ Initial data visualization revealed the following:
 
 ## Work done
 
-### Me  
+### Name2 
 - Collected the dataset.  
 - Handled dataset transformation and description.  
 - Performed dataset analysis and handled outliers.  
@@ -145,7 +145,7 @@ Initial data visualization revealed the following:
 - Created and documented sample dialogs for chatbot use cases.  
 - Recorded a video/screencast of the project.  
 
-### My Colleague  
+### Name1
 - Developed the multi-page Web App using Streamlit.  
 - Described 3 personas in the Wiki.  
 - Identified and documented 5 use cases for the application.  
