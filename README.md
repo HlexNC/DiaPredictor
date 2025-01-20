@@ -134,14 +134,115 @@ Initial data visualization revealed the following:
 - View the steps taken to preprocess and transform the data, along with the rationale behind these changes.
 
 ## Implementation of the Requests
+### Introduction Page
 
-### Contribution
+This page sets up the initial configuration and layout for the web app. The `st.set_page_config` function is used to define the page title, icon, and layout style. The title and introductory text explain the purpose of the web app. This section also outlines the app's key features, such as dataset exploration, data visualizations, and model comparison. Finally, users are encouraged to use the sidebar to navigate through other sections of the app.
 
-- **User's Contribution**:  
-  User worked on dataset analysis, handling outliers, and documenting the data transformations.
-  
-- **Colleague's Contribution**:  
-  Colleague developed the multi-page web app using Streamlit, integrated model training, and designed the navigation flow.
+### Original and Modified Dataset Overview Page
+
+These pages provide overviews of the datasets. The page of the modified dataset outlines the key transformations applied to improve its quality and suitability for analysis. 
+
+The `st.set_page_config` function sets the page title and icon. The dataset is loaded using the `load_modified_dataset` function, which uses `pandas` to read the dataset from a CSV file. The page then displays a sample of the dataset and its statistical summary using `st.write`.
+
+### Model Training Comparison Page Code Explanation
+
+These pages compare the performance of two models, Linear Regression and Decision Tree, on the original and modified datasets.
+
+1. **Page Setup**: The `st.set_page_config` function configures the page's title and icon. The page then shows a progress bar (`st.progress`) that updates during the model training process.
+
+2. **Model Training**:
+   - The `load_model_and_data` function loads the dataset and trains the models using the `train_and_save_model` function, which is imported from an external script.
+   - The results contain the trained models, data splits (training, validation, and test sets), and evaluation metrics (Mean Squared Error and R² Score).
+
+3. **Model Evaluation**:
+   - Linear Regression and Decision Tree models are evaluated on both validation and test data.
+   - The metrics (MSE and R²) are calculated for both models using `mean_squared_error` and `r2_score` from `sklearn.metrics`.
+
+4. **Results Display**:
+   - The performance metrics are displayed in a table format using `st.write`.
+   - Visualizations of MSE and R² scores for both models are plotted using `matplotlib`. Four bar plots are created to compare the models' performance for both validation and test sets.
+
+5. **Interactive Features**: The page includes interactive elements like a progress bar to indicate training progress and displays the performance comparison in both text and graphical formats.
+
+## Diabetes Risk Prediction Page Explanation
+
+### **1. Page Configuration:**
+- `st.set_page_config(page_title="Diabetes Prediction", page_icon="🔍")`: Configures the page's title and icon.
+- `st.markdown` and `st.write`: Display the page title and a short description about the diabetes risk prediction tool.
+
+### **2. Model Loading:**
+- The model is loaded using `joblib.load("Datasets/model.pkl")`. 
+- The `@st.cache_resource` decorator is used to cache the model, which improves performance by avoiding repeated loading during interactions.
+
+### **3. Input Widgets:**
+- **Age**: A slider (`st.slider`) allows the user to select their age.
+- **Hypertension** and **Heart Disease**: `st.checkbox` lets users indicate if they have these conditions.
+- **BMI, Average Glucose, Current Glucose**: `st.number_input` is used for users to input these values.
+- **Smoking History**: A dropdown (`st.selectbox`) lets users choose between "Never", "Former", and "Current" smoking history.
+
+### **4. Normalization of Inputs:**
+- The inputs are gathered into a list (`inputs = [[age, bmi, average_glucose, current_glucose]]`) and passed to the `normalize_inputs` function, which likely processes and scales the data for the model.
+
+### **5. Prediction Button:**
+- When the **"Predict Diabetes Risk"** button is clicked (`st.button`), the code:
+  - Attempts to normalize the inputs and make a prediction.
+  - Displays the predicted diabetes probability using `st.success`.
+  - Creates a progress bar to visually show the prediction's severity, with red indicating higher risk and green for lower risk.
+  - Provides a message based on the prediction:
+    - **Low**: The user is unlikely to have diabetes.
+    - **Moderate**: The user is at moderate risk and should consider lifestyle changes.
+    - **High**: The user is at high risk and should consult a doctor.
+
+### **6. Error Handling:**
+- If the model file is not found, an error message is shown using `st.error`.
+
+## Chatbot Interface with Rasa and Streamlit
+
+### **1. Importing Libraries:**
+- `streamlit`: For building the web interface.
+- `json`: For handling JSON data.
+- `requests`: To interact with Rasa's REST API.
+- `time`: For implementing waiting periods in case of server unavailability.
+
+### **2. Function Definitions:**
+
+#### **check_server_ready():**
+- Checks if the Rasa server is running and ready to handle requests by sending a GET request to the `/status` endpoint of the Rasa server.
+- If the server is down, it waits for 5 seconds and retries until the server responds with a `200 OK` status.
+
+#### **get_bot_response(user_input):**
+- Sends the user's input message to the Rasa bot using a POST request to the `/webhooks/rest/webhook` endpoint.
+- Handles the response:
+  - If the response contains multiple bot replies (in a list), it extracts the text from each response and appends it to `bot_responses`.
+  - If there’s no text response or if the response is empty, it adds a default message asking the user to repeat the input.
+  - If there’s a connection or request error, it returns an error message describing the problem.
+
+### **3. Streamlit Page Setup:**
+- `st.set_page_config`: Configures the page title and layout.
+- The page is configured to be wide with a title "Chatbot Interface" and a welcome message.
+
+### **4. Server Readiness Check:**
+- If the server is not already marked as "ready" in `st.session_state`, the app checks if the Rasa server is available by calling the `check_server_ready()` function inside a spinner to indicate loading.
+
+### **5. Displaying Chat History:**
+- If the server is ready, the chat interface initializes the session state with an empty list of messages (if not already present).
+- It then displays the entire chat history by looping through the messages stored in `st.session_state["messages"]`.
+
+### **6. Handling User Input:**
+- `st.chat_input`: A chat input field where users can type their message.
+- If the user submits a message (`prompt`), the message is added to the session state under `"messages"` as a user message.
+
+### **7. Communicating with the Bot:**
+- The user's input is sent to Rasa using `get_bot_response()`, and the bot’s responses are appended to the session state.
+- The bot responses are displayed in the chat interface, where each response from the bot is shown under an "assistant" role.
+
+### **8. Displaying Responses:**
+- The `st.chat_message` method is used to display both user and bot messages in the chat interface.
+
+### **Error Handling:**
+- The `get_bot_response()` function handles errors in server communication and provides an error message if the bot fails to respond properly.
+
+This script creates a chatbot interface that interacts with a locally running Rasa server, receives and sends messages, and displays both user and bot messages in a continuous chat history.
 
 
 ## Work done
