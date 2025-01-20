@@ -135,6 +135,15 @@ Initial data visualization revealed the following:
 
 ## Implementation of the Requests
 
+### Contribution
+
+- **User's Contribution**:  
+  User worked on dataset analysis, handling outliers, and documenting the data transformations.
+  
+- **Colleague's Contribution**:  
+  Colleague developed the multi-page web app using Streamlit, integrated model training, and designed the navigation flow.
+
+
 ## Work done
 
 ### Name2 
