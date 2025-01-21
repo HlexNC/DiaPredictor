@@ -99,17 +99,17 @@ Initial data visualization revealed the following:
 #### Receive Your Diabetes Risk Assessment:
 - The system will calculate and display your diabetes risk along with actionable recommendations to reduce the risk, if applicable.
 
-###change this
-### Interactive Data Analysis
+### Model Performance Analysis
 
-#### Navigate to Data Analysis:
-- Select **Data Analysis** from the sidebar.
+#### Navigate to Model Analysis:
+- Select **Modified dataset training** or **Original dataset training** from the sidebar.
 
-#### Explore and Filter Data:
-- Use interactive widgets to filter the dataset based on health parameters like age, BMI, or glucose levels.
+#### Compare Training Results:
+- Analyze the performance of models trained on both the original and modified datasets.
+- View metrics such as **accuracy**, **precision**, **MSE**, and **R^2** for each model.
 
-#### Visualize Insights:
-- View interactive charts, scatterplots, and heatmaps to uncover key patterns and correlations related to diabetes risk factors.
+#### Visualize Model Performance:
+- Explore visualizations like **Bar charts** to understand how the models perform and identify strengths or weaknesses.
 
 
 ### Chatbot Assistance
@@ -121,17 +121,17 @@ Initial data visualization revealed the following:
 - Ask questions related to diabetes risk, health tips, or dataset insights.
 - Receive real-time, context-aware responses to help you understand and manage your health better.
 
-###change this
-### Dataset Overview
+### Dataset Analysis
 
 #### Navigate to Dataset Overview:
-- From the sidebar, select **Dataset Overview**.
+- From the sidebar, select **Display original data** or **Display modified data**.
 
-#### Learn About the Dataset:
-- Explore both the original and modified datasets with detailed feature descriptions.
+#### Explore Dataset Samples:
+- View samples from both the **original** and **modified** datasets to understand their structure and key features.
 
-#### Understand Transformations:
-- View the steps taken to preprocess and transform the data, along with the rationale behind these changes.
+#### Analyze Dataset Statistics:
+- Examine summary statistics like **mean**, **median**, **standard deviation**, and **distribution** for important features such as **age**, **BMI**, and **glucose levels**.
+- Compare how these statistics differ between the original and modified datasets to understand the impact of data preprocessing and enrichment.
 
 ### Implementation of the Requests
 #### Introduction Page
