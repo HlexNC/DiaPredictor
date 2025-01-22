@@ -87,7 +87,7 @@ Initial data visualization revealed the following:
 - Quartiles maintained expected variation, with slightly increased spread compared to the original dataset.
 
 ### Outliers
-The outliers were not removed. That is because diabetes, many times, is caused or can be identified by larger values: the BMI, the glucose levels, et cetera! In the end, we decided it would be best to keep that!
+The handling of outliers was added in: https://github.com/FaresM7/DiaPredictor/-/wikis/Description-of-Differences-of-the-Original-Dataset-and-Final-Dataset
 
 ## Basic usage
 
