@@ -203,10 +203,12 @@ The handling of outliers was added in: https://github.com/FaresM7/DiaPredictor/-
 
 20. **Dialog Flow**:  
     A high-level dialog flow was designed to guide user interactions with the chatbot, ensuring smooth and intuitive conversations.
+ - Dialogue Flow: https://github.com/FaresM7/DiaPredictor/-/wikis/Dialog-flow
 
 ### **Part 2: Implementation of Chatbot**
 21. **Rasa Chatbot Implementation**:  
     A Rasa chatbot was developed to handle user queries and assist in predictions, with its configuration and source files added to the repository.
+ - In-Depth Code Description: https://github.com/FaresM7/DiaPredictor/-/wikis/Code-Explanation
 
 22. **Screencast of Project**:  
     A video was created showcasing the app’s features, including data analysis and chatbot interactions, and uploaded to the repository for demonstration.
