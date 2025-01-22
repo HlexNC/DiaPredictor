@@ -136,8 +136,8 @@ The handling of outliers was added in: https://github.com/FaresM7/DiaPredictor/-
 - Examine summary statistics like **mean**, **median**, **standard deviation**, and **distribution** for important features such as **age**, **BMI**, and **glucose levels**.
 - Compare how these statistics differ between the original and modified datasets to understand the impact of data preprocessing and enrichment.
 
-### Implementation of the Requests
-#### **Part 1: Project Setup**
+## Implementation of the Requests
+### **Part 1: Project Setup**
 1. **Multi-Page Streamlit Web App**:  
    We developed a multi-page app using Streamlit, allowing users to navigate between pages displaying data analysis, model predictions, and chatbot interactions.
 
@@ -183,7 +183,6 @@ The handling of outliers was added in: https://github.com/FaresM7/DiaPredictor/-
 
  - Data Transformation: https://github.com/FaresM7/DiaPredictor/-/wikis/Dataset-Description
 
-
 14. **Fake Data Generation**:  
     Realistic fake data was generated to enhance the model’s robustness, and its influence on training and predictions was explained in the Wiki.
 
@@ -205,7 +204,7 @@ The handling of outliers was added in: https://github.com/FaresM7/DiaPredictor/-
 20. **Dialog Flow**:  
     A high-level dialog flow was designed to guide user interactions with the chatbot, ensuring smooth and intuitive conversations.
 
-#### **Part 2: Implementation of Chatbot**
+### **Part 2: Implementation of Chatbot**
 21. **Rasa Chatbot Implementation**:  
     A Rasa chatbot was developed to handle user queries and assist in predictions, with its configuration and source files added to the repository.
 
