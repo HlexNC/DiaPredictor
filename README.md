@@ -86,6 +86,9 @@ Initial data visualization revealed the following:
 - Blood glucose levels displayed increased variation after SMOTENC, with standard deviation rising from 40.90 to 52.55.
 - Quartiles maintained expected variation, with slightly increased spread compared to the original dataset.
 
+### Outliers
+The outliers were not removed. That is because diabetes, many times, is caused or can be identified by larger values: the BMI, the glucose levels, et cetera! In the end, we decided it would be best to keep that!
+
 ## Basic usage
 
 ### Diabetes Prediction
