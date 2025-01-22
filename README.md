@@ -137,8 +137,6 @@ The handling of outliers was added in: https://github.com/FaresM7/DiaPredictor/-
 - Compare how these statistics differ between the original and modified datasets to understand the impact of data preprocessing and enrichment.
 
 ### Implementation of the Requests
-# Implementation Overview
-
 #### **Part 1: Project Setup**
 1. **Multi-Page Streamlit Web App**:  
    We developed a multi-page app using Streamlit, allowing users to navigate between pages displaying data analysis, model predictions, and chatbot interactions.
@@ -150,7 +148,7 @@ The handling of outliers was added in: https://github.com/FaresM7/DiaPredictor/-
    Three personas were created to represent different user types, each with specific goals, demographics, and challenges to help guide the app's development and user interface design.
 
 4. **Use Cases**:  
-   We identified five use cases that address key user tasks, such as data upload, feature manipulation, and chatbot interaction for predictions.
+   We identified five use cases that address key user tasks, such as feature manipulation and chatbot interaction for predictions.
 
 5. **`requirements.txt`**:  
    A `requirements.txt` file was generated to list all Python dependencies, ensuring easy setup and installation of necessary libraries for the project.
@@ -162,7 +160,7 @@ The handling of outliers was added in: https://github.com/FaresM7/DiaPredictor/-
    A virtual environment (`venv`) was set up to isolate dependencies and maintain consistency across different development setups.
 
 8. **Free Data Source**:  
-   We used a free dataset from Kaggle, ensuring it was publicly available and met the project’s requirements.
+   We used a free diabetes dataset from Kaggle, ensuring it was publicly available and met the project’s requirements.
 
 9. **Data Import (CSV)**:  
    The dataset was imported in CSV format, ensuring compatibility with the application and its analysis features.
@@ -173,23 +171,30 @@ The handling of outliers was added in: https://github.com/FaresM7/DiaPredictor/-
 11. **Data Description in Wiki**:  
     The data and its features were thoroughly described in the Wiki, including basic statistics, transformations, and the target variable.
 
+ - Data Description: https://github.com/FaresM7/DiaPredictor/-/wikis/Description-of-Differences-of-the-Original-Dataset-and-Final-Dataset
+
 12. **Outlier Identification & Update**:  
     Outliers were identified using statistical methods, and we applied appropriate transformations or removals to ensure clean data for analysis.
 
+ - Outlier Handling: https://github.com/FaresM7/DiaPredictor/-/wikis/Description-of-Differences-of-the-Original-Dataset-and-Final-Dataset
+
 13. **Data Transformation**:  
     The dataset was transformed to ensure all variables were numerical and suitable for machine learning models, following best practices for data preprocessing.
+
+ - Data Transformation: https://github.com/FaresM7/DiaPredictor/-/wikis/Dataset-Description
+
 
 14. **Fake Data Generation**:  
     Realistic fake data was generated to enhance the model’s robustness, and its influence on training and predictions was explained in the Wiki.
 
 15. **Input Widgets**:  
-    We added interactive widgets (e.g., sliders, text inputs) to allow users to change feature variables and observe how it affects the predictions.
+    We added interactive widgets (e.g., sliders, text inputs) in the Streamlit Diabetes Prediction page to allow users to change feature variables and observe how it affects the predictions.
 
 16. **Model Training with Scikit-Learn**:  
-    We implemented two Scikit-learn algorithms, such as Logistic Regression and Random Forest, to predict diabetes outcomes, and discussed their suitability in the Wiki.
+    We implemented two Scikit-learn algorithms, Linear Regression and Decision Trees, to predict diabetes outcomes, and discussed their suitability in the Wiki.
 
 17. **Use Case Fit for Chatbot**:  
-    Two use cases were selected where the chatbot enhances user experience by answering queries and guiding them through predictions.
+    Two use cases (prediction and tips) were selected where the chatbot enhances user experience by answering queries and guiding them through predictions.
 
 18. **System Persona for Chatbot**:  
     A system persona was defined for the chatbot, outlining its role, tone, and behavior to ensure effective communication with users.
