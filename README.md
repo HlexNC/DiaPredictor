@@ -146,9 +146,11 @@ The handling of outliers was added in: https://github.com/FaresM7/DiaPredictor/-
 
 3. **Personas in Wiki**:  
    Three personas were created to represent different user types, each with specific goals, demographics, and challenges to help guide the app's development and user interface design.
+- Personas in the wiki: https://github.com/FaresM7/DiaPredictor/-/wikis/Users-and-system-personas
 
 4. **Use Cases**:  
    We identified five use cases that address key user tasks, such as feature manipulation and chatbot interaction for predictions.
+- Use cases: https://github.com/FaresM7/DiaPredictor/-/wikis/Use-case
 
 5. **`requirements.txt`**:  
    A `requirements.txt` file was generated to list all Python dependencies, ensuring easy setup and installation of necessary libraries for the project.
@@ -160,7 +162,7 @@ The handling of outliers was added in: https://github.com/FaresM7/DiaPredictor/-
    A virtual environment (`venv`) was set up to isolate dependencies and maintain consistency across different development setups.
 
 8. **Free Data Source**:  
-   We used a free diabetes dataset from Kaggle, ensuring it was publicly available and met the project’s requirements.
+   We used a free diabetes dataset from Kaggle, ensuring it was publicly available and met the project’s requirements. Its link is mentioned in the Data chapter.
 
 9. **Data Import (CSV)**:  
    The dataset was imported in CSV format, ensuring compatibility with the application and its analysis features.
@@ -171,7 +173,7 @@ The handling of outliers was added in: https://github.com/FaresM7/DiaPredictor/-
 11. **Data Description in Wiki**:  
     The data and its features were thoroughly described in the Wiki, including basic statistics, transformations, and the target variable.
 
- - Data Description: https://github.com/FaresM7/DiaPredictor/-/wikis/Description-of-Differences-of-the-Original-Dataset-and-Final-Dataset
+ - Data Description: https://github.com/FaresM7/DiaPredictor/-/wikis/Dataset-Description
 
 12. **Outlier Identification & Update**:  
     Outliers were identified using statistical methods, and we applied appropriate transformations or removals to ensure clean data for analysis.
@@ -193,13 +195,16 @@ The handling of outliers was added in: https://github.com/FaresM7/DiaPredictor/-
     We implemented two Scikit-learn algorithms, Linear Regression and Decision Trees, to predict diabetes outcomes, and discussed their suitability in the Wiki.
 
 17. **Use Case Fit for Chatbot**:  
-    Two use cases (prediction and tips) were selected where the chatbot enhances user experience by answering queries and guiding them through predictions.
+    Two use cases (prediction and tips) were selected and discussed in the Wiki where the chatbot enhances user experience by answering queries and guiding them through predictions.
+   - Use cases: https://github.com/FaresM7/DiaPredictor/-/wikis/ChatBot-Use-Cases
+
 
 18. **System Persona for Chatbot**:  
-    A system persona was defined for the chatbot, outlining its role, tone, and behavior to ensure effective communication with users.
+    A system persona was defined for the chatbot, outlining its role, tone, and behavior to ensure effective communication with users. It can be found in the personas page in the Wiki.
 
 19. **Sample Dialogs for Chatbot**:  
     We created three sample dialog flows for each use case, demonstrating how the chatbot would interact with users.
+   - Sample dialogs: https://github.com/FaresM7/DiaPredictor/-/wikis/Dialogs
 
 20. **Dialog Flow**:  
     A high-level dialog flow was designed to guide user interactions with the chatbot, ensuring smooth and intuitive conversations.
