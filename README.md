@@ -216,7 +216,7 @@ The handling of outliers was added in: https://github.com/FaresM7/DiaPredictor/-
  - In-Depth Code Description: https://github.com/FaresM7/DiaPredictor/-/wikis/Code-Explanation
 
 22. **Screencast of Project**:  
-    A video was created showcasing the app’s features, including data analysis and chatbot interactions, and uploaded to the repository for demonstration.
+    A video was created showcasing the app’s features, including data analysis and chatbot interactions, and uploaded to the repository for demonstration. It is uploaded with the other files in the repository.
 
 ## Work done
 
