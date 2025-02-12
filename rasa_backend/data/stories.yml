@@ -1,0 +1,20 @@
+version: "3.1"
+
+stories:
+  - story: user starts diabetes check
+    steps:
+      - action: utter_greet
+      - intent: ask_for_diabetes_check
+      - action: utter_age
+
+  - story: Handle out-of-scope queries
+    steps:
+      - intent: out_of_scope
+      - action: utter_out_of_scope
+
+  - story: Give name randomly
+    steps:
+    - action: utter_out_of_scope
+    - intent: provide_name
+    - action: action_remember_name
+

@@ -1,0 +1,123 @@
+version: "3.1"
+
+# TODO: add rules for tips
+
+rules:
+- rule: Say goodbye anytime the user says goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: Say 'I am DiaPredictor, a diabetes prediction assistant.' anytime the user challenges
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+
+- rule: Greet user
+  steps:
+  - intent: greet
+  - action: utter_greet
+  wait_for_user_input: false
+
+- rule: begin diabetes check
+  steps:
+  - intent: ask_for_diabetes_check
+  - action: utter_age
+  wait_for_user_input: false
+  
+- rule: Confirm age when user has provided it
+  steps:
+  - action: utter_age
+  - intent: provide_age
+  - action: utter_bmi
+  wait_for_user_input: false
+
+- rule: Collect user data and confirm bmi
+  steps:
+  - action: utter_bmi
+  - intent: provide_bmi
+  - action: utter_hypertension
+  wait_for_user_input: false
+
+- rule: Collect user data and confirm hypertension
+  steps:
+  - action: utter_hypertension
+  - intent: provide_hypertension_status
+  - action: utter_heart_disease
+  wait_for_user_input: false
+
+- rule: Collect user data and confirm heart disease
+  steps:
+  - action: utter_heart_disease
+  - intent: provide_heart_disease_status
+  - action: utter_average_glucose_level
+  wait_for_user_input: false
+
+- rule: Collect user data and confirm current glucose level
+  steps:
+  - action: utter_average_glucose_level
+  - intent: provide_average_glucose_level
+  - action: utter_current_glucose_level
+  wait_for_user_input: false
+  
+- rule: Collect user data and confirm average glucose level
+  steps:
+  - action: utter_current_glucose_level
+  - intent: provide_current_glucose_level
+  - action: utter_smoking_history
+  wait_for_user_input: false
+
+- rule: Collect smoking history and predict diabetes
+  steps:
+    - action: utter_smoking_history
+    - intent: provide_smoking_history
+    - action: action_predict_diabetes
+    - action: utter_ask_tips
+  wait_for_user_input: true
+
+- rule: Ask for tips
+  steps:
+    - action: utter_ask_tips
+  wait_for_user_input: true
+
+- rule: When User Wants Tips
+  steps:
+    - intent: agree_tips
+    - action: action_provide_tips
+
+- rule: When User Doesn't Want Tips
+  steps:
+    - intent: deny_tips
+    - action: utter_no_tips
+
+- rule: User asks for their name
+  steps:
+    - intent: ask_name
+    - action: utter_respond_name
+  
+- rule: Make a joke
+  steps:
+    - intent: joke
+    - action: utter_joke
+    
+- rule: fun fact
+  steps:
+    - intent: fun_fact
+    - action: utter_fun_fact
+
+- rule: Ask how the patient is doing
+  steps:
+    - intent: how_are_you
+    - action: utter_how_are_you
+
+- rule: Ask about the patient's day
+  steps:
+    - intent: ask_day
+    - action: utter_ask_day
+
+- rule: Get user name
+  steps:
+    - action: utter_greet
+    - intent: provide_name
+    - action: action_remember_name
+    - action: utter_provide_help

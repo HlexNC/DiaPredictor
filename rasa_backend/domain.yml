@@ -1,0 +1,178 @@
+version: "3.1"
+
+intents:
+  - goodbye
+  - bot_challenge
+  - provide_average_glucose_level
+  - provide_hypertension_status
+  - provide_smoking_history
+  - provide_heart_disease_status
+  - provide_age
+  - provide_bmi
+  - provide_current_glucose_level
+  - ask_for_diabetes_check
+  - ask_for_tips
+  - greet
+  - joke
+  - provide_name
+  - how_are_you
+  - ask_day
+  - fun_fact
+  - ask_name
+  - agree_tips
+  - deny_tips
+
+entities:
+  - age
+  - hypertension
+  - heart_disease
+  - bmi
+  - average_glucose
+  - current_glucose
+  - smoking_history
+  - name
+
+
+responses:
+  utter_greet:
+    - text: "Hello! I am DiaPredictor, your diabetes prediction chatbot! What is your name?"
+
+  utter_provide_help:
+    - text: "Nice to meet you! Then, with what can I help you today?"
+
+  utter_goodbye:
+    - text: "Goodbye! Have a nice day."
+    - text: "See you!"
+  
+  utter_iamabot:
+    - text: "I am DiaPredictor, a diabetes prediction assistant."
+    - text: "The name is DiaPredictor! I help you predict your diabetes!"
+
+  utter_hypertension:
+    - text: "Do you have hypertension? Please respond with Yes or No in your sentence."
+
+  utter_heart_disease:
+    - text: "Do you have heart disease? Please respond with Yes or No in your sentence."
+  
+  utter_average_glucose_level:
+    - text: "What is your average glucose level? Please provide the percentage: Normal: Below 5.7%, Prediabetes: 5.7% to 6.4%, Diabetes: 6.5% or above"
+
+  utter_current_glucose_level:
+    - text: "What is your current glucose level? Please provide the mg/dL."
+  
+  utter_smoking_history:
+    - text: "What’s your smoking history: Never, Former, or Current? Please respond with one of the provided answers."
+  
+  utter_age:
+    - text: "Okay, let's do that! Unless otherwise stated, please provide full sentences in order for me to properly process your data. How old are you?"
+  
+  utter_bmi:
+    - text: "What is your BMI?"
+
+  utter_joke:
+    - text: "Why did the scarecrow win an award? Because he was outstanding in his field! 🌾"
+    - text: "What do you call cheese that isn't yours? Nacho cheese! 🧀"
+    - text: "I once told a glucose molecule a joke... it didn't react. 😂"
+    - text: "Why don't skeletons fight each other? They don't have the guts! 💀"
+    - text: "What do you call fake spaghetti? An impasta! 🍝"
+    - text: "Why did the math book look sad? Because it had too many problems. 📚"
+
+  utter_fun_fact:
+    - text: "Did you know? The average human body contains about 37.2 trillion cells!"
+    - text: "Here's a fun one: Honey never spoils. Archaeologists have found pots of it in ancient tombs!"
+    - text: "Fun fact: Your brain generates enough electricity to power a lightbulb!"
+    - text: "Did you know? Octopuses have three hearts and blue blood! 🐙"
+    - text: "Here's a fun one: A day on Venus is longer than a year on Venus! 🌍"
+    - text: "Fun fact: Bananas are berries, but strawberries aren’t! 🍌🍓"
+
+  utter_respond_name:
+    - text: "Your name is {name}! What could I help you with?"
+
+  utter_how_are_you:
+    - text: "How are you feeling today?"
+    - text: "How's everything going for you?"
+
+  utter_ask_day:
+    - text: "How's your day been so far?"
+    - text: "I hope you're having a good day! Tell me about it."
+
+  utter_ask_tips:
+    - text: "Would you like some tips based on your prediction?"
+
+  utter_no_tips:
+    - text: "Alright, let me know if there's anything else I can help with!"
+
+  utter_out_of_scope:
+    - text: "I'm sorry, I can't help with that. I specialize in diabetes predictions. Can I assist you with something else?"
+
+actions:
+  - action_predict_diabetes
+  - action_provide_tips
+  - action_remember_name
+  
+slots:
+  age:
+    type: float
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: age
+
+  hypertension:
+    type: categorical
+    influence_conversation: true
+    values:
+      - yes
+      - no
+    mappings:
+      - type: from_entity
+        entity: hypertension
+
+  heart_disease:
+    type: categorical
+    influence_conversation: true
+    values:
+      - yes
+      - no
+    mappings:
+      - type: from_entity
+        entity: heart_disease
+
+  bmi:
+    type: float
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: bmi
+
+  average_glucose:
+    type: float
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: average_glucose
+
+  current_glucose:
+    type: float
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: current_glucose
+
+  smoking_history:
+    type: categorical
+    influence_conversation: true
+    values:
+      - never
+      - former
+      - current
+    mappings:
+      - type: from_entity
+        entity: smoking_history
+    
+  name:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_entity
+      entity: name
