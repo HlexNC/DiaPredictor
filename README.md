@@ -92,19 +92,20 @@ The system is implemented using:
 1. Clone the repository:
    ```bash
    git clone https://github.com/FaresM7/DiaPredictor.git
-
+   ```
 2. Create a virtual environment with Python 3.10
    ```bash
    py -3.10 -m venv venv
    source venv/bin/activate   # On Windows use `venv\Scripts\activate`
-
+   ```
 3. Install the required dependencies
    ```bash
    pip install -r requirements.txt
-
+   ```
 4. Run the application
    ```bash
    python start.py
+   ```
 5. In case you were not redirected to the Streamlit pages you can open your browser and navigate to:
 http://localhost:8501
 
