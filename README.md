@@ -23,10 +23,9 @@ Project DiaPredictor is a comprehensive web application—originally developed a
 - [Key Features](#key-features)
 - [Installation](#installation)
   - [Prerequisites](#prerequisites)
-  - [Steps to Get Started](#steps-to-get-started)
-  - [Training the Rasa Chatbot (Optional)](#training-the-rasa-chatbot-optional)
+  - [Installation Steps](#Installation-Steps)
 - [Data Overview](#data-overview)
-  - [Dataset](#dataset)
+  - [Original Dataset](#original-dataset)
   - [Data Handling and Augmentation](#data-handling-and-augmentation)
 - [Usage](#usage)
   - [Personalized Stroke Risk Assessment](#personalized-stroke-risk-assessment)
@@ -77,7 +76,7 @@ The system is implemented using:
 
 ## Installation
 
-Prerequisites:
+### Prerequisites:
 
 - **Python**: version 3.10
 - **Git**: For cloning the repository and managing submodules.
@@ -103,7 +102,7 @@ Prerequisites:
 5. In case you were not redirected to the Streamlit pages you can open your browser and navigate to:
 http://localhost:8501
 
-## Data
+## Data Overview
 
 ### Original dataset
 
