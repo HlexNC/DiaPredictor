@@ -1,3 +1,5 @@
+# <div align="center">Diapredictor: Diabetes Risk Assessment & Insights</div>
+
 <p align="center">
   <a href="https://github.com/FaresM7/DiaPredictor">
     <img src="https://img.shields.io/badge/GitHub-Diapredictor-blue?style=flat-square&logo=github" alt="GitHub Badge">
@@ -23,14 +25,18 @@ Project DiaPredictor is a comprehensive web application—originally developed a
 - [Key Features](#key-features)
 - [Installation](#installation)
   - [Prerequisites](#prerequisites)
-  - [Installation Steps](#Installation-Steps)
+  - [Installation Steps](#installation-steps)
 - [Data Overview](#data-overview)
   - [Original Dataset](#original-dataset)
-  - [Data Handling and Augmentation](#data-handling-and-augmentation)
-- [Usage](#usage)
-  - [Personalized Stroke Risk Assessment](#personalized-stroke-risk-assessment)
-  - [Interactive Data Analysis](#interactive-data-analysis)
-  - [Chatbot Assistance](#chatbot-assistance)
+  - [Data Analysis Before Transformation](#data-analysis-before-transformation)
+  - [Data Cleaning and Handling](#data-cleaning-and-handling)
+  - [Transformations Applied to Original and Modified Datasets](#transformations-applied-to-original-and-modified-datasets)
+  - [Post-Balancing Observations](#post-balancing-observations)
+- [Basic Usage](#basic-usage)  
+  - [Diabetes Prediction](#diabetes-prediction)  
+  - [Model Performance Analysis](#model-performance-analysis)  
+  - [Chatbot Assistance](#chatbot-assistance)  
+  - [Dataset Analysis](#dataset-analysis)  
 - [Project Structure](#project-structure)
 - [Disclaimer](#disclaimer)
 - [Repository Visualization](#repository-visualization)
@@ -85,7 +91,7 @@ The system is implemented using:
 ### Installation Steps
 1. Clone the repository:
    ```bash
-   git clone https://github.com/FaresM7/DiaPredictor
+   git clone https://github.com/FaresM7/DiaPredictor.git
 
 2. Create a virtual environment with Python 3.10
    ```bash
@@ -137,52 +143,53 @@ Initial data visualization revealed the following:
 - Blood glucose levels displayed increased variation after SMOTENC, with standard deviation rising from 40.90 to 52.55.
 - Quartiles maintained expected variation, with slightly increased spread compared to the original dataset.
 
-### Outliers
-The handling of outliers was added in: https://github.com/FaresM7/DiaPredictor/-/wikis/Description-of-Differences-of-the-Original-Dataset-and-Final-Dataset
 
-## Basic usage
+## Basic Usage
 
 ### Diabetes Prediction
 
-#### Navigate to Diabetes Prediction:
-- From the sidebar, select **Diabetes Prediction**.
+1. **Navigate to "Diabetes Prediction"**  
+   From the sidebar, select **Diabetes Prediction**.
 
-#### Input Your Health Metrics:
-- Enter your personal details such as age, BMI, glucose levels, smoking status, blood pressure, etc.
+2. **Input Your Health Metrics**  
+   Enter details such as **age, BMI, glucose levels, smoking status, blood pressure**, etc.
 
-#### Receive Your Diabetes Risk Assessment:
-- The system will calculate and display your diabetes risk along with actionable recommendations to reduce the risk, if applicable.
+3. **Receive Your Diabetes Risk Assessment**  
+   The system calculates and displays your **diabetes risk** along with actionable recommendations to reduce it, if applicable.
 
 ### Model Performance Analysis
 
-#### Navigate to Model Analysis:
-- Select **Modified dataset training** or **Original dataset training** from the sidebar.
+1. **Navigate to Model Analysis**  
+   Choose one of the following from the sidebar:
+   - **Modified Dataset Training**
+   - **Original Dataset Training And Plotting**
 
-#### Compare Training Results:
-- Analyze the performance of models trained on both the original and modified datasets.
-- View metrics such as **accuracy**, **precision**, **MSE**, and **R^2** for each model.
+2. **Compare Training Results**  
+   - Analyze models trained on **original vs. modified datasets**.  
+   - View performance metrics such as **accuracy, precision, MSE, and R²**.
 
-#### Visualize Model Performance:
-- Explore visualizations like **Bar charts** to understand how the models perform and identify strengths or weaknesses.
-
+3. **Visualize Model Performance**  
+   - Explore **bar charts** and other visualizations to understand how different models perform.  
 
 ### Chatbot Assistance
 
-#### Access the Chatbot:
-- Click on **Chatbot** in the sidebar to open the conversational assistant.
+1. **Select "Chatbot"**  
+   Click on **Chatbot** in the sidebar to open the conversational assistant.
 
-#### Interact with the Chatbot:
-- Ask questions related to diabetes risk, health tips, or dataset insights.
-- Receive real-time, context-aware responses to help you understand and manage your health better.
+2. **Interact with the Chatbot**  
+   - Ask questions about **diabetes risk, health tips, or dataset insights**.  
+   - Receive real-time, context-aware responses.  
 
 ### Dataset Analysis
 
-#### Navigate to Dataset Overview:
-- From the sidebar, select **Display original data** or **Display modified data**.
+1. **Navigate to Dataset Overview**  
+   From the sidebar, select:
+   - **Display Original Data**
+   - **Display Modified Data**
 
-#### Explore Dataset Samples:
-- View samples from both the **original** and **modified** datasets to understand their structure and key features.
+2. **Explore Dataset Samples**  
+   - View **original and modified dataset samples** to understand their structure and key features.
 
-#### Analyze Dataset Statistics:
-- Examine summary statistics like **mean**, **median**, **standard deviation**, and **distribution** for important features such as **age**, **BMI**, and **glucose levels**.
-- Compare how these statistics differ between the original and modified datasets to understand the impact of data preprocessing and enrichment.
+3. **Analyze Dataset Statistics**  
+   - Examine summary statistics like **mean, median, standard deviation**, and **distribution** for key features.  
+   - Compare original vs. modified datasets to understand the impact of data preprocessing.
