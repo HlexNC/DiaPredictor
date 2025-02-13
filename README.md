@@ -1,21 +1,79 @@
+<p align="center">
+  <a href="https://github.com/FaresM7/DiaPredictor">
+    <img src="https://img.shields.io/badge/GitHub-Diapredictor-blue?style=flat-square&logo=github" alt="GitHub Badge">
+  </a>
+  <a href="https://www.python.org/downloads/release/python-310/">
+    <img src="https://img.shields.io/badge/Python-3.10%2B-blue.svg?logo=python&logoColor=white" alt="Requires Python 3.10+">
+  </a>
+  <a href="LICENSE">
+    <img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" alt="MIT license badge">
+  </a>
+</p>
+
+<h4 align="center">
+Project DiaPredictor is a comprehensive web application—originally developed as a university project—designed to help individuals assess their diabetes risk and receive personalized recommendations. It leverages data analysis, machine learning, and a conversational chatbot interface to provide actionable health insights.
+</h4>
+
+---
+
+## Table of Contents
+
+- [Project Description](#project-description)
+- [Screenshots](#screenshots)
+- [Key Features](#key-features)
+- [Installation](#installation)
+  - [Prerequisites](#prerequisites)
+  - [Steps to Get Started](#steps-to-get-started)
+  - [Training the Rasa Chatbot (Optional)](#training-the-rasa-chatbot-optional)
+- [Data Overview](#data-overview)
+  - [Dataset](#dataset)
+  - [Data Handling and Augmentation](#data-handling-and-augmentation)
+- [Usage](#usage)
+  - [Personalized Stroke Risk Assessment](#personalized-stroke-risk-assessment)
+  - [Interactive Data Analysis](#interactive-data-analysis)
+  - [Chatbot Assistance](#chatbot-assistance)
+- [Project Structure](#project-structure)
+- [Disclaimer](#disclaimer)
+- [Repository Visualization](#repository-visualization)
+- [License](#license)
+- [Contact](#contact)
+
+---
 ## Project Description
 
-**Diapredictor** is an innovative system designed to assist individuals in assessing their risk for diabetes.  
+**Diapredictor** provides an easy-to-use interface for individuals to assess their diabetes risk. The system is built on a robust dataset that has been cleaned and enriched with synthetic data to improve model accuracy.
 
-The project begins with a dataset that has been meticulously cleaned and enriched with synthetic data to simulate diverse user scenarios. Multiple machine learning models have been trained and evaluated on both the original and the augmented datasets to ensure robustness and accuracy.  
+The project features include:
 
-The project features dedicated pages that display:  
-- The original dataset.  
-- The modified dataset.  
-- Comparisons of two models trained on the original data to identify the better performer.  
-- Comparisons of two models trained on the modified data to determine the best approach for the enriched dataset.  
+- **Original vs. Modified Dataset Comparison**: View and analyze the differences between raw and enriched data.
+- **Machine Learning Model Evaluation**: Compare performance metrics between models trained on different datasets.
+- **Chatbot Assistant**: Receive personalized health advice and diabetes risk assessments.
+- **Predictor System**: Input your health data and receive an immediate risk analysis.
 
-The system comprises two primary user-centric components:  
-1. **Chatbot Assistant**: A conversational AI that interacts with users to gather health-related information, assess their potential risk of diabetes, and provide personalized lifestyle tips to improve their health.  
-2. **Predictor System**: A direct interface where users can input specific health data and receive an immediate assessment of their likelihood of having diabetes.  
+The system is implemented using:
 
-This comprehensive approach positions Diapredictor as both a diagnostic tool and an educational platform, empowering users to make informed decisions about their health.
+- **Streamlit** for an interactive frontend.
+-**Scikit-Learn** for training and evaluating models.
+- **Rasa** for an AI-powered chatbot.
 
+## Screenshots
+
+## Key Features
+
+1. **Diabetes Risk Prediction**  
+   - Users can input personal health metrics (e.g., age, BMI, glucose levels, smoking status).  
+   - The model predicts the likelihood of diabetes and provides actionable health recommendations.  
+
+2. **Comparative Model Analysis**  
+   - Evaluate different models trained on both the original and enriched datasets.  
+   - Metrics include **accuracy**, **precision**, **mean squared error (MSE)**, and **R² score**.  
+
+3. **Chatbot Assistance**  
+   - AI-powered chatbot offers real-time insights on diabetes risk, prevention, and lifestyle changes.  
+
+4. **Data Preprocessing & Augmentation**  
+   - **Imbalanced dataset?** We applied **SMOTENC** to generate synthetic minority class samples.  
+   - Features like **gender, smoking history, and outliers** were handled for optimal model training.  
 
 ## Installation
 
@@ -50,6 +108,10 @@ http://localhost:8501
 ### Original dataset
 
 We used the [Diabetes prediction dataset](https://www.kaggle.com/datasets/iammustafatz/diabetes-prediction-dataset) from Kaggle for training the models and later enhance the dataset.
+
+> [!NOTE]
+> This dataset is used strictly for educational and demonstration purposes.
+
 
 ### Data Analysis Before Transformation
 Initial data visualization revealed the following:
