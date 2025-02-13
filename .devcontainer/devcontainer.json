@@ -2,5 +2,5 @@
 	"name": "DiaPredictor",
 	"image": "mcr.microsoft.com/vscode/devcontainers/python:3.10",
 	"forwardPorts": [8501],
-	"postCreateCommand": "python start.py"
+	"postCreateCommand": "pip3 install --user -r requirements.txt && python start.py"
 }
