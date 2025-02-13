@@ -5,7 +5,7 @@
     <img src="https://img.shields.io/badge/GitHub-Diapredictor-blue?style=flat-square&logo=github" alt="GitHub Badge">
   </a>
   <a href="https://www.python.org/downloads/release/python-310/">
-    <img src="https://img.shields.io/badge/Python-3.10%2B-blue.svg?logo=python&logoColor=white" alt="Requires Python 3.10+">
+    <img src="https://img.shields.io/badge/Python-3.10-blue.svg?logo=python&logoColor=white" alt="Requires Python 3.10">
   </a>
   <a href="LICENSE">
     <img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" alt="MIT license badge">
@@ -13,7 +13,7 @@
 </p>
 
 <h4 align="center">
-Project DiaPredictor is a comprehensive web application—originally developed as a university project—designed to help individuals assess their diabetes risk and receive personalized recommendations. It leverages data analysis, machine learning, and a conversational chatbot interface to provide actionable health insights.
+DiaPredictor is a comprehensive web application—originally developed as a university project—designed to help individuals assess their diabetes risk and receive personalized recommendations. It leverages data analysis, machine learning, and a conversational chatbot interface to provide actionable health insights.
 </h4>
 
 ---
