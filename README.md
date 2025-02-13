@@ -86,7 +86,6 @@ The system is implemented using:
 
 - **Python**: version 3.10
 - **Git**: For cloning the repository and managing submodules.
-- The rest of the requirements are included in the requirements.txt file and are installed if the script was followed
 
 ### Installation Steps
 1. Clone the repository:
