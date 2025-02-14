@@ -111,6 +111,12 @@ The system is implemented using:
 
 ---
 
+<p align="center">
+  <img src="./diagram.svg" alt="Repository Visualization" width="800"/>
+</p>
+
+---
+
 <details>
   <summary><strong>Data Overview</strong></summary>
 
@@ -151,12 +157,6 @@ Initial data visualization revealed the following:
 - Quartiles maintained expected variation, with a slightly increased spread compared to the original dataset.
 
 </details>
-
----
-
-<p align="center">
-  <img src="./diagram.svg" alt="Repository Visualization" width="800"/>
-</p>
 
 ---
 
