@@ -155,7 +155,7 @@ Initial data visualization revealed the following:
 Below is an automatically generated repository structure diagram. The diagram is updated whenever changes are pushed to the main branch:
 
 <p align="center">
-  <img src="./docs/img/repo_diagram.svg" alt="Repository Visualization" width="800"/>
+  <img src="./diagram.svg" alt="Repository Visualization" width="800"/>
 </p>
 
 ---
