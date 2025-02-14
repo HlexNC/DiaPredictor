@@ -122,7 +122,7 @@ The system is implemented using:
 <details>
   <summary><strong>Data Overview</strong></summary>
 
-# Data Overview
+## Data Overview
 
 ### Original Dataset
 
