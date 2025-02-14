@@ -162,6 +162,13 @@ Below is an automatically generated repository structure diagram. The diagram is
 
 ---
 
+> [!WARNING]
+> **DiaPredictor is not a substitute for professional medical advice, diagnosis, or treatment.**  
+> The diabetes risk assessments and recommendations are for **educational and research** purposes only. Always seek the advice of qualified healthcare professionals for any medical concerns.  
+> Use of this application is entirely at your own risk, and the developers assume **no liability** for any actions taken based on its output.
+
+---
+
 ## Chatbot Implementation with Rasa and Streamlit
 
 ### Chatbot Interface (Streamlit + Rasa)
