@@ -32,18 +32,14 @@ DiaPredictor is a comprehensive web application—originally developed as a univ
   - [Data Cleaning and Handling](#data-cleaning-and-handling)
   - [Transformations Applied to Original and Modified Datasets](#transformations-applied-to-original-and-modified-datasets)
   - [Post-Balancing Observations](#post-balancing-observations)
-- [Basic Usage](#basic-usage)  
-  - [Diabetes Prediction](#diabetes-prediction)  
-  - [Model Performance Analysis](#model-performance-analysis)  
-  - [Chatbot Assistance](#chatbot-assistance)  
-  - [Dataset Analysis](#dataset-analysis)  
-- [Project Structure](#project-structure)
-- [Disclaimer](#disclaimer)
 - [Repository Visualization](#repository-visualization)
-- [License](#license)
-- [Contact](#contact)
-
+- [Chatbot Implementation with Rasa and Streamlit](#chatbot-implementation-with-rasa-and-streamlit)  
+  - [Chatbot Interface (Streamlit + Rasa)](#chatbot-interface-streamlit--rasa)  
+  - [Chatbot NLU (Natural Language Understanding)](#chatbot-nlu-natural-language-understanding)  
+  - [Actions (Custom Logic)](#actions-custom-logic)
+  
 ---
+
 ## Project Description
 
 **Diapredictor** provides an easy-to-use interface for individuals to assess their diabetes risk. The system is built on a robust dataset that has been cleaned and enriched with synthetic data to improve model accuracy.
@@ -61,7 +57,12 @@ The system is implemented using:
 -**Scikit-Learn** for training and evaluating models.
 - **Rasa** for an AI-powered chatbot.
 
+---
+
 ## Screenshots
+
+
+---
 
 ## Key Features
 
@@ -79,6 +80,8 @@ The system is implemented using:
 4. **Data Preprocessing & Augmentation**  
    - **Imbalanced dataset?** We applied **SMOTENC** to generate synthetic minority class samples.  
    - Features like **gender, smoking history, and outliers** were handled for optimal model training.  
+
+---
 
 ## Installation
 
@@ -107,6 +110,8 @@ The system is implemented using:
    ```
 5. In case you were not redirected to the Streamlit pages you can open your browser and navigate to:
 http://localhost:8501
+
+---
 
 ## Data Overview
 
@@ -143,53 +148,105 @@ Initial data visualization revealed the following:
 - Blood glucose levels displayed increased variation after SMOTENC, with standard deviation rising from 40.90 to 52.55.
 - Quartiles maintained expected variation, with slightly increased spread compared to the original dataset.
 
+---
 
-## Basic Usage
+## Repository Visualization
 
-### Diabetes Prediction
+Below is an automatically generated repository structure diagram. The diagram is updated whenever changes are pushed to the main branch:
 
-1. **Navigate to "Diabetes Prediction"**  
-   From the sidebar, select **Diabetes Prediction**.
+<p align="center">
+  <img src="./docs/img/repo_diagram.svg" alt="Repository Visualization" width="800"/>
+</p>
 
-2. **Input Your Health Metrics**  
-   Enter details such as **age, BMI, glucose levels, smoking status, blood pressure**, etc.
+---
 
-3. **Receive Your Diabetes Risk Assessment**  
-   The system calculates and displays your **diabetes risk** along with actionable recommendations to reduce it, if applicable.
+## Chatbot Implementation with Rasa and Streamlit
 
-### Model Performance Analysis
+### Chatbot Interface (Streamlit + Rasa)
 
-1. **Navigate to Model Analysis**  
-   Choose one of the following from the sidebar:
-   - **Modified Dataset Training**
-   - **Original Dataset Training And Plotting**
+#### Importing Libraries
+- **streamlit**: Builds the chatbot interface.  
+- **json**: Handles structured message data.  
+- **requests**: Sends requests to Rasa’s REST API.  
+- **time**: Introduces wait times for unavailable servers.  
 
-2. **Compare Training Results**  
-   - Analyze models trained on **original vs. modified datasets**.  
-   - View performance metrics such as **accuracy, precision, MSE, and R²**.
+#### Function Definitions
 
-3. **Visualize Model Performance**  
-   - Explore **bar charts** and other visualizations to understand how different models perform.  
+##### check_server_ready()
+- Checks if the Rasa server is running via a **GET request** to `/status`.  
+- If unavailable, waits **5 seconds** before retrying.  
 
-### Chatbot Assistance
+##### get_bot_response(user_input)
+- Sends user input to the Rasa bot (`/webhooks/rest/webhook`).  
+- **Processes responses**:  
+  - If multiple bot messages exist, extracts and displays all.  
+  - If no response, prompts user to rephrase.  
+  - If an error occurs, returns a diagnostic message.  
 
-1. **Select "Chatbot"**  
-   Click on **Chatbot** in the sidebar to open the conversational assistant.
+#### Streamlit Page Setup
+- Uses `st.set_page_config()` to define **layout** and **title** ("Chatbot Interface").  
 
-2. **Interact with the Chatbot**  
-   - Ask questions about **diabetes risk, health tips, or dataset insights**.  
-   - Receive real-time, context-aware responses.  
+#### Server Readiness Check
+- Verifies if the Rasa server is **ready** before loading the chat UI.  
 
-### Dataset Analysis
+#### Displaying Chat History
+- Retrieves conversation history from **session state** and displays previous messages.  
 
-1. **Navigate to Dataset Overview**  
-   From the sidebar, select:
-   - **Display Original Data**
-   - **Display Modified Data**
+#### Handling User Input
+- Uses `st.chat_input()` for **message submission**.  
+- Saves user messages in **session state** for persistence.  
 
-2. **Explore Dataset Samples**  
-   - View **original and modified dataset samples** to understand their structure and key features.
+#### Communicating with the Bot
+- Sends user input to `get_bot_response()` and **displays the bot’s reply**.  
 
-3. **Analyze Dataset Statistics**  
-   - Examine summary statistics like **mean, median, standard deviation**, and **distribution** for key features.  
-   - Compare original vs. modified datasets to understand the impact of data preprocessing.
+#### Displaying Responses
+- Uses `st.chat_message()` to display **user and bot messages** dynamically.  
+
+#### Error Handling
+- Detects server issues and informs users if the bot is **unavailable**.
+
+
+### Chatbot NLU (Natural Language Understanding)
+
+#### NLU (Intent Recognition)
+- Extracts **intent** (user’s goal) and **entities** (important details).  
+- Example:  
+  - **Intent**: `"report_illness"` (User feels unwell).  
+  - **Entities**: `"symptoms": "fever, headache"`.  
+
+#### Rules (Predefined Responses)
+- Define automatic replies for **specific user inputs**.  
+- Example:  
+  - **User**: "Hello"  
+  - **Bot**: "Hi there! How can I help?"  
+
+#### Stories (Conversation Flow)
+- Control **multi-step** interactions.  
+- Example:  
+  - **User**: "I feel unwell"  
+  - **Bot**: "Can you describe your symptoms?"  
+  - **User**: "I have a headache and fever."  
+  - **Bot**: "I recommend rest and hydration. Would you like medical advice?"  
+
+
+### Actions (Custom Logic)
+
+#### ActionProvideTips
+- **Purpose**: Delivers personalized health advice.  
+- **How it works**:  
+  - Retrieves user conditions (e.g., smoking, hypertension).  
+  - Provides **general** (e.g., exercise) and **personalized** (condition-specific) recommendations.  
+
+#### ActionPredictDiabetes
+- **Purpose**: Estimates the user’s diabetes risk.  
+- **How it works**:  
+  - Collects user data (e.g., **age, BMI, glucose**).  
+  - Uses a **machine learning model** to predict risk (**low, moderate, high**).  
+  - Returns **actionable health tips**.  
+
+#### ActionRememberName
+- **Purpose**: Enhances conversations by **remembering user names**.  
+- **How it works**:  
+  - Extracts name from input and **stores it in a slot**.  
+  - If missing, prompts the user to re-enter it.  
+
