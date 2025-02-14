@@ -60,7 +60,9 @@ The system is implemented using:
 ---
 
 ## Screenshots
+<img src="./Additional_Scripts/Screenshot_1.png" alt="Training models analysis"/>
 
+<img src="./Additional_Scripts/Screenshot_2.png" alt="Chatbot_interface"/>
 
 ---
 
